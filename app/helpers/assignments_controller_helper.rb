@@ -1,0 +1,2 @@
+module AssignmentsControllerHelper
+end
