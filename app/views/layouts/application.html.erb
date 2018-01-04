@@ -1,12 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Workspace</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
+  <title>PasteHuffer</title>
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.5/dijit/themes/claro/claro.css" />
+  <script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"
+            data-dojo-config="parseOnLoad: true, async: false"></script>
+  <script>
+    require(["dojo/ready", "dijit/registry",
+            'dojo/dom',
+            'dojo/dom-construct',
+            'dojo/parser', 
+            'dijit/form/TextBox',
+            'dijit/form/DateTextBox', 
+            'dijit/form/Form', 
+            'dijit/form/Button',
+            'dijit/form/ValidationTextBox'
+        ], function (ready, registry, dom, domConstruct,parser) {
+            window.dom = dom;
+            window.domConstruct = domConstruct;
+            window.parser = parser;
+
+        });
+  </script>
 </head>
-<body>
+<body class="claro">
 
 <%= yield %>
 
