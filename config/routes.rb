@@ -57,4 +57,5 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
   resources :instructors
+  root 'i_login#index'
 end

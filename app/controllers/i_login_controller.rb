@@ -1,6 +1,7 @@
 class ILoginController < ApplicationController
     #List all in database
     def index
+        render "login"
     end
     
     #New object. Called when asking for input
