@@ -1,0 +1,60 @@
+<script>
+    function setup()
+    {
+        window.centerContainer = new window.AccordionContainer({style:"width:300px"},window.dom.byId("centerContainer"));
+        var iuid = 0;
+        request("courses/",{
+            "query":{"id":iuid}
+        }).then(
+        function(strCourses){
+            window.centerContainer = new window.AccordionContainer();
+            
+            window.courses = JSON.parse(strCourses);
+            window.completed = 0;
+            for (var i=0;i<window.courses.length; i++)
+            {
+                
+                request("assignments/",{
+                         "query":{"id":courses[i].id}
+                }).then(
+                function(courseAssignMentStrDict){
+                    var innerContent = "<table>";
+                    var courseAssignMentDict = JSON.parse(courseAssignMentStrDict);
+                    console.log("assignment length = " + courseAssignMentDict.assignments.length)
+                    if(courseAssignMentDict.assignments.length == 0)
+                    {
+                        console.log(window.courses);
+                        console.log(i);
+                        window.centerContainer.addChild(new window.ContentPane({title:courseAssignMentDict.course.name,
+                                                                         content:"EMPTY"}));
+                    }
+                    else
+                    {
+                        for(var a in assignments)
+                        {
+                             innerContent+= "<tr><td>"+ a.name+"</td></tr>";
+                        }
+                        innerContent +="</table>";
+                        window.centerContainer.addChild(new window.ContentPane({title:window.courses[i].name,content:innerContent}));
+                    }
+                    window.completed += 1;
+                    console.log(window.completed);
+                    if (window.completed == window.courses.length)
+                    {
+                        console.log("starting up");
+                        window.centerContainer.placeAt("centerContainer")
+                        window.centerContainer.startup();
+                    }
+                },
+                function(err){
+                    console.log(err);
+                });
+            }
+            
+        },
+        function(err){});
+    }
+</script>
+<div align="center">
+    <div id="centerContainer" name="centerContainer"></div>
+</div>

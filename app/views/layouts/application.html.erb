@@ -10,13 +10,22 @@
             'dojo/dom',
             'dojo/dom-construct',
             'dojo/parser', 
+            "dijit/layout/AccordionContainer", 
+            "dijit/layout/ContentPane",
+            "dojo/request",
             'dijit/form/TextBox',
-            'dijit/form/DateTextBox'
-        ], function (ready, registry, dom, domConstruct,parser) {
+            'dijit/form/DateTextBox',
+        ], function (ready, registry, dom, domConstruct,parser, AccordionContainer, ContentPane, request) {
             window.dom = dom;
             window.domConstruct = domConstruct;
             window.parser = parser;
-
+            window.AccordionContainer = AccordionContainer;
+            window.ContentPane = ContentPane;
+            window.request = request;
+            if( typeof setup !== "undefined")
+            {
+              setup();
+            }
         });
   </script>
 </head>

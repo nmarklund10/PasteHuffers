@@ -1,6 +1,7 @@
 class IDashController < ApplicationController
     #List all in database
     def index
+        render "dashboard"
     end
     
     #New object. Called when asking for input
