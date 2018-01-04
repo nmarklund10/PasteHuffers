@@ -1,7 +1,50 @@
 
-<label for="assignmentName"> Name </label>
-<input type="text" name="name" data-dojo-type="dijit/form/TextBox" data-dojo-props="trim:true, propercase:true" />
-<label for="date1">Due Date:</label>
-<input type="text" name="dueDate" id="DueDate"
-    data-dojo-type="dijit/form/DateTextBox"
-    required="true" />
+<h1> Create Assignment </h1>
+
+<div data-dojo-type="dijit/form/Form" id="myForm" data-dojo-id="myForm"
+encType="multipart/form-data" action="" method="">
+    <table style="border: 1px solid #9f9f9f;" cellspacing="10">
+        <tr>
+            <td>
+                <label for="semester">Assignment Name:</label>
+            </td>
+            <td>
+                <input type="text" id="semester" name="semester" required="true" data-dojo-type="dijit/form/TextBox"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="due_date">Due Date:</label>
+            </td>
+            <td>
+                <input type="text" name="due_date" id="due_date" data-dojo-type="dijit/form/DateTextBox" required="true" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="due_time">Due Time:</label>
+            </td>
+            <td>
+                <input type="text" name="due_time" id="due_time" data-dojo-type="dijit/form/TimeTextBox" required="true" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="skeleton">Skeleton Code:</label>
+            </td>
+            <td>
+                <input name="file" multiple="false" type="file" dojoType="dojox.form.Uploader" label="Select Class File" id="uploadedfile" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="class_name">Language:</label>
+            </td>
+            <td>
+                <input type="text" id="class_name" name="class_name" data-dojo-type="dijit/form/TextBox"/>
+            </td>
+        </tr>
+    </table>
+
+    <button data-dojo-type="dijit/form/Button" type="submit" name="submitButton" value="Submit">Create Account</button>
+</div>
