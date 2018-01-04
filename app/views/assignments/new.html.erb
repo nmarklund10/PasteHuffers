@@ -37,12 +37,20 @@ encType="multipart/form-data" action="" method="">
             </td>
         </tr>
         <tr>
-            <td>
-                <label for="class_name">Language:</label>
+        	<td>
+                <label for="skeleton">Language:</label>
             </td>
             <td>
-                <input type="text" id="class_name" name="class_name" data-dojo-type="dijit/form/TextBox"/>
-            </td>
+	            <select name="select" data-dojo-type="dojox.form.DropDownSelect" required="true">
+	            	<option disabled selected value> -- select an option -- </option>
+				    <option value="Ruby">Ruby</option>
+				    <option value="Python">Python</option>
+				    <option value="Java">Java</option>
+				    <option value="C++">C++</option>
+				    <option value="C">C</option>
+				    <option value="None">Non-Programming</option>
+				</select>
+			</td>
         </tr>
     </table>
 
