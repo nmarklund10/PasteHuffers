@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<body>
+<style>
+html {
+  background: LightSteelBlue;
+  background: -webkit-gradient(linear, left top, right bottom, from(LightSteelBlue), to(#53e3a6));
+  font-size:100%;
+}
+html,input {
+  font-family:Helvetica, sans-serif, Arial;
+}
+
+header{
+    padding: 8px;
+    color: white;
+    background-color: #111;
+    clear: left;
+    text-align:10px;
+
+}
+footer{
+    position: fixed;
+    padding: 8px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    background-color: #111;
+    clear: left;
+    text-align:center ;
+}
+body {
+  margin:0;
+}
+
+#login {
+  width:400px;
+  position:relative;
+  margin:100px auto;
+}
+
+form {
+  border-radius:10px;
+  padding:10px 0 10px 20px;
+  background-color:#111;
+}
+
+input {
+  line-height:2em;
+  font-size:1em;
+  border:0;
+  background:transparent;
+  color: white;
+  margin:0;
+  height:1.5em;
+  display:block;
+  width:270px;
+  padding:.5em .5em 1em;
+}
+
+input[type="password"] {
+  padding:1em .5em .5em;
+}
+
+.spacer {
+  height:0;
+  border-bottom:3px solid #53e3a6;
+  margin:0 0 0 5px;
+}
+
+input[type="submit"] {
+  background-color:#111;
+  color: white;
+  position:absolute;
+  bottom:35px;
+  right:-15px;
+  box-shadow:0 0 1px 4px #53e3a6;
+  border-radius:50px;
+  width:75px;
+  height:50px;
+  padding:0;
+  -webkit-transition: all .1s linear;
+  -o-transition: all .1s linear;
+  -moz-transition: all .1s linear;
+  -ms-transition: all .1s linear;
+  -kthtml-transition: all .1s linear;
+  transition: all .1s linear;
+}
+
+input[type="submit"]:hover {
+  cursor:pointer;
+  box-shadow:0 0 0.5px 8px #53e3a6;
+  color: LimeGreen;
+  -webkit-transition: all .1s linear;
+  -o-transition: all .1s linear;
+  -moz-transition: all .1s linear;
+  -ms-transition: all .1s linear;
+  -kthtml-transition: all .1s linear;
+  transition: all .1s linear;
+}
+
+::-webkit-input-placeholder {
+  color:#666;
+}
+
+input:focus {
+  outline:0;
+  color: LightSteelBlue
+}
+</style>
+<header>
+  <font size="20"><span style="display:inline-block; width: 30px;"></span>
+    PasteHuffer</font>
+</header>
+<div id="login">
+  <form>
+    <input type="text" placeholder="Username">
+    <div class="spacer"></div>
+    <input type="password" placeholder="Password">
+    <input type="submit" value="Login">
+  </form>
+</div>
+<footer>Texas A&amp;M University</footer>
+</body>
+</html>
