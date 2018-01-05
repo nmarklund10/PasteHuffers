@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+  
+  <%= csrf_meta_tags %>
   <title>PasteHuffer</title>
   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dijit/themes/claro/claro.css" />
 
@@ -8,8 +10,7 @@
   </script>
 
   <script>
-    require(["dojo/ready", "dijit/registry",
-            'dojo/dom',
+    require(['dojo/dom',
             'dojo/dom-construct',
             'dojo/parser', 
             "dijit/layout/AccordionContainer", 
@@ -24,6 +25,8 @@
             'dijit/form/Select'
         ], function (ready, registry, dom, domConstruct,parser, AccordionContainer, ContentPane, request) {
             window.dom = dom;
+            window.cookie = cookie;
+            window.registry = registry;
             window.domConstruct = domConstruct;
             window.parser = parser;
             window.AccordionContainer = AccordionContainer;
@@ -33,7 +36,22 @@
             {
               setup();
             }
+
         });
+  </script>
+  <script>
+    function getCRSFToken()
+    {
+      var metas = document.getElementsByTagName('meta'); 
+
+      for (var i=0; i<metas.length; i++) { 
+        if (metas[i].getAttribute("name") == "crsf_token") { 
+           return metas[i].getAttribute("content"); 
+        } 
+      } 
+
+      return "";
+    }
   </script>
 </head>
 <body class="claro">

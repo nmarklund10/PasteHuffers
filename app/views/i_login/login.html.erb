@@ -40,7 +40,7 @@ body {
   margin:100px auto;
 }
 
-form {
+#formDiv {
   border-radius:10px;
   padding:10px 0 10px 20px;
   background-color:#111;
@@ -69,12 +69,12 @@ input[type="password"] {
   margin:0 0 0 5px;
 }
 
-input[type="submit"] {
+#loginButton {
   background-color:#111;
   color: white;
   position:absolute;
-  bottom:35px;
-  right:-15px;0
+  bottom:25px;
+  right:-15px;
   box-shadow:0 0 1px 4px #53e3a6;
   border-radius:50px;
   width:75px;
@@ -88,7 +88,7 @@ input[type="submit"] {
   transition: all .1s linear;
 }
 
-input[type="submit"]:hover {
+#loginButton:hover {
   cursor:pointer;
   box-shadow:0 0 0.5px 8px #53e3a6;
   color: LimeGreen;
@@ -113,14 +113,39 @@ input:focus {
   <font size="20"><span style="display:inline-block; width: 30px;"></span>
     PasteHuffer</font>
 </header>
+<script>
+  function sendLoginRequest()
+  {
+    // Grab user info from the forms
+    var username = window.dom.byId("username").value;
+    var password = window.dom.byId("password").value;
+    console.log("Sending Request")
+    // Send POST request for login
+    // A succesful response will end in redirect, any other response will provide information about error
+    request.post("/ILogin/",{
+            data:{"username":username, "password":password},
+            headers:{'X-CSRF-Token':document.querySelector('meta[name="csrf-token"]').content},
+            handleAs:"json"
+        }).then(function(response){
+            if(response.success)
+            {
+              window.location = "/dash/";
+            }
+            else
+            {
+              alert(response.reason);
+            }
+          }, function (errCode){console.log(errCode);})
+  }
+</script>
 <div id="login">
-  <form>
-    <input type="text" placeholder="Username">
+  <div id="formDiv">
+    <input type="text" placeholder="Username" id="username">
     <div class="spacer"></div>
-    <input type="password" placeholder="Password">
-    <input type="submit" value="Login">
-  </form>
+    <input type="password" placeholder="Password" id="password">
+    <input type="button" id="loginButton" value="Login" onclick="sendLoginRequest();">
+  </div>
 </div>
 <footer>Texas A&amp;M University</footer>
-</body>
-</html>
+
+
