@@ -4,7 +4,17 @@
     */
     function setup()
     {
-        window.centerContainer = new window.AccordionContainer({style:"width:300px"});
+        window.centerContainer = new window.AccordionContainer({});
+        
+        // Set up create new course form first
+        request.get('/courses/creationForm').then(
+            function(response)
+            {
+                window.centerContainer.addChild(new window.ContentPane({title:"Create a New Course", content:response}));
+            },
+        function(err){console.log(err);});
+
+
         console.log("Grabbing Courses");
         // Send a request to the courses resource with the IUID in the query
         // Then pass in a call back for a succesful response and one for an error
@@ -55,6 +65,11 @@
             window.centerContainer.startup();
         },
         function(err){console.log(err)});
+    }
+
+    function createCourseFromForm()
+    {
+
     }
 </script>
 <div align="center">
