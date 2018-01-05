@@ -4,8 +4,8 @@
     */
     function setup()
     {
-        window.centerContainer = new window.AccordionContainer({});
-        
+        window.centerContainer = new window.AccordionContainer({style:"height:100%;"});
+       
         // Set up create new course form first
         request.get('/courses/creationForm').then(
             function(response)
@@ -72,6 +72,6 @@
 
     }
 </script>
-<div align="center">
+<div align="center" style="height:auto;">
     <div id="centerContainer" name="centerContainer"></div>
 </div>
