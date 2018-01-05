@@ -33,7 +33,7 @@ encType="multipart/form-data" action="" method="">
                 <label for="skeleton">Skeleton Code:</label>
             </td>
             <td>
-                <input name="file" multiple="false" type="file" dojoType="dojox.form.Uploader" label="Select Class File" id="uploadedfile" />
+                <input name="file" multiple="false" type="file" dojoType="dojox.form.Uploader" label="Select File" id="uploadedfile" />
             </td>
         </tr>
         <tr>
@@ -41,7 +41,7 @@ encType="multipart/form-data" action="" method="">
                 <label for="skeleton">Language:</label>
             </td>
             <td>
-	            <select name="select" data-dojo-type="dojox.form.DropDownSelect" required="true">
+	            <select name="select" data-dojo-type="dijit/form/Select" required="true">
 	            	<option disabled selected value> -- select an option -- </option>
 				    <option value="Ruby">Ruby</option>
 				    <option value="Python">Python</option>

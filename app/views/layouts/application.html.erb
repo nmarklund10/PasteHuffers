@@ -2,12 +2,11 @@
 <html>
 <head>
   <title>PasteHuffer</title>
-  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.5/dijit/themes/claro/claro.css" />
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dijit/themes/claro/claro.css" />
 
-  <script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"
-            data-dojo-config="parseOnLoad: true, async: false">
-  @import "{{baseUrl}}dojox/form/resources/DropDownSelect.css";
+  <script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js" data-dojo-config="parseOnLoad: true, async: false">
   </script>
+
   <script>
     require(["dojo/ready", "dijit/registry",
             'dojo/dom',
@@ -18,10 +17,8 @@
             'dijit/form/Form', 
             'dijit/form/Button',
             'dijit/form/ValidationTextBox', 
-            'dojox.form.PasswordValidator',
             'dojox/form/Uploader', 
-            'dojox/form/uploader/plugins/Flash',
-            'dojox.form.DropDownSelect'
+            'dijit/form/Select'
         ], function (ready, registry, dom, domConstruct,parser) {
             window.dom = dom;
             window.domConstruct = domConstruct;
