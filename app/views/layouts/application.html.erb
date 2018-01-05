@@ -10,7 +10,8 @@
     require(['dojo/dom',
             'dojo/dom-construct',
             'dojo/parser', 
-            "dijit/layout/AccordionContainer", 
+            "dijit/layout/AccordionContainer",
+            "dijit/layout/TabContainer", 
             "dijit/layout/ContentPane",
             "dojo/request",
             "dijit/Dialog",
@@ -20,10 +21,11 @@
             'dijit/form/Button',
             'dojox/form/Uploader', 
             'dijit/form/Select'
-        ], function (dom, domConstruct,parser, AccordionContainer, ContentPane, request, dialog) {
+        ], function (dom, domConstruct,parser, AccordionContainer, TabContainer, ContentPane, request, dialog) {
             window.dom = dom;
             window.domConstruct = domConstruct;
             window.parser = parser;
+            window.TabContainer = TabContainer;
             window.AccordionContainer = AccordionContainer;
             window.ContentPane = ContentPane;
             window.request = request;
