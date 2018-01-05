@@ -22,6 +22,11 @@ Rails.application.routes.draw do
   get 'assignments/' => 'assignments#getAssignments'
   get 'dash/' => 'i_dash#index'
 
+
+  #
+  #Form Routes
+  #
+  get 'instructors/creationForm' => 'instructors#createInstructorForm'
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 

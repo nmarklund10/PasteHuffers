@@ -1,0 +1,41 @@
+<div id="createInstructorForm">
+<table style="border: 1px solid #9f9f9f;" cellspacing="10">
+        <tr>
+            <td>
+                <label for="instrName">Name:</label>
+            </td>
+            <td>
+                <input type="text" id="instrName" name="name" required="true" data-dojo-type="dijit/form/TextBox"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="instrEmail">Email:</label>
+            </td>
+            <td>
+                <input type="text" id="instrEmail" name="email" data-dojo-type="dijit/form/TextBox"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="instrPassword">Password:</label>
+            </td>
+            <td>
+                <input type="password" id="instrPassword" name="password" data-dojo-type="dijit/form/TextBox"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="password_validate">Confirm Password:</label>
+            </td>
+            <td>
+                <input type="password" id="password_validate" name="password_validate" data-dojo-type="dijit/form/TextBox" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button id="submitInstructorButton"  data-dojo-type="dijit/form/Button" onclick="submitInstructor();">Register!</button>
+            </td>
+        </tr>
+    </table>
+</div>
