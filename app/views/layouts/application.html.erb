@@ -8,10 +8,7 @@
   <script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"
             data-dojo-config="parseOnLoad: true, async: false"></script>
   <script>
-    require(["dojo/cookie",
-            "dojo/ready", 
-            "dijit/registry",
-            'dojo/dom',
+    require(['dojo/dom',
             'dojo/dom-construct',
             'dojo/parser', 
             "dijit/layout/AccordionContainer", 
@@ -19,7 +16,7 @@
             "dojo/request",
             'dijit/form/TextBox',
             'dijit/form/DateTextBox',
-        ], function (cookie, ready, registry, dom, domConstruct,parser, AccordionContainer, ContentPane, request) {
+        ], function (dom, domConstruct, parser, AccordionContainer, ContentPane, request) {
             window.dom = dom;
             window.cookie = cookie;
             window.registry = registry;
