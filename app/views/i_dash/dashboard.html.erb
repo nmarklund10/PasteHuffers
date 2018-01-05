@@ -4,34 +4,34 @@
     */
     function setup()
     {
-        window.centerContainer = new window.AccordionContainer({style:"width:300px"},window.dom.byId("centerContainer"));
-        // FALSE IUID: Need to save IUID somewhere when logging in
-        var iuid = 0;
-        
+        window.centerContainer = new window.AccordionContainer({style:"width:300px"});
+        console.log("Grabbing Courses");
         // Send a request to the courses resource with the IUID in the query
         // Then pass in a call back for a succesful response and one for an error
         request("/courses/",{
-            "query":{"id":iuid}
+            handleAs:"json"
         }).then(
-        function(strCourses){
+        function(courses){
             // Parse the response given by the request
-            window.courses = JSON.parse(strCourses);
+            window.courses = courses;
             
             // Iterate through each course object in the response
-            for (var i=0;i<window.courses.length; i++)
+            for (var i=0;i<courses.length; i++)
             {
                 // For each course, use its CUID to find all of the assignments
                 // You can also POST data as necessary, see Dojo/Request docs to see how
+                console.log("Grabbing Assignments for a course");
                 request("/assignments/",{
-                         "query":{"id":courses[i].id}
+                         "query":{"id":courses[i].id},
+                         handleAs:"json"
                 }).then(
-                function(courseAssignMentStrDict){
+                function(courseAssignMentDict){
                     // Recieve Course from service since this is asynchronusly run so the loop iterator may not be usable at the time this runs
                     // Parse the response
                     var innerContent = "<table>";
-                    var courseAssignMentDict = JSON.parse(courseAssignMentStrDict);
                     
                     // If given an empty list, still add the course as a title pane
+                    console.log("Appending child");
                     if(courseAssignMentDict.assignments.length == 0)
                     {
                         window.centerContainer.addChild(new window.ContentPane({title:courseAssignMentDict.course.name,

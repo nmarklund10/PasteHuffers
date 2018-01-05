@@ -4,8 +4,8 @@ class CDashController < ApplicationController
     end
     
     def getClasses
-        iuid = params[:id]
-        if iuid == nil then return end
+        iuid = session["IUID"]
+        if iuid == nil then render json: [] end
         @courses = Course.where('instructor_id = ?',iuid)
         render json: @courses
     end
