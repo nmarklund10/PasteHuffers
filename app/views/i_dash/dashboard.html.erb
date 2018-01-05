@@ -20,11 +20,9 @@
                 function(courseAssignMentStrDict){
                     var innerContent = "<table>";
                     var courseAssignMentDict = JSON.parse(courseAssignMentStrDict);
-                    console.log("assignment length = " + courseAssignMentDict.assignments.length)
+                    
                     if(courseAssignMentDict.assignments.length == 0)
                     {
-                        console.log(window.courses);
-                        console.log(i);
                         window.centerContainer.addChild(new window.ContentPane({title:courseAssignMentDict.course.name,
                                                                          content:"EMPTY"}));
                     }
@@ -38,18 +36,19 @@
                         window.centerContainer.addChild(new window.ContentPane({title:window.courses[i].name,content:innerContent}));
                     }
                     window.completed += 1;
-                    console.log(window.completed);
+                    
                     if (window.completed == window.courses.length)
                     {
-                        console.log("starting up");
-                        window.centerContainer.placeAt("centerContainer")
-                        window.centerContainer.startup();
+                    
+                        
                     }
                 },
                 function(err){
-                    console.log(err);
+                    
                 });
             }
+            window.centerContainer.placeAt("centerContainer")
+            window.centerContainer.startup();
             
         },
         function(err){});
