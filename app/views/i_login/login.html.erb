@@ -113,12 +113,21 @@ input:focus {
   <font size="20"><span style="display:inline-block; width: 30px;"></span>
     PasteHuffer</font>
 </header>
+<script>
+  function sendLoginRequest()
+  {
+    // Grab user info from the forms
+    var username = window.dom.byId("username").value;
+    var password = window.dom.byId("password").value;
+    // Send POST request for login
+  }
+</script>
 <div id="login">
   <form>
-    <input type="text" placeholder="Username">
+    <input type="text" placeholder="Username" id="username">
     <div class="spacer"></div>
-    <input type="password" placeholder="Password">
-    <input type="submit" value="Login">
+    <input type="password" placeholder="Password" id="password">
+    <input type="button" value="Login" onclick="sendLoginRequest();">
   </form>
 </div>
 <footer>Texas A&amp;M University</footer>

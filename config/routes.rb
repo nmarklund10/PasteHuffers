@@ -2,8 +2,11 @@ Rails.application.routes.draw do
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-
-  resources :courses
+  
+  #Login URLS
+  root 'i_login#index'
+  post 'Ilogin/' => 'i_login#verifyCreds'
+  
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
@@ -16,7 +19,7 @@ Rails.application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-  resources :assignments
+  
   # Example resource route with options:
   #   resources :products do
   #     member do
@@ -56,6 +59,6 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-  resources :instructors
-  root 'i_login#index'
+  
+  
 end

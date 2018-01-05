@@ -1,26 +1,17 @@
 class ILoginController < ApplicationController
-    #List all in database
+    #Shows the instructor login page
     def index
         render "login"
     end
-    
-    #New object. Called when asking for input
-    def new
-    end
-    
-    #Creates a record in database
-    def create
-    end
-    
-    #Updates record in database
-    def update
-    end
-    
-    #CAREFUL! Will not be used for some
-    def delete
-    end
-    
-    #Displays one element
-    def show
+    #Verifies the given credentials
+    #If correct then a object telling success is given back and the user is redirected to the dashboard
+    def verifyCreds
+        iuid = params[:id]
+        password = params[:password]
+        begin
+            instr = Instructor.find(iuid)
+        rescue
+            render j
+        end
     end
 end
