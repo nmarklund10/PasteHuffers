@@ -3,6 +3,13 @@ class CDashController < ApplicationController
     def index
     end
     
+    def getClasses
+        iuid = params[:id]
+        if iuid == nil then return end
+        @courses = Course.where('instructor_id = ?',iuid)
+        render json: @courses
+    end
+   
     #New object. Called when asking for input
     def new
     end
