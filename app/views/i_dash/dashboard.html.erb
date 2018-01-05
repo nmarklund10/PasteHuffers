@@ -1,33 +1,45 @@
 <script>
+    /*
+    * The setup() will be called by dojo right after it is finished loading all libraries.
+    */
     function setup()
     {
         window.centerContainer = new window.AccordionContainer({style:"width:300px"},window.dom.byId("centerContainer"));
+        // FALSE IUID: Need to save IUID somewhere when logging in
         var iuid = 0;
-        request("courses/",{
+        
+        // Send a request to the courses resource with the IUID in the query
+        // Then pass in a call back for a succesful response and one for an error
+        request("/courses/",{
             "query":{"id":iuid}
         }).then(
         function(strCourses){
-            window.centerContainer = new window.AccordionContainer();
-            
+            // Parse the response given by the request
             window.courses = JSON.parse(strCourses);
-            window.completed = 0;
+            
+            // Iterate through each course object in the response
             for (var i=0;i<window.courses.length; i++)
             {
-                
-                request("assignments/",{
+                // For each course, use its CUID to find all of the assignments
+                // You can also POST data as necessary, see Dojo/Request docs to see how
+                request("/assignments/",{
                          "query":{"id":courses[i].id}
                 }).then(
                 function(courseAssignMentStrDict){
+                    // Recieve Course from service since this is asynchronusly run so the loop iterator may not be usable at the time this runs
+                    // Parse the response
                     var innerContent = "<table>";
                     var courseAssignMentDict = JSON.parse(courseAssignMentStrDict);
                     
+                    // If given an empty list, still add the course as a title pane
                     if(courseAssignMentDict.assignments.length == 0)
                     {
                         window.centerContainer.addChild(new window.ContentPane({title:courseAssignMentDict.course.name,
-                                                                         content:"EMPTY"}));
+                                                                         content:""}));
                     }
                     else
                     {
+                        // For each assignment build its table row
                         for(var a in assignments)
                         {
                              innerContent+= "<tr><td>"+ a.name+"</td></tr>";
@@ -35,23 +47,14 @@
                         innerContent +="</table>";
                         window.centerContainer.addChild(new window.ContentPane({title:window.courses[i].name,content:innerContent}));
                     }
-                    window.completed += 1;
-                    
-                    if (window.completed == window.courses.length)
-                    {
-                    
-                        
-                    }
                 },
-                function(err){
-                    
-                });
+                function(err){console.log(err)});
             }
+            // After sending out requests for each course, place and start up the accordion container
             window.centerContainer.placeAt("centerContainer")
             window.centerContainer.startup();
-            
         },
-        function(err){});
+        function(err){console.log(err)});
     }
 </script>
 <div align="center">
