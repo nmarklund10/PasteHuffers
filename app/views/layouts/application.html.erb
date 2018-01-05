@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>PasteHuffer</title>
-  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.5/dijit/themes/claro/claro.css" />
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dijit/themes/claro/claro.css" />
   <script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"
             data-dojo-config="parseOnLoad: true, async: false"></script>
   <script>
@@ -10,17 +10,25 @@
             'dojo/dom',
             'dojo/dom-construct',
             'dojo/parser', 
+            "dijit/layout/AccordionContainer", 
+            "dijit/layout/ContentPane",
+            "dojo/request",
             'dijit/form/TextBox',
             'dijit/form/DateTextBox', 
+            'dijit/form/TimeTextBox',
             'dijit/form/Form', 
             'dijit/form/Button',
-            'dijit/form/ValidationTextBox', 
-            'dojox.form.PasswordValidator'
-        ], function (ready, registry, dom, domConstruct,parser) {
+        ], function (ready, registry, dom, domConstruct,parser, AccordionContainer, ContentPane, request) {
             window.dom = dom;
             window.domConstruct = domConstruct;
             window.parser = parser;
-
+            window.AccordionContainer = AccordionContainer;
+            window.ContentPane = ContentPane;
+            window.request = request;
+            if( typeof setup !== "undefined")
+            {
+              setup();
+            }
         });
   </script>
 </head>
