@@ -87,8 +87,23 @@ input[type="password"] {
   -kthtml-transition: all .1s linear;
   transition: all .1s linear;
 }
+#createInstructorButton{
+  background-color:#111;
+  color: white;
+  box-shadow:0 0 1px 4px #53e3a6;
+  border-radius:50px;
+  padding:0;
+  height: 50px;
+  width: 100px;
+  -webkit-transition: all .1s linear;
+  -o-transition: all .1s linear;
+  -moz-transition: all .1s linear;
+  -ms-transition: all .1s linear;
+  -kthtml-transition: all .1s linear;
+  transition: all .1s linear;
+}
 
-#loginButton:hover {
+#loginButton:hover, #createInstructorButton:hover {
   cursor:pointer;
   box-shadow:0 0 0.5px 8px #53e3a6;
   color: LimeGreen;
@@ -137,6 +152,63 @@ input:focus {
             }
           }, function (errCode){console.log(errCode);})
   }
+  function openCreateInstructorForm()
+  {
+    var createInstructorFormDialog = new window.DojoDialog({title:"Register New Account!"});
+    createInstructorFormDialog.show();
+    request.get("/instructors/creationForm", {}).then(
+      function(response){
+        createInstructorFormDialog.set("content",response);
+      }, function(err){console.log(err);});
+  }
+  // Grabs the data from the modal form presented by the register button
+  function submitInstructor()
+  {
+      if(window.dom.byId("instrPassword").value != window.dom.byId("password_validate").value)
+      {
+          alert("Password and validation do not match!!");
+          return;
+      }
+      // Grab all the data from the form
+      var instrName = window.dom.byId("instrName").value;
+      var instrEmail = window.dom.byId("instrEmail").value;
+      var instrPassword = window.dom.byId("instrPassword").value;
+      // Send Creation POST to BE
+      request.post("/instructors/create",{
+          data:{"name":instrName, "password":instrPassword, "email":instrEmail},
+          headers:{'X-CSRF-Token':document.querySelector('meta[name="csrf-token"]').content},
+          handleAs:"json"
+      }).then(
+          function(response)
+          {
+              if(response.success)
+              {
+                  //Log in with new data
+                  // Send POST request for login
+                  // A succesful response will end in redirect, any other response will provide information about error
+                  request.post("/ILogin/",{
+                      data:{"username":instrName, "password":instrPassword},
+                      headers:{'X-CSRF-Token':document.querySelector('meta[name="csrf-token"]').content},
+                      handleAs:"json"
+                  }).then(
+                      function(response){
+                          if(response.success)
+                          {
+                              window.location = "/dash/";
+                          }
+                          else
+                          {
+                                alert(response.reason);
+                          }
+                      }, function (errCode){console.log(errCode);});
+                  }
+                  else
+                  {
+                      alert(response.reason);
+                  }
+              },
+              function(err){console.log(err);});
+  }
 </script>
 <div id="login">
   <div id="formDiv">
@@ -145,6 +217,9 @@ input:focus {
     <input type="password" placeholder="Password" id="password">
     <input type="button" id="loginButton" value="Login" onclick="sendLoginRequest();">
   </div>
+</div><br />
+<div align="center">
+  <button align = "center" id="createInstructorButton" onclick="openCreateInstructorForm()">Register New Account</button>
 </div>
 <footer>Texas A&amp;M University</footer>
 

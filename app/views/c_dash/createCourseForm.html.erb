@@ -1,0 +1,31 @@
+<div id="createCourseFormDiv">
+    <table style="border: 1px solid #9f9f9f;" cellspacing="10">
+        <tr>
+            <td>
+                <label for="semester">Semester:</label>
+            </td>
+            <td>
+                <input type="text" id="courseSemesterForm" name="semester" required="true" data-dojo-type="dijit/form/TextBox"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="class_name">Course Name:</label>
+            </td>
+            <td>
+                <input type="text" id="courseNameForm" name="class_name" data-dojo-type="dijit/form/TextBox"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="section">Section:</label>
+            </td>
+            <td>
+                <input type="text" id="section" name="courseSectionForm" data-dojo-type="dijit/form/TextBox"/>
+            </td>
+        </tr>
+        
+    </table>
+
+    <button data-dojo-type="dijit/form/Button" onclick="createCourseFromForm();">Create Course</button>
+</div>
