@@ -3,14 +3,21 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
-  resources :courses
-
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
-  
+
+  #
+  # Login Routes
+  #
+  root 'i_login#index'
+  post 'ILogin/' => 'i_login#verifyCreds'
+
+  #
+  # Dash Board Routes
+  #
   get 'courses/' => 'c_dash#getClasses'
   get 'assignments/' => 'assignments#getAssignments'
   get 'dash/' => 'i_dash#index'
@@ -61,6 +68,4 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-  resources :instructors
-  root 'i_login#index'
 end
