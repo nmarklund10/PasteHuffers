@@ -20,6 +20,10 @@ function sendLoginRequest()
         }
       });
 }
+function openStudentLogin(){
+    window.location = "/s_login/";
+}
+
 // Gets the html for the create instructor form
 function openCreateInstructorForm()
 {

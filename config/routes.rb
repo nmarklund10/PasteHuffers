@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   get 'courses/' => 'c_dash#getClasses'
   get 'assignments/' => 'assignments#getAssignments'
   get 'dash/' => 'i_dash#index'
+  get 's_login/' => 's_login#index'
 
 
   #
