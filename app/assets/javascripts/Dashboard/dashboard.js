@@ -111,11 +111,27 @@ function createCourseFromForm()
         {
             if(response.success)
             {
+                window.tabs[response.course.id] = {course: response.course};
+                window.courses.push(response.course)
                 addCourseToCenterContainer(response.course);
+                cleanClassForm();
+                //switchToTabByCUID(response.course.id);
             }
             else
             {
                 alert(response.reason);
             }
         });
+}
+
+function cleanClassForm()
+{
+    window.dom.byId("courseSemesterForm").value ="";
+    window.dom.byId("courseNameForm").value = "";
+    window.dom.byId("courseSectionForm").value = "";
+}
+
+function switchToTabByCUID(cuid)
+{
+    window.centerContainer.selectChild(window.tabs[cuid].contentPane);
 }

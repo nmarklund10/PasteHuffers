@@ -21,25 +21,43 @@
             "dijit/Dialog",
             "dijit/layout/TabContainer",
             "dgrid/Grid",
+            "dijit/Editor", 
+            "dijit/_editor/plugins/LinkDialog",
+            "dijit/layout/ContentPane",
+            "dijit/layout/BorderContainer",
             'dijit/form/TextBox',
             'dijit/form/Button',
             'dojox/form/Uploader', 
             'dijit/form/Select',
-            "dojo/domReady!",
-        ], function (dom, parser, ContentPane, request, dialog, TabContainer, Grid) {
-            window.dom = dom;
-            window.parser = parser;
-            window.TabContainer = TabContainer;
-            window.ContentPane = ContentPane;
-            window.request = request;
-            window.DojoDialog = dialog;
-            window.Grid = Grid;
-            
-            if( typeof window.setup !== "undefined")
+            'dojo/domReady!'
+        ], function ( dom, 
+                      parser,
+                      ContentPane,
+                      request,
+                      dialog,
+                      TabContainer,
+                      Grid,
+                      Editor,
+                      LinkDialog,
+                      ContentPane,
+                      BorderContainer) 
             {
-              window.setup();
-            }
-        });
+              window.dom = dom;
+              window.request = request;
+              window.parser = parser;
+              window.TabContainer = TabContainer;
+              window.ContentPane = ContentPane;
+              window.request = request;
+              window.DojoDialog = dialog;
+              window.Editor = Editor;
+              window.ContentPane = ContentPane;
+              window.BorderContainer = BorderContainer;
+              window.Grid = Grid;
+              if( typeof window.setup !== "undefined")
+              {
+                window.setup();
+              }
+            });
   </script>
 </head>
 <body class="claro">

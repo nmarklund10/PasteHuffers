@@ -22,6 +22,10 @@ Rails.application.routes.draw do
   get 'assignments/' => 'assignments#getAssignments'
   get 'dash/' => 'i_dash#index'
   get 's_login/' => 's_login#index'
+  
+  # Student Login Routes
+  get 'codeEdit/' => 'ce#index'
+  post 'SLogin/' => 's_login#verifyCreds'
 
 
   #
