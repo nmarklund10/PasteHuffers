@@ -16,6 +16,7 @@ function generateAssignmentsContainer(assignments,cuid, attchingDiv)
         { "name":"Due",      "field":"date_due",      "width":"300px"}
     ]];
     var store = new window.ItemFileWriteStore({data:data});
+    window.assignmentStores[cuid] = store;
     var grid = new window.DataGrid({
         id: "assignmentGridFor-"+cuid,
         store: store,
@@ -23,4 +24,18 @@ function generateAssignmentsContainer(assignments,cuid, attchingDiv)
     });
     attchingDiv.appendChild(grid.domNode);
     grid.startup();
+    
+}
+function createNewAssignmentDialog()
+{
+    if(window.selectedCourse == null)
+    {
+        console.log("Selected Course is null");
+        return;
+    }
+    var createInstructorFormDialog = new window.DojoDialog({title:"Create New Assignment"});
+    createInstructorFormDialog.show();
+    sendGetRequestForHTML("/assignments/creationForm", {}, function(response){
+        createInstructorFormDialog.set("content",response);
+      });
 }

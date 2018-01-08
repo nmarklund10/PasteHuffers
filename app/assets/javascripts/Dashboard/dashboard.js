@@ -9,7 +9,7 @@ function addCourseToCenterContainer(c, indexForLoadup=-1)
         var innerDivId = "assignmentGridParentNodeFor_"+courseAssignMentDict.course.id;
         var innerContent ='<button data-dojo-type="dijit/form/Button" id="newAssignmentFor'+courseAssignMentDict.course.id+'" onclick="createNewAssignmentDialog();">Create new assignment</button><br />'+
                             '<div id="'+innerDivId+'" ></div>';
-        console.log(innerContent);
+        
         window.centerContainer.addChild(new window.ContentPane({title:courseAssignMentDict.course.name,content:innerContent}));
         generateAssignmentsContainer(courseAssignMentDict.assignments, courseAssignMentDict.course.id, window.dom.byId(innerDivId));
 
@@ -27,6 +27,7 @@ function addCourseToCenterContainer(c, indexForLoadup=-1)
 */
 function dashBoardSetup()
 {
+    window.assignmentStores = {};
     window.centerContainer = new window.TabContainer({style:"height:100%;"});
     window.newCourseFormAdded = false;
     window.startedCourses = false;
@@ -64,6 +65,21 @@ function placeTabContainer()
     {
         window.centerContainer.placeAt("centerContainer");
         window.centerContainer.startup();
+        window.selectedCourse = null;
+        // Add in out selection listeners
+        centerContainer.watch("selectedChildWidget", function(name, oval, nval){
+            for (var i in window.courses)
+            {
+                
+                if (window.courses[i].name == nval.title)
+                {
+                    window.selectedCourse = window.courses[i];
+                    console.log(window.courses[i]);
+                    return;
+                }
+            }
+            window.selectedCourse = null;
+        });
     }
 }
 
