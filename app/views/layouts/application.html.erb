@@ -33,9 +33,9 @@
             window.ContentPane = ContentPane;
             window.request = request;
             window.DojoDialog = dialog;
-            if( typeof setup !== "undefined")
+            if( typeof window.setup !== "undefined")
             {
-              setup();
+              window.setup();
             }
         });
   </script>
