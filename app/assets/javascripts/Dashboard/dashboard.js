@@ -5,20 +5,23 @@ function addCourseToCenterContainer(c, indexForLoadup=-1)
     console.log("Grabbing Assignments for a course");
     sendGetRequestForJSON("/assignments/", {"id":c.id},
         function(courseAssignMentDict){
-        // Recieve Course from service since this is asynchronusly run so the loop iterator may not be usable at the time this runs
-        var innerDivId = "assignmentGridParentNodeFor_"+courseAssignMentDict.course.id;
-        var innerContent ='<button data-dojo-type="dijit/form/Button" id="newAssignmentFor'+courseAssignMentDict.course.id+'" onclick="createNewAssignmentDialog();">Create new assignment</button><br />'+
-                            '<div id="'+innerDivId+'" ></div>';
         
-        window.centerContainer.addChild(new window.ContentPane({title:courseAssignMentDict.course.name,content:innerContent}));
-        generateAssignmentsContainer(courseAssignMentDict.assignments, courseAssignMentDict.course.id, window.dom.byId(innerDivId));
-
-        if(indexForLoadup != -1)
-        {
-            console.log("Finished course - "+ indexForLoadup+ "out of "+window.coursesCompleted.length);
-            window.coursesCompleted[indexForLoadup] = true;
-            placeTabContainer();
-        }
+            // Recieve Course from service since this is asynchronusly run so the loop iterator may not be usable at the time this runs
+            var innerDivId = "grid-"+courseAssignMentDict.course.id;
+            var innerContent ='<button data-dojo-type="dijit/form/Button" id="newAssignButton'+courseAssignMentDict.course.id+'" onclick="createNewAssignmentDialog();">Create new assignment</button><div id="'+innerDivId+'" ></div>';
+            var contentPaneForTab = new window.ContentPane({title:courseAssignMentDict.course.name,
+                                                            content:innerContent, 
+                                                            id:"tab-"+courseAssignMentDict.course.id,
+                                                            style:"width:auto; height:auto;"})
+            window.centerContainer.addChild(contentPaneForTab);
+            window.tabs[courseAssignMentDict.course.id].contentPane = contentPaneForTab;
+            window.tabs[courseAssignMentDict.course.id].assignments = courseAssignMentDict.assignments;
+            if(indexForLoadup != -1)
+            {
+                console.log("Finished course - "+ indexForLoadup+ "out of "+window.coursesCompleted.length);
+                window.coursesCompleted[indexForLoadup] = true;
+                placeTabContainer();
+            }
     });    
 }
 
@@ -27,8 +30,8 @@ function addCourseToCenterContainer(c, indexForLoadup=-1)
 */
 function dashBoardSetup()
 {
-    window.assignmentStores = {};
-    window.centerContainer = new window.TabContainer({style:"height:100%;"});
+    console.log("STARTED SETUP");
+    window.centerContainer = new window.TabContainer({style:"height:100%;", doLayout:false});
     window.newCourseFormAdded = false;
     window.startedCourses = false;
     // Set up create new course form first
@@ -45,7 +48,11 @@ function dashBoardSetup()
     sendGetRequestForJSON("/courses/",{},
         function(courses){
             window.courses = courses;
-            
+            window.tabs = {};
+            for(var i in courses)
+            {
+                window.tabs[courses[i].id] = {course: courses[i]};
+            }
             window.coursesCompleted = [];
             // Iterate through each course object in the response
             for (var i=0;i<courses.length; i++)
@@ -65,6 +72,7 @@ function placeTabContainer()
     {
         window.centerContainer.placeAt("centerContainer");
         window.centerContainer.startup();
+        window.centerContainer.resize();
         window.selectedCourse = null;
         // Add in out selection listeners
         centerContainer.watch("selectedChildWidget", function(name, oval, nval){
@@ -74,11 +82,14 @@ function placeTabContainer()
                 if (window.courses[i].name == nval.title)
                 {
                     window.selectedCourse = window.courses[i];
-                    console.log(window.courses[i]);
+                    window.selectedTab = window.tabs[window.courses[i].id];
+                    generateAssignmentsContainer(window.selectedTab.assignments,window.courses[i].id);
                     return;
                 }
             }
             window.selectedCourse = null;
+            window.selectedTab = null;
+            window.centerContainer.resize();
         });
     }
 }

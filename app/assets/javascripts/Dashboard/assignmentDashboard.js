@@ -1,30 +1,25 @@
 // Takes in a list of assignments and will then generate the accordion container that holds the assignments
-function generateAssignmentsContainer(assignments,cuid, attchingDiv)
+function generateAssignmentsContainer(assignments,cuid)
 {
-    if(assignments.length == 0)
+    if(typeof window.tabs[cuid].grid === 'undefined')
     {
-        return "";
+        console.log("Creating Grid for "+cuid);
+        var data = {
+            identifier: "id",
+            items : assignments
+        }
+        var columns = [
+            { "label":"AUID",     "field":"id", "width":"200px"},
+            { "label":"Name",     "field":"name", "width":"200px"},
+            { "label":"Language", "field":"language", "width":"200px"}
+        ];
+        var grid = new window.Grid({
+            columns:columns
+        },"grid-" + cuid );
+        window.tabs[cuid].grid = grid;
     }
-    var data = {
-        identifier: "id",
-        items : assignments
-    }
-    var layout = [[
-        { "name":"AUID",     "field":"id",            "width":"100px"},
-        { "name":"Name",     "field":"name",          "width":"300px"},
-        { "name":"Assigned", "field":"date_assigned", "width":"300px"},
-        { "name":"Due",      "field":"date_due",      "width":"300px"}
-    ]];
-    var store = new window.ItemFileWriteStore({data:data});
-    window.assignmentStores[cuid] = store;
-    var grid = new window.DataGrid({
-        id: "assignmentGridFor-"+cuid,
-        store: store,
-        structre: layout
-    });
-    attchingDiv.appendChild(grid.domNode);
-    grid.startup();
-    
+    window.tabs[cuid].grid.refresh();
+    window.tabs[cuid].grid.renderArray(assignments);
 }
 
 function createNewAssignmentDialog()
@@ -66,7 +61,8 @@ function createNewAssignment()
             // Will return a copy of the new assignment object
             if(response.success)
             {
-                window.assignmentStores[window.selectedCourse.id].put(response.assignment);
+                window.selectedTab.assignments.push(response.assignment);
+                generateAssignmentsContainer(window.selectedTab.assignments,window.selectedTab.course.id);
                 window.createInstructorFormDialog.destroy();
             }
             else
