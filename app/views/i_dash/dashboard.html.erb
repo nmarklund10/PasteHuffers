@@ -108,30 +108,25 @@ input:focus {
   color: LightSteelBlue
 }
 </style>
-<header>
-  <font size="20"><span style="display:inline-block; width: 30px;"></span>
-    PasteHuffer</font>
-</header>
- <div class="transbox">
-    <p>Welcome Instructor.</p>
-  </div>
-  <script>
-    /*
-    * The setup() will be called by dojo right after it is finished loading all libraries.
-    */
-    function setup()
-    {
-        window.centerContainer = new window.TabContainer({style:"height:100%;"});
-       
-        // Set up create new course form first
-        request.get('/courses/creationForm').then(
-            function(response)
-            {
-                window.centerContainer.addChild(new window.ContentPane({title:"Create a New Course", content:response}));
-            },
-        function(err){console.log(err);});
-    }
 
+<script>
+  /*
+  * The setup() will be called by dojo right after it is finished loading all libraries.
+  */
+  function setup()
+  {
+      window.centerContainer = new window.TabContainer({style:"height:100%;"});
+      
+      // Set up create new course form first
+      request.get('/courses/creationForm').then(
+          function(response)
+          {
+              window.centerContainer.addChild(new window.ContentPane({title:"Create a New Course", content:response}));
+          },
+      function(err){console.log(err);});
+  }
+</script>
+<style>
 input {
   line-height:2em;
   font-size:1em;
