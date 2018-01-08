@@ -55,9 +55,10 @@ function createNewAssignment()
     }
     var assignmentName = window.dom.byId("newAssignmentName").value;
     var assignmentLanguage = dijit.byId("newAssignmentLanguage").attr("value");
-    if(assignmentName == "" || assignmentLanguage)
+    if(assignmentName == "" || assignmentLanguage == "")
     {
         alert("Please supply a name and a language!");
+        return;
     }
     sendPostRequest('/assignments/create',{"name": assignmentName, "language": assignmentLanguage, "CUID": window.selectedCourse.id},
         function(response)
