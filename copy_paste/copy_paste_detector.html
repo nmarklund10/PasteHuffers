@@ -5,6 +5,7 @@ var input = "";
 function getKey(event) {
     var x = String.fromCharCode(event.keyCode);
     var time = new Date();
+    var localTime = time.toString()
     input = input + time.toString() + "\n" + x + "\n";
     console.log(input)
 }
@@ -16,7 +17,8 @@ function logPaste(event) {
     else
       pastedText = event.clipboardData.getData('text/plain')
     var time = new Date();
-    input = input + time.toString() + "\n" + pastedText + "\n";
+    var localTime = time.toString()
+    input = input + localTime.toString() + "\n" + pastedText + "\n";
     console.log(input)
 }
 
