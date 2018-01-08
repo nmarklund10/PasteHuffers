@@ -14,7 +14,6 @@
             'dojo/dom-construct',
             'dojo/parser', 
             "dijit/layout/AccordionContainer",
-
             "dijit/layout/ContentPane",
             "dojo/request",
             "dijit/Dialog",
@@ -25,7 +24,21 @@
             'dijit/form/Button',
             'dojox/form/Uploader', 
             'dijit/form/Select',
-        ], function (dom, domConstruct,parser, AccordionContainer, ContentPane, request, dialog, TabContainer) {
+            "dijit/Editor", 
+            "dijit/_editor/plugins/LinkDialog",
+            "dijit/layout/ContentPane",
+            "dijit/layout/BorderContainer",
+        ], function (dom, 
+            domConstruct,parser,
+            AccordionContainer,
+            ContentPane,
+            request,
+            dialog,
+            TabContainer,
+            Editor,
+            LinkDialog,
+            ContentPane,
+            BorderContainer) {
             window.dom = dom;
             window.domConstruct = domConstruct;
             window.parser = parser;
@@ -35,6 +48,9 @@
             window.ContentPane = ContentPane;
             window.request = request;
             window.DojoDialog = dialog;
+            window.Editor = Editor;
+            window.ContentPane = ContentPane;
+            window.BorderContainer = BorderContainer;
             if( typeof window.setup !== "undefined")
             {
               window.setup();
