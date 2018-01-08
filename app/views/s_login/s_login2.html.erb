@@ -70,7 +70,7 @@ input[type="password"] {
   margin:0 0 0 5px;
 }
 
-input[type="submit"] {
+#loginButton {
   background-color:#111;
   color: white;
   position:absolute;
@@ -89,7 +89,7 @@ input[type="submit"] {
   transition: all .1s linear;
 }
 
-input[type="submit"]:hover {
+#loginButton:hover {
   cursor:pointer;
   box-shadow:0 0 0.5px 8px #53e3a6;
   color: LimeGreen;
@@ -117,10 +117,10 @@ input:focus {
 </header>
 <div id="login">
   <form>
-    <input type="text" placeholder="Username">
+    <input type="text" placeholder="Username" id="username">
     <div class="spacer"></div>
-    <input type="password" placeholder="Access Code">
-    <input type="submit" value="Login">
+    <input type="password" placeholder="Access Code" id="access">
+    <input type="button" id="loginButton" value="Login" onclick="sendAccessRequest();">
   </form>
 </div>
 <footer>Texas A&amp;M University</footer>
