@@ -1,6 +1,7 @@
 class CeController < ApplicationController
     #List all in database
     def index
+        render "code_editor"
     end
     
     #New object. Called when asking for input
