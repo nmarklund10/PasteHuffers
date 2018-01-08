@@ -18,6 +18,9 @@ class FileIO
         File.read("#{iuid}/#{cuid}/#{auid}/#{suid}/-code.txt")
     end
     def get_skeleton_code(iuid,cuid,auid)
+        if (File.exist?("#{iuid}/#{cuid}/#{auid}/-skeleton_code.txt"))
+            return ""
+        end
         File.read("#{iuid}/#{cuid}/#{auid}/-skeleton_code.txt")
     end
 end
