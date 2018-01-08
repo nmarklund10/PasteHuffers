@@ -1,0 +1,31 @@
+<html>
+<head>
+<script type="text/javascript">
+var input = "";
+function getKey(event) {
+    var x = String.fromCharCode(event.keyCode);
+    var time = new Date();
+    input = input + time.toString() + "\n" + x + "\n";
+    console.log(input)
+}
+
+function logPaste(event) {
+    var pastedText = '';
+    if (typeof event.clipboardData === 'undefined')
+      pastedText = window.clipboardData.getData('Text')
+    else
+      pastedText = event.clipboardData.getData('text/plain')
+    var time = new Date();
+    input = input + time.toString() + "\n" + pastedText + "\n";
+    console.log(input)
+}
+
+</script>
+</head>
+
+<body>
+
+<input type="text" id="TEXTBOX_ID" onkeypress="getKey(event)" onpaste="logPaste(event)">
+
+</body>
+</html>

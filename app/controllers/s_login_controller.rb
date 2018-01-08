@@ -1,6 +1,7 @@
 class SLoginController < ApplicationController
     #List all in database
     def index
+        render "s_login2"
     end
     
     #New object. Called when asking for input

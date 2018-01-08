@@ -1,4 +1,4 @@
-
+<body>
 <style>
 html {
   background: LightSteelBlue;
@@ -15,7 +15,10 @@ header{
     background-color: #111;
     clear: left;
     text-align:10px;
-
+}
+h5{
+    margin:0;
+    padding:0;
 }
 footer{
     position: fixed;
@@ -38,7 +41,7 @@ body {
   margin:100px auto;
 }
 
-#formDiv {
+form {
   border-radius:10px;
   padding:10px 0 10px 20px;
   background-color:#111;
@@ -67,7 +70,7 @@ input[type="password"] {
   margin:0 0 0 5px;
 }
 
-#loginButton {
+input[type="submit"] {
   background-color:#111;
   color: white;
   position:absolute;
@@ -85,43 +88,12 @@ input[type="password"] {
   -kthtml-transition: all .1s linear;
   transition: all .1s linear;
 }
-#createInstructorButton{
-  background-color:#111;
-  color: white;
-  box-shadow:0 0 1px 4px #53e3a6;
-  border-radius:50px;
-  padding:0;
-  height: 50px;
-  width: 100px;
-  -webkit-transition: all .1s linear;
-  -o-transition: all .1s linear;
-  -moz-transition: all .1s linear;
-  -ms-transition: all .1s linear;
-  -kthtml-transition: all .1s linear;
-  transition: all .1s linear;
-}
-#createStudentLogin{
-  background-color:#111;
-  color: white;
-  box-shadow:0 0 1px 1px white;
-  margin: 10px;
-  margin-left: 0px;
-  left: 0;
-  right: 20px;
-  height: 40px;
-  width: 100px;
-  -webkit-transition: all .1s linear;
-  -o-transition: all .1s linear;
-  -moz-transition: all .1s linear;
-  -ms-transition: all .1s linear;
-  -kthtml-transition: all .1s linear;
-  transition: all .1s linear;
-}
 
-#loginButton:hover, #createInstructorButton:hover {
+input[type="submit"]:hover {
   cursor:pointer;
   box-shadow:0 0 0.5px 8px #53e3a6;
   color: LimeGreen;
+  <a href=" ">
   -webkit-transition: all .1s linear;
   -o-transition: all .1s linear;
   -moz-transition: all .1s linear;
@@ -140,24 +112,16 @@ input:focus {
 }
 </style>
 <header>
-  <font size="20"><span style="display:inline-block; width: 30px;"></span>
-    PasteHuffer</font>
+   <font size="20"><span style="display:inline-block; width: 30px;"></span>PasteHuffer</font>
+   <h5><span style="display:inline-block; width: 30px;"></span>Student</h5>
 </header>
-<div align="left">
-  <button align = "center" id="createStudentLogin" onclick="openStudentLogin();">Student Login</button>
-</div>
 <div id="login">
-  <div id="formDiv">
-    <input type="text" placeholder="Username" id="username">
+  <form>
+    <input type="text" placeholder="Username">
     <div class="spacer"></div>
-    <input type="password" placeholder="Password" id="password">
-    <input type="button" id="loginButton" value="Login" onclick="sendLoginRequest();">
-  </div>
-</div><br />
-<div align="center">
-  <button align = "center" id="createInstructorButton" onclick="openCreateInstructorForm()">Register New Account</button>
+    <input type="password" placeholder="Access Code">
+    <input type="submit" value="Login">
+  </form>
 </div>
-
 <footer>Texas A&amp;M University</footer>
-
-
+</body>
