@@ -23,7 +23,12 @@ function sendLoginRequest()
 // Gets the html for the create instructor form
 function openCreateInstructorForm()
 {
-    var createInstructorFormDialog = new window.DojoDialog({title:"Register New Account!"});
+    if(typeof window.createInstructorFormDialog !== 'undefined')
+    {
+        window.createInstructorFormDialog.show();
+        return;
+    }
+    window.createInstructorFormDialog = new window.DojoDialog({title:"Register New Account!"});
     createInstructorFormDialog.show();
     sendGetRequestForHTML("/instructors/creationForm", {}, function(response){
         createInstructorFormDialog.set("content",response);
