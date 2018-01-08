@@ -48,33 +48,4 @@ class CodeChecker
             return "Compile Failure!\nTrace:\n\n" + @compile_result[STDERR]
         end
     end
-    
-    def self.saveProgramOutput(language, filename)
-        @output = runProgram(language, filename)
-        if (@output == false)
-            return false
-        end
-        # Get correct Filename
-        if (language == "Python")
-            @logFileName = filename.chomp(".py") + "_output.txt"
-        elsif (language == "Ruby")
-            @logFileName = filename.chomp(".rb") + "_output.txt"        
-        elsif (language == "Java")
-            @logFileName = filename.chomp(".java") + "_output.txt"
-        elsif (language == "C++")
-            @logFileName = filename.chomp(".cpp") + "_output.txt"
-        elsif (language == "C")
-            @logFileName = filename.chomp(".c") + "_output.txt"
-        end
-        #Write to File
-        File.open(@logFileName, "w") do |logFile|
-            if (logFile.write(@output) != @output.length)
-                runCommand("rm " + @logFileName)
-                return false
-            end
-        end
-        return true
-    end
 end
-
-puts CodeChecker.saveProgramOutput(ARGV[0], ARGV[1])
