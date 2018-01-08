@@ -42,7 +42,7 @@ div.transbox p {
     margin: 1%;
     text-align: center;
     font-weight: bold;
-    color: #black;
+    color: black;
 }
 
 input {
@@ -108,6 +108,9 @@ input:focus {
   color: LightSteelBlue
 }
 </style>
+<script>
+    window.setup = dashBoardSetup;
+</script>
 <header>
   <font size="20"><span style="display:inline-block; width: 30px;"></span>
     PasteHuffer</font>
@@ -115,108 +118,7 @@ input:focus {
  <div class="transbox">
     <p>Welcome Instructor.</p>
   </div>
-  <script>
-    function addCourseToCenterContainer(c)
-    {
-        // You can also POST data as necessary, see Dojo/Request docs to see how
-        console.log("Grabbing Assignments for a course");
-        request("/assignments/",{
-                "query":{"id":c.id},
-                handleAs:"json"
-        }).then(
-            function(courseAssignMentDict){
-            // Recieve Course from service since this is asynchronusly run so the loop iterator may not be usable at the time this runs
-            // Parse the response
-            var innerContent = "<table>";
-                    
-            // If given an empty list, still add the course as a title pane
-            console.log("Appending child");
-            if(courseAssignMentDict.assignments.length == 0)
-            {
-                window.centerContainer.addChild(new window.ContentPane({title:courseAssignMentDict.course.name, content:""}));
-            }
-            else
-            {
-                // For each assignment build its table row
-                for(var a in assignments)
-                {
-                     innerContent+= "<tr><td>"+ a.name+"</td></tr>";
-                }
-                innerContent +="</table>";
-                window.centerContainer.addChild(new window.ContentPane({title:window.courses[i].name,content:innerContent}));
-            }
-        }, function(err){console.log(err)});
-    }
-
-    /*
-    * The setup() will be called by dojo right after it is finished loading all libraries.
-    */
-    function setup()
-    {
-        window.centerContainer = new window.TabContainer({style:"height:100%;"});
-       
-        // Set up create new course form first
-        request.get('/courses/creationForm').then(
-            function(response)
-            {
-                window.centerContainer.addChild(new window.ContentPane({title:"Create a New Course", content:response}));
-            },
-        function(err){console.log(err);});
-
-
-        console.log("Grabbing Courses");
-        // Send a request to the courses resource with the IUID in the query
-        // Then pass in a call back for a succesful response and one for an error
-        request("/courses/",{
-            handleAs:"json"
-        }).then(
-        function(courses){
-            // Parse the response given by the request
-            window.courses = courses;
-            
-            // Iterate through each course object in the response
-            for (var i=0;i<courses.length; i++)
-            {
-                // For each course, use its CUID to find all of the assignments
-                addCourseToCenterContainer(courses[i]);
-            }
-            // After sending out requests for each course, place and start up the accordion container
-            window.centerContainer.placeAt("centerContainer");
-            window.centerContainer.startup();
-        },
-        function(err){console.log(err)});
-    }
-
-    function createCourseFromForm()
-    {
-        //Construct the course name
-        var courseName = ((window.dom.byId("courseSemesterForm").value!="") ? (window.dom.byId("courseSemesterForm").value+": "): "")+
-                         window.dom.byId("courseNameForm").value + 
-                         ((window.dom.byId("courseSectionForm").value != "") ? ("-"+window.dom.byId("courseSectionForm").value) : "");
-        if(courseName == "")
-        {
-            alert("Course must have a name!");
-            return;
-        }
-        //Send request to create the course
-        request.post("/courses/create",{
-          data:{"name":courseName},
-          headers:{'X-CSRF-Token':document.querySelector('meta[name="csrf-token"]').content},
-          handleAs:"json"
-      }).then(
-          function(response)
-          {
-                if(response.success)
-                {
-                    addCourseToCenterContainer(response.course);
-                }
-                else
-                {
-                    alert(response.reason);
-                }
-          },function(err){console.log(err);});
-    }
-</script>
+  
 <div align="center" style="height:100%;">
     <div id="centerContainer" name="centerContainer"></div>
 </div>

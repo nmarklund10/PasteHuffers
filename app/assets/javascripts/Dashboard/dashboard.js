@@ -1,5 +1,5 @@
 // Adds a course the the tab container
-function addCourseToCenterContainer(c)
+function addCourseToCenterContainer(c, indexForLoadup=-1)
 {
     // You can also POST data as necessary, see Dojo/Request docs to see how
     console.log("Grabbing Assignments for a course");
@@ -25,21 +25,29 @@ function addCourseToCenterContainer(c)
             innerContent +="</table>";
             window.centerContainer.addChild(new window.ContentPane({title:window.courses[i].name,content:innerContent}));
         }
+        if(indexForLoadup != -1)
+        {
+            console.log("Finished course - "+ indexForLoadup+ "out of "+window.coursesCompleted.length);
+            window.coursesCompleted[indexForLoadup] = true;
+            placeTabContainer();
+        }
     });    
 }
 
 /*
-* The setup() will be called by dojo right after it is finished loading all libraries.
+* The dashBoardSetup() will be called by dojo right after it is finished loading all libraries.
 */
-function setup()
+function dashBoardSetup()
 {
     window.centerContainer = new window.TabContainer({style:"height:100%;"});
-    
+    window.newCourseFormAdded = false;
+    window.startedCourses = false;
     // Set up create new course form first
     sendGetRequestForHTML('/courses/creationForm',{},
         function(response)
         {
             window.centerContainer.addChild(new window.ContentPane({title:"Create a New Course", content:response}));
+            window.newCourseFormAdded = true;
         });
 
     console.log("Grabbing Courses");
@@ -49,16 +57,26 @@ function setup()
         function(courses){
             window.courses = courses;
             
+            window.coursesCompleted = [];
             // Iterate through each course object in the response
             for (var i=0;i<courses.length; i++)
             {
+                window.coursesCompleted.push(false);
                 // For each course, use its CUID to find all of the assignments
-                addCourseToCenterContainer(courses[i]);
+                addCourseToCenterContainer(courses[i],i);
             }
-            // After sending out requests for each course, place and start up the accordion container
-            window.centerContainer.placeAt("centerContainer");
-            window.centerContainer.startup();
+            
         });
+}
+
+function placeTabContainer()
+{
+    // After sending out requests for each course, place and start up the accordion container 
+    if(window.newCourseFormAdded && window.coursesCompleted.every(function(t){return t;}))
+    {
+        window.centerContainer.placeAt("centerContainer");
+        window.centerContainer.startup();
+    }
 }
 
 function createCourseFromForm()
