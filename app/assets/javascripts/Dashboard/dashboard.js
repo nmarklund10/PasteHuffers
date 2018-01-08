@@ -6,25 +6,13 @@ function addCourseToCenterContainer(c, indexForLoadup=-1)
     sendGetRequestForJSON("/assignments/", {"id":c.id},
         function(courseAssignMentDict){
         // Recieve Course from service since this is asynchronusly run so the loop iterator may not be usable at the time this runs
-        // Parse the response
-        var innerContent = "<table>";
-                
-        // If given an empty list, still add the course as a title pane
-        console.log("Appending child");
-        if(courseAssignMentDict.assignments.length == 0)
-        {
-            window.centerContainer.addChild(new window.ContentPane({title:courseAssignMentDict.course.name, content:""}));
-        }
-        else
-        {
-            // For each assignment build its table row
-            for(var a in assignments)
-            {
-                    innerContent+= "<tr><td>"+ a.name+"</td></tr>";
-            }
-            innerContent +="</table>";
-            window.centerContainer.addChild(new window.ContentPane({title:window.courses[i].name,content:innerContent}));
-        }
+        var innerDivId = "assignmentGridParentNodeFor_"+courseAssignMentDict.course.id;
+        var innerContent ='<button data-dojo-type="dijit/form/Button" id="newAssignmentFor'+courseAssignMentDict.course.id+'" onclick="createNewAssignmentDialog();">Create new assignment</button><br />'+
+                            '<div id="'+innerDivId+'" ></div>';
+        console.log(innerContent);
+        window.centerContainer.addChild(new window.ContentPane({title:courseAssignMentDict.course.name,content:innerContent}));
+        generateAssignmentsContainer(courseAssignMentDict.assignments, courseAssignMentDict.course.id, window.dom.byId(innerDivId));
+
         if(indexForLoadup != -1)
         {
             console.log("Finished course - "+ indexForLoadup+ "out of "+window.coursesCompleted.length);
