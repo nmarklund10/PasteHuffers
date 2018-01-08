@@ -26,6 +26,7 @@ function generateAssignmentsContainer(assignments,cuid, attchingDiv)
     grid.startup();
     
 }
+
 function createNewAssignmentDialog()
 {
     if(window.selectedCourse == null)
@@ -33,9 +34,43 @@ function createNewAssignmentDialog()
         console.log("Selected Course is null");
         return;
     }
-    var createInstructorFormDialog = new window.DojoDialog({title:"Create New Assignment"});
+    if(typeof window.createInstructorFormDialog !== 'undefined')
+    {
+        createInstructorFormDialog.show();
+        window.dom.byId("newAssignmentName").value = "";
+    }
+    window.createInstructorFormDialog = new window.DojoDialog({title:"Create New Assignment"});
     createInstructorFormDialog.show();
     sendGetRequestForHTML("/assignments/creationForm", {}, function(response){
         createInstructorFormDialog.set("content",response);
       });
+}
+
+function createNewAssignment()
+{
+    if(window.selectedCourse == null)
+    {
+        console.log("Selected course is null!");
+        return;
+    }
+    var assignmentName = window.dom.byId("newAssignmentName").value;
+    var assignmentLanguage = dijit.byId("newAssignmentLanguage").attr("value");
+    if(assignmentName == "" || assignmentLanguage)
+    {
+        alert("Please supply a name and a language!");
+    }
+    sendPostRequest('/assignments/create',{"name": assignmentName, "language": assignmentLanguage, "CUID": window.selectedCourse.id},
+        function(response)
+        {
+            // Will return a copy of the new assignment object
+            if(response.success)
+            {
+                window.assignmentStores[window.selectedCourse.id].put(response.assignment);
+                window.createInstructorFormDialog.destroy();
+            }
+            else
+            {
+                alert(response.reason);
+            }
+        });
 }

@@ -8,7 +8,7 @@
                 <input type="text" id="newAssignmentName" name="newAssignmentName" required="true" data-dojo-type="dijit/form/TextBox"/>
             </td>
         </tr>
-        <tr>
+        <!--<tr>
             <td>
                 <label for="newAssignmentDueDate">Due Date:</label>
             </td>
@@ -23,7 +23,7 @@
             <td>
                 <input type="text" name="newAssignmentDueTime" id="newAssignmentDueTime" data-dojo-type="dijit/form/TimeTextBox" required="true" />
             </td>
-        </tr>
+        </tr>-->
         <tr>
             <td>
                 <label for="skeleton">Skeleton Code:</label>
@@ -37,7 +37,7 @@
                 <label for="skeleton">Language:</label>
             </td>
             <td>
-	            <select name="select" data-dojo-type="dijit/form/Select" required="true">
+	            <select name="select" data-dojo-type="dijit/form/Select" required="true" id="newAssignmentLanguage">
 	            	<option disabled selected value> -- select an option -- </option>
 				    <option value="Ruby">Ruby</option>
 				    <option value="Python">Python</option>
@@ -50,5 +50,5 @@
         </tr>
     </table>
 
-    <button data-dojo-type="dijit/form/Button" type="submit" name="submitButton" value="Submit">Create Assignment</button>
+    <button data-dojo-type="dijit/form/Button" name="createNewAssingmentButton" onclick="createNewAssignment();">Create Assignment</button>
 </div>

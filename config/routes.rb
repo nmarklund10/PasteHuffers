@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   post 'courses/create' => 'c_dash#createNewCourse'
 
   get 'assignments/creationForm' => 'assignments#createAssignmentForm'
+  post 'assignments/create' => 'assignments#createNewAssignment'
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
