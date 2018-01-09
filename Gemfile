@@ -53,7 +53,6 @@ group :development, :test do
   gem 'byebug'
 
   gem 'rspec-rails'
-  gem'database-cleaner'
   gem 'guard-rspec'
 
   # Use sqlite3 as the database for Active Record
