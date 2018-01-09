@@ -134,8 +134,11 @@ input:focus {
   </div>
     <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'" style="background-color: white;">
        <div data-dojo-type="dijit/Editor" id="editor3"
-      data-dojo-props="plugins:['bold','italic','|','createLink'],
-      onChange:function(){console.log('editor3 onChange handler: ' + arguments[0])}">Sample Code
+      data-dojo-props="plugins:['bold','italic','|','createLink']"><div id="holder"></div>
+         <script>
+            var skelCode = "Drip drop";
+            document.getElementById("holder").innerHTML = skelCode; 
+         </script>
     </div>
     </div>
     <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'trailing'" style="width: 25%;">Output my dudes</div>
