@@ -1,16 +1,16 @@
 <html>
 <head>
 <script type="text/javascript">
-var input = "";
+var logText = "";
 function getKey(event) {
     var x = String.fromCharCode(event.keyCode);
     var time = new Date();
     var localTime = time.toString()
-    input = input + time.toString() + "\n" + x + "\n";
-    console.log(input)
+    logText = logText + time.toString() + "\n" + x + "\n";
+    console.log(logText)
 }
 
-function logPaste(event) {
+function logTextPaste(event) {
     var pastedText = '';
     if (typeof event.clipboardData === 'undefined')
       pastedText = window.clipboardData.getData('Text')
@@ -18,8 +18,8 @@ function logPaste(event) {
       pastedText = event.clipboardData.getData('text/plain')
     var time = new Date();
     var localTime = time.toString()
-    input = input + localTime.toString() + "\n" + pastedText + "\n";
-    console.log(input)
+    logText = logText + localTime.toString() + "\n" + pastedText + "\n";
+    console.log(logText)
 }
 
 </script>
@@ -27,7 +27,7 @@ function logPaste(event) {
 
 <body>
 
-<input type="text" id="TEXTBOX_ID" onkeypress="getKey(event)" onpaste="logPaste(event)">
+<input type="text" id="TEXTBOX_ID" onkeypress="getKey(event)" onpaste="logTextPaste(event)">
 
 </body>
 </html>

@@ -1,4 +1,4 @@
-// Takes in a list of assignments and will then generate the accordion container that holds the assignments
+// Takes in a list of assignments and will then generate the dgrid that holds the assignments
 function generateAssignmentsContainer(assignments,cuid)
 {
     if(typeof window.tabs[cuid].grid === 'undefined')
@@ -29,16 +29,16 @@ function createNewAssignmentDialog()
         console.log("Selected Course is null");
         return;
     }
-    if(typeof window.createInstructorFormDialog !== 'undefined')
+    if(typeof window.createAssignmentFormDialog !== 'undefined')
     {
-        createInstructorFormDialog.show();
+        window.createAssignmentFormDialog.show();
         window.dom.byId("newAssignmentName").value = "";
         return;
     }
-    window.createInstructorFormDialog = new window.DojoDialog({title:"Create New Assignment"});
-    createInstructorFormDialog.show();
+    window.createAssignmentFormDialog = new window.DojoDialog({title:"Create New Assignment"});
+    createAssignmentFormDialog.show();
     sendGetRequestForHTML("/assignments/creationForm", {}, function(response){
-        createInstructorFormDialog.set("content",response);
+        createAssignmentFormDialog.set("content",response);
       });
 }
 
