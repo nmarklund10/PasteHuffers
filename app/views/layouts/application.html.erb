@@ -7,12 +7,16 @@
   
   <title>PasteHuffer</title>
  <!--<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dijit/themes/claro/claro.css" />-->
-  <!--<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"
-            data-dojo-config="parseOnLoad: true, async: false"></script>-->
+  <script src="https://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"
+            data-dojo-config="parseOnLoad: true, async: false,
+                              packages: [{
+                                          name: 'dgrid',
+                                          location: '//cdn.rawgit.com/SitePen/dgrid/v1.1.0'}]"></script>
+                                          
             <%= stylesheet_link_tag "themes/claro/claro" %>
             <%= stylesheet_link_tag "css/dgrid" %>
             <!--<%= javascript_include_tag '/assests/dojo/dojo', {"parseOnLoad" => true, "async" => false} %> -->
-            <%= javascript_include_tag "dojo/dojo", :'data-dojo-config' => %Q(async: false,parseOnLoad:true, baseUrl: '/assets/dojo/', modulePaths: {modules: '/assets/modules', widgets: '/assets/widgets'})%>
+            <!--<%= javascript_include_tag "dojo/dojo", :'data-dojo-config' => %Q(async: false,parseOnLoad:true, baseUrl: '/assets/dojo/', modulePaths: {modules: '/assets/modules', widgets: '/assets/widgets'})%>-->
   <script>
     require(['dojo/dom',
             'dojo/parser', 
@@ -47,7 +51,6 @@
               window.parser = parser;
               window.TabContainer = TabContainer;
               window.ContentPane = ContentPane;
-              window.request = request;
               window.DojoDialog = dialog;
               window.Editor = Editor;
               window.ContentPane = ContentPane;
