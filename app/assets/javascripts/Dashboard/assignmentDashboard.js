@@ -1,4 +1,4 @@
-// Takes in a list of assignments and will then generate the accordion container that holds the assignments
+// Assignment Specific Code for the Instructor dashboard
 function generateAssignmentsContainer(assignments,cuid)
 {
     if(typeof window.tabs[cuid].grid === 'undefined')
