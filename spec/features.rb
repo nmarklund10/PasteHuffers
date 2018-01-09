@@ -23,7 +23,8 @@ describe "the signin process", :type => :feature, js:true do
 		find('input[type="text"]').set('SomeGuy')
 		find('input[type=password]').set('1234')
 		screenshot_and_save_page
-		click_button 'loginButton'
+		find_button("loginButton").trigger('click')
+		
 		screenshot_and_save_page
 		expect(page).to have_content 'Welcome Instructor.'
 	end

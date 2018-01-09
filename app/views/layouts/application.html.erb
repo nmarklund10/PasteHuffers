@@ -7,8 +7,8 @@
   
   <title>PasteHuffer</title>
  <!--<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dijit/themes/claro/claro.css" />-->
-  <script src="https://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"
-            data-dojo-config="parseOnLoad: true, async: false,
+  <script src="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js"
+            data-dojo-config="parseOnLoad: true, async: true,
                               packages: [{
                                           name: 'dgrid',
                                           location: '//cdn.rawgit.com/SitePen/dgrid/v1.1.0'}]"></script>
@@ -16,8 +16,11 @@
             <%= stylesheet_link_tag "css/dgrid" %>
   <script>
     require(['dojo/dom',
+<<<<<<< HEAD
             'dojo/parser', 
             "dijit/layout/AccordionContainer",
+=======
+>>>>>>> 0dc2b4cea258f80324ba9410e3d153e99c36a228
             "dijit/layout/ContentPane",
             "dojo/request",
             "dijit/Dialog",
@@ -27,11 +30,9 @@
             "dijit/_editor/plugins/LinkDialog",
             "dijit/layout/ContentPane",
             "dijit/layout/BorderContainer",
-            'dijit/form/TextBox',
-            'dijit/form/Button',
-            'dojox/form/Uploader', 
-            'dijit/form/Select',
-            'dojo/domReady!'
+            'dojo/on',
+            'dojo/ready',
+            'dojo/parser', 'dijit/form/TextBox','dijit/form/Button','dojox/form/Uploader', 'dijit/form/Select','dojo/domReady!'
         ], function ( dom, 
                       parser,
                       AccordionContainer,
@@ -43,11 +44,13 @@
                       Editor,
                       LinkDialog,
                       ContentPane,
-                      BorderContainer) 
-            {
+                      BorderContainer,
+                      on,
+                      ready
+                      ) 
+            { ready(function(){
               window.dom = dom;
               window.request = request;
-              window.parser = parser;
               window.TabContainer = TabContainer;
               window.ContentPane = ContentPane;
               window.DojoDialog = dialog;
@@ -60,6 +63,7 @@
               {
                 window.setup();
               }
+            });
             });
   </script>
 </head>
