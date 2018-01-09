@@ -1,15 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  student_id: MyString
-  assignment_id: 
-  date_submitted: 2018-01-04 09:30:45
-  on_time: false
-  paste_detected: false
+# one:
+#   student_id: MyString
+#   assignment_id:
+#   date_submitted: 2018-01-04 09:30:45
+#   on_time: false
+#   paste_detected: false
 
-two:
-  student_id: MyString
-  assignment_id: 
-  date_submitted: 2018-01-04 09:30:45
-  on_time: false
-  paste_detected: false
+# two:
+#   student_id: MyString
+#   assignment_id:
+#   date_submitted: 2018-01-04 09:30:45
+#   on_time: false
+#   paste_detected: false
