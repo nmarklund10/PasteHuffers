@@ -29,8 +29,8 @@ Rails.application.configure do
   #config.assets.js_compressor = Closure::Compiler.new(compilation_level: 'ADVANCED_OPTIMIZATIONS')#Uglifier.new(harmony: true)
   #config.assets.css_compressor = :sass
 
-  # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
+  # Do not-not fallback to assets pipeline if a precompiled asset is missed.
+  config.assets.compile = true
 
   # Asset digests allow you to set far-future HTTP expiration dates on all assets,
   # yet still be able to expire them through the digest params.
