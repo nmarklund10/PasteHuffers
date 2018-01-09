@@ -7,15 +7,15 @@
   
   <title>PasteHuffer</title>
  <!--<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dijit/themes/claro/claro.css" />-->
-  <!--<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"
-            data-dojo-config="parseOnLoad: true, async: false"></script>-->
+  <script src="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js"
+            data-dojo-config="parseOnLoad: true, async: true,
+                              packages: [{
+                                          name: 'dgrid',
+                                          location: '//cdn.rawgit.com/SitePen/dgrid/v1.1.0'}]"></script>
             <%= stylesheet_link_tag "themes/claro/claro" %>
             <%= stylesheet_link_tag "css/dgrid" %>
-            <!--<%= javascript_include_tag '/assests/dojo/dojo', {"parseOnLoad" => true, "async" => false} %> -->
-            <%= javascript_include_tag "dojo/dojo", :'data-dojo-config' => %Q(async: false,parseOnLoad:true, baseUrl: '/assets/dojo/', modulePaths: {modules: '/assets/modules', widgets: '/assets/widgets'})%>
   <script>
     require(['dojo/dom',
-            'dojo/parser', 
             "dijit/layout/ContentPane",
             "dojo/request",
             "dijit/Dialog",
@@ -25,13 +25,10 @@
             "dijit/_editor/plugins/LinkDialog",
             "dijit/layout/ContentPane",
             "dijit/layout/BorderContainer",
-            'dijit/form/TextBox',
-            'dijit/form/Button',
-            'dojox/form/Uploader', 
-            'dijit/form/Select',
-            'dojo/domReady!'
+            'dojo/on',
+            'dojo/ready',
+            'dojo/parser', 'dijit/form/TextBox','dijit/form/Button','dojox/form/Uploader', 'dijit/form/Select','dojo/domReady!'
         ], function ( dom, 
-                      parser,
                       ContentPane,
                       request,
                       dialog,
@@ -40,23 +37,26 @@
                       Editor,
                       LinkDialog,
                       ContentPane,
-                      BorderContainer) 
-            {
+                      BorderContainer,
+                      on,
+                      ready
+                      ) 
+            { ready(function(){
               window.dom = dom;
               window.request = request;
-              window.parser = parser;
               window.TabContainer = TabContainer;
               window.ContentPane = ContentPane;
-              window.request = request;
               window.DojoDialog = dialog;
               window.Editor = Editor;
               window.ContentPane = ContentPane;
               window.BorderContainer = BorderContainer;
               window.Grid = Grid;
+              window.on = on;
               if( typeof window.setup !== "undefined")
               {
                 window.setup();
               }
+            });
             });
   </script>
 </head>
