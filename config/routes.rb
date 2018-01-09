@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get 'assignments/' => 'assignments#getAssignments'
   get 'dash/' => 'i_dash#index'
   get 's_login/' => 's_login#index'
+  get 'submissions/'=> 'submissions#getSubmissions'
   
   # Student Login Routes
   get 'codeEdit/' => 'ce#index'
@@ -40,7 +41,7 @@ Rails.application.routes.draw do
   get 'assignments/creationForm' => 'assignments#createAssignmentForm'
   post 'assignments/create' => 'assignments#createNewAssignment'
   
-  get 'assignments/viewAssignment' => 'a_dash#viewAssignment'
+  get 'submissions/viewSubmissions' => 'submissions#viewSubmissions'
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
