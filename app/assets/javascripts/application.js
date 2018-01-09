@@ -13,4 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree  .
+//= require_tree ./Login
+//= require_tree ./Dashboard
+//= require_directory .

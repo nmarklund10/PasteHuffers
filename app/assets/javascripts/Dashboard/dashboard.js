@@ -5,32 +5,23 @@ function addCourseToCenterContainer(c, indexForLoadup=-1)
     console.log("Grabbing Assignments for a course");
     sendGetRequestForJSON("/assignments/", {"id":c.id},
         function(courseAssignMentDict){
-        // Recieve Course from service since this is asynchronusly run so the loop iterator may not be usable at the time this runs
-        // Parse the response
-        var innerContent = "<table>";
-                
-        // If given an empty list, still add the course as a title pane
-        console.log("Appending child");
-        if(courseAssignMentDict.assignments.length == 0)
-        {
-            window.centerContainer.addChild(new window.ContentPane({title:courseAssignMentDict.course.name, content:""}));
-        }
-        else
-        {
-            // For each assignment build its table row
-            for(var a in assignments)
+        
+            // Recieve Course from service since this is asynchronusly run so the loop iterator may not be usable at the time this runs
+            var innerDivId = "grid-"+courseAssignMentDict.course.id;
+            var innerContent ='<button data-dojo-type="dijit/form/Button" id="newAssignButton'+courseAssignMentDict.course.id+'" onclick="createNewAssignmentDialog();">Create new assignment</button><div id="'+innerDivId+'" ></div>';
+            var contentPaneForTab = new window.ContentPane({title:courseAssignMentDict.course.name,
+                                                            content:innerContent, 
+                                                            id:"tab-"+courseAssignMentDict.course.id,
+                                                            style:"width:auto; height:auto;"})
+            window.centerContainer.addChild(contentPaneForTab);
+            window.tabs[courseAssignMentDict.course.id].contentPane = contentPaneForTab;
+            window.tabs[courseAssignMentDict.course.id].assignments = courseAssignMentDict.assignments;
+            if(indexForLoadup != -1)
             {
-                    innerContent+= "<tr><td>"+ a.name+"</td></tr>";
+                console.log("Finished course - "+ indexForLoadup+ "out of "+window.coursesCompleted.length);
+                window.coursesCompleted[indexForLoadup] = true;
+                placeTabContainer();
             }
-            innerContent +="</table>";
-            window.centerContainer.addChild(new window.ContentPane({title:window.courses[i].name,content:innerContent}));
-        }
-        if(indexForLoadup != -1)
-        {
-            console.log("Finished course - "+ indexForLoadup+ "out of "+window.coursesCompleted.length);
-            window.coursesCompleted[indexForLoadup] = true;
-            placeTabContainer();
-        }
     });    
 }
 
@@ -39,7 +30,8 @@ function addCourseToCenterContainer(c, indexForLoadup=-1)
 */
 function dashBoardSetup()
 {
-    window.centerContainer = new window.TabContainer({style:"height:100%;"});
+    console.log("STARTED SETUP");
+    window.centerContainer = new window.TabContainer({style:"height:100%;", doLayout:false});
     window.newCourseFormAdded = false;
     window.startedCourses = false;
     // Set up create new course form first
@@ -56,7 +48,11 @@ function dashBoardSetup()
     sendGetRequestForJSON("/courses/",{},
         function(courses){
             window.courses = courses;
-            
+            window.tabs = {};
+            for(var i in courses)
+            {
+                window.tabs[courses[i].id] = {course: courses[i]};
+            }
             window.coursesCompleted = [];
             // Iterate through each course object in the response
             for (var i=0;i<courses.length; i++)
@@ -76,6 +72,25 @@ function placeTabContainer()
     {
         window.centerContainer.placeAt("centerContainer");
         window.centerContainer.startup();
+        window.centerContainer.resize();
+        window.selectedCourse = null;
+        // Add in out selection listeners
+        centerContainer.watch("selectedChildWidget", function(name, oval, nval){
+            for (var i in window.courses)
+            {
+                
+                if (window.courses[i].name == nval.title)
+                {
+                    window.selectedCourse = window.courses[i];
+                    window.selectedTab = window.tabs[window.courses[i].id];
+                    generateAssignmentsContainer(window.selectedTab.assignments,window.courses[i].id);
+                    return;
+                }
+            }
+            window.selectedCourse = null;
+            window.selectedTab = null;
+            window.centerContainer.resize();
+        });
     }
 }
 
@@ -96,11 +111,27 @@ function createCourseFromForm()
         {
             if(response.success)
             {
+                window.tabs[response.course.id] = {course: response.course};
+                window.courses.push(response.course)
                 addCourseToCenterContainer(response.course);
+                cleanClassForm();
+                //switchToTabByCUID(response.course.id);
             }
             else
             {
                 alert(response.reason);
             }
         });
+}
+
+function cleanClassForm()
+{
+    window.dom.byId("courseSemesterForm").value ="";
+    window.dom.byId("courseNameForm").value = "";
+    window.dom.byId("courseSectionForm").value = "";
+}
+
+function switchToTabByCUID(cuid)
+{
+    window.centerContainer.selectChild(window.tabs[cuid].contentPane);
 }

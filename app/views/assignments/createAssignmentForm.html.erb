@@ -2,28 +2,28 @@
     <table style="border: 1px solid #9f9f9f;" cellspacing="10">
         <tr>
             <td>
-                <label for="semester">Assignment Name:</label>
+                <label for="newAssignmentName">Assignment Name:</label>
             </td>
             <td>
-                <input type="text" id="semester" name="semester" required="true" data-dojo-type="dijit/form/TextBox"/>
+                <input type="text" id="newAssignmentName" name="newAssignmentName" required="true" data-dojo-type="dijit/form/TextBox"/>
+            </td>
+        </tr>
+        <!--<tr>
+            <td>
+                <label for="newAssignmentDueDate">Due Date:</label>
+            </td>
+            <td>
+                <input type="text" name="newAssignmentDueDate" id="newAssignmentDueDate" data-dojo-type="dijit/form/DateTextBox" required="true" />
             </td>
         </tr>
         <tr>
             <td>
-                <label for="due_date">Due Date:</label>
+                <label for="newAssignmentDueTime">Due Time:</label>
             </td>
             <td>
-                <input type="text" name="due_date" id="due_date" data-dojo-type="dijit/form/DateTextBox" required="true" />
+                <input type="text" name="newAssignmentDueTime" id="newAssignmentDueTime" data-dojo-type="dijit/form/TimeTextBox" required="true" />
             </td>
-        </tr>
-        <tr>
-            <td>
-                <label for="due_time">Due Time:</label>
-            </td>
-            <td>
-                <input type="text" name="due_time" id="due_time" data-dojo-type="dijit/form/TimeTextBox" required="true" />
-            </td>
-        </tr>
+        </tr>-->
         <tr>
             <td>
                 <label for="skeleton">Skeleton Code:</label>
@@ -37,7 +37,7 @@
                 <label for="skeleton">Language:</label>
             </td>
             <td>
-	            <select name="select" data-dojo-type="dijit/form/Select" required="true">
+	            <select name="select" data-dojo-type="dijit/form/Select" required="true" id="newAssignmentLanguage">
 	            	<option disabled selected value> -- select an option -- </option>
 				    <option value="Ruby">Ruby</option>
 				    <option value="Python">Python</option>
@@ -50,5 +50,5 @@
         </tr>
     </table>
 
-    <button data-dojo-type="dijit/form/Button" type="submit" name="submitButton" value="Submit">Create Assignment</button>
+    <button data-dojo-type="dijit/form/Button" name="createNewAssingmentButton" onclick="createNewAssignment();">Create Assignment</button>
 </div>

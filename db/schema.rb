@@ -11,15 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180104032949) do
+ActiveRecord::Schema.define(version: 20180108093449) do
 
   create_table "assignments", force: :cascade do |t|
     t.string   "name"
-    t.datetime "date_due"
-    t.datetime "date_assigned"
     t.integer  "course_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string   "language"
   end
 
