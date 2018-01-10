@@ -170,7 +170,8 @@ function generateAssignmentsContainer(assignments,cuid)
 }
 function openAssignmentDashboard(event)
 {
-    console.log(event);
+    console.log(window.selectedTab.grid.row(event));
+  //  sendPostRequest("a_dash/selectAssignment",){AUID:event.row}
 }
 function createNewAssignmentDialog()
 {
@@ -181,14 +182,14 @@ function createNewAssignmentDialog()
     }
     if(typeof window.createInstructorFormDialog !== 'undefined')
     {
-        createInstructorFormDialog.show();
+        createAssignmentFormDialog.show();
         window.dom.byId("newAssignmentName").value = "";
         return;
     }
-    window.createInstructorFormDialog = new window.DojoDialog({title:"Create New Assignment"});
-    createInstructorFormDialog.show();
+    window.createAssignmentFormDialog = new window.DojoDialog({title:"Create New Assignment"});
+    createAssignmentFormDialog.show();
     sendGetRequestForHTML("/assignments/creationForm", {}, function(response){
-        createInstructorFormDialog.set("content",response);
+        createAssignmentFormDialog.set("content",response);
       });
 }
 
@@ -214,7 +215,7 @@ function createNewAssignment()
             {
                 window.selectedTab.assignments.push(response.assignment);
                 generateAssignmentsContainer(window.selectedTab.assignments,window.selectedTab.course.id);
-                window.createInstructorFormDialog.destroy();
+                window.createAssignmentFormDialog.hide();
             }
             else
             {
