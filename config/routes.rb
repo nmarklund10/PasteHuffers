@@ -41,8 +41,8 @@ Rails.application.routes.draw do
   get 'assignments/creationForm' => 'assignments#createAssignmentForm'
   post 'assignments/create' => 'assignments#createNewAssignment'
   
-  get 'submissions/viewSubmissions' => 'submissions#viewSubmissions'
-
+  get 'submissions/' => 'submissions#getSubmissions'
+  get 'a_dash/' => 'a_dash#index'
   get 'codeEdit/skelCode' => 'ce#getSkeletonCode'
   
   # Example of named route that can be invoked with purchase_url(id: product.id)

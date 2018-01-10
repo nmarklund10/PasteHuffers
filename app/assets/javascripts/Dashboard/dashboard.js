@@ -1,34 +1,6 @@
 /* ********************************************************
 *  Setup Code                                             *
 ***********************************************************/
-
-// Adds a course the the tab container
-function addCourseToCenterContainer(c, indexForLoadup=-1)
-{
-    // You can also POST data as necessary, see Dojo/Request docs to see how
-    console.log("Grabbing Assignments for a course");
-    sendGetRequestForJSON("/assignments/", {"id":c.id},
-        function(courseAssignMentDict){
-        
-            // Recieve Course from service since this is asynchronusly run so the loop iterator may not be usable at the time this runs
-            var innerDivId = "grid-"+courseAssignMentDict.course.id;
-            var innerContent ='<button data-dojo-type="dijit/form/Button" id="newAssignButton'+courseAssignMentDict.course.id+'" onclick="createNewAssignmentDialog();">Create new assignment</button><div id="'+innerDivId+'" ></div>';
-            var contentPaneForTab = new window.ContentPane({title:courseAssignMentDict.course.name,
-                                                            content:innerContent, 
-                                                            id:"tab-"+courseAssignMentDict.course.id,
-                                                            style:"width:auto; height:auto;"})
-            window.centerContainer.addChild(contentPaneForTab);
-            window.tabs[courseAssignMentDict.course.id].contentPane = contentPaneForTab;
-            window.tabs[courseAssignMentDict.course.id].assignments = courseAssignMentDict.assignments;
-            if(indexForLoadup != -1)
-            {
-                console.log("Finished course - "+ indexForLoadup+ "out of "+window.coursesCompleted.length);
-                window.coursesCompleted[indexForLoadup] = true;
-                placeTabContainer();
-            }
-    });    
-}
-
 /*
 * The dashBoardSetup() will be called by dojo right after it is finished loading all libraries.
 */
@@ -68,7 +40,7 @@ function dashBoardSetup()
             
         });
 }
-
+// When called, checks to see if all tabs are loaded, if so it places the tab container
 function placeTabContainer()
 {
     // After sending out requests for each course, place and start up the accordion container 
@@ -96,6 +68,33 @@ function placeTabContainer()
             window.centerContainer.resize();
         });
     }
+}
+
+// Adds a course the the tab container
+function addCourseToCenterContainer(c, indexForLoadup=-1)
+{
+    // You can also POST data as necessary, see Dojo/Request docs to see how
+    console.log("Grabbing Assignments for a course");
+    sendGetRequestForJSON("/assignments/", {"id":c.id},
+        function(courseAssignMentDict){
+        
+            // Recieve Course from service since this is asynchronusly run so the loop iterator may not be usable at the time this runs
+            var innerDivId = "grid-"+courseAssignMentDict.course.id;
+            var innerContent ='<button data-dojo-type="dijit/form/Button" id="newAssignButton'+courseAssignMentDict.course.id+'" onclick="createNewAssignmentDialog();">Create new assignment</button><div id="'+innerDivId+'" ></div>';
+            var contentPaneForTab = new window.ContentPane({title:courseAssignMentDict.course.name,
+                                                            content:innerContent, 
+                                                            id:"tab-"+courseAssignMentDict.course.id,
+                                                            style:"width:auto; height:auto;"})
+            window.centerContainer.addChild(contentPaneForTab);
+            window.tabs[courseAssignMentDict.course.id].contentPane = contentPaneForTab;
+            window.tabs[courseAssignMentDict.course.id].assignments = courseAssignMentDict.assignments;
+            if(indexForLoadup != -1)
+            {
+                console.log("Finished course - "+ indexForLoadup+ "out of "+window.coursesCompleted.length);
+                window.coursesCompleted[indexForLoadup] = true;
+                placeTabContainer();
+            }
+    });    
 }
 
 function createCourseFromForm()
@@ -148,7 +147,6 @@ function generateAssignmentsContainer(assignments,cuid)
 {
     if(typeof window.tabs[cuid].grid === 'undefined')
     {
-        console.log("Creating Grid for "+cuid);
         var data = {
             identifier: "id",
             items : assignments
@@ -158,15 +156,22 @@ function generateAssignmentsContainer(assignments,cuid)
             { "label":"Name",     "field":"name", "width":"200px"},
             { "label":"Language", "field":"language", "width":"200px"}
         ];
-        var grid = new window.Grid({
-            columns:columns
+        var grid = new (window.declare([window.Grid, window.GridSelection]))({
+            columns:columns,
+            selectionMode: 'single',
+            
         },"grid-" + cuid );
+        grid.on(".dgrid-row:click",openAssignmentDashboard);
         window.tabs[cuid].grid = grid;
     }
     window.tabs[cuid].grid.refresh();
+    
     window.tabs[cuid].grid.renderArray(assignments);
 }
-
+function openAssignmentDashboard(event)
+{
+    console.log(event);
+}
 function createNewAssignmentDialog()
 {
     if(window.selectedCourse == null)
@@ -178,6 +183,7 @@ function createNewAssignmentDialog()
     {
         createInstructorFormDialog.show();
         window.dom.byId("newAssignmentName").value = "";
+        return;
     }
     window.createInstructorFormDialog = new window.DojoDialog({title:"Create New Assignment"});
     createInstructorFormDialog.show();
