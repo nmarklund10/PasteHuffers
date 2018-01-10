@@ -183,6 +183,7 @@ function createNewAssignmentDialog()
     {
         createInstructorFormDialog.show();
         window.dom.byId("newAssignmentName").value = "";
+        return;
     }
     window.createInstructorFormDialog = new window.DojoDialog({title:"Create New Assignment"});
     createInstructorFormDialog.show();
