@@ -1,2 +1,218 @@
+<style>
+html {
+  background: -webkit-gradient(linear, left top, right bottom, from(#fcdb55), to(#f74636));
+  font-size:110%;
+}
+html,input {
+  font-family:Helvetica, sans-serif, Arial;
+}
+
+header{
+    position: absolute;
+    z-index: -1;
+    top:0px;
+    left: 0px;
+    width:100%;
+    padding: 8px;
+    color: white;
+    background-color: #111;
+    clear: left;
+    text-align:10px;
+
+}
+footer{
+    position: fixed;
+    padding: 8px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    background-color: #111;
+    clear: left;
+    text-align:center ;
+}
+body {
+  margin:0;
+}
+
+div.titlebox {
+    border-radius: 0px 100px 100px 0px;
+    margin: 15px;
+    margin-top:45px;
+    margin-left: 0px;
+    width: 150px;
+    left: 0;
+    clear: left;
+    background: black;
+    border: 1px solid black;
+}
+
+div.titlebox p {
+    margin: 3%;
+    text-align: center;
+    color: white;
+}
+input {
+  line-height:2em;
+  font-size:1em;
+  border:0;
+  background:transparent;
+  color: white;
+  margin:0;
+  height:1.5em;
+  display:block;
+  width:270px;
+  padding:.5em .5em 1em;
+}
+
+input[type="password"] {
+  padding:1em .5em .5em;
+}
+
+.spacer {
+  height:0;
+  border-bottom:3px solid #53e3a6;
+  margin:0 0 0 5px;
+}
+
+input[type="submit"] {
+  background-color:#111;
+  color: white;
+  position:absolute;
+  bottom:35px;
+  right:-15px;
+  box-shadow:0 0 1px 4px #53e3a6;
+  border-radius:50px;
+  width:75px;
+  height:50px;
+  padding:0;
+  -webkit-transition: all .1s linear;
+  -o-transition: all .1s linear;
+  -moz-transition: all .1s linear;
+  -ms-transition: all .1s linear;
+  -kthtml-transition: all .1s linear;
+  transition: all .1s linear;
+}
+
+input[type="submit"]:hover {
+  cursor:pointer;
+  box-shadow:0 0 0.5px 8px #53e3a6;
+  color: LimeGreen;
+  -webkit-transition: all .1s linear;
+  -o-transition: all .1s linear;
+  -moz-transition: all .1s linear;
+  -ms-transition: all .1s linear;
+  -kthtml-transition: all .1s linear;
+  transition: all .1s linear;
+}
+
+::-webkit-input-placeholder {
+  color:#666;
+}
+
+input:focus {
+  outline:0;
+  color: LightSteelBlue
+}
+
+input {
+  line-height:2em;
+  font-size:1em;
+  border:0;
+  background:transparent;
+  color: white;
+  margin:0;
+  height:1.5em;
+  display:block;
+  width:270px;
+  padding:.5em .5em 1em;
+}
+
+input[type="password"] {
+  padding:1em .5em .5em;
+}
+
+.spacer {
+  height:0;
+  border-bottom:3px solid #53e3a6;
+  margin:0 0 0 5px;
+}
+
+input[type="submit"] {
+  background-color:#111;
+  color: white;
+  position:absolute;
+  bottom:35px;
+  right:-15px;
+  box-shadow:0 0 1px 4px #53e3a6;
+  border-radius:50px;
+  width:75px;
+  height:50px;
+  padding:0;
+  -webkit-transition: all .1s linear;
+  -o-transition: all .1s linear;
+  -moz-transition: all .1s linear;
+  -ms-transition: all .1s linear;
+  -kthtml-transition: all .1s linear;
+  transition: all .1s linear;
+}
+
+input[type="submit"]:hover {
+  cursor:pointer;
+  box-shadow:0 0 0.5px 8px #53e3a6;
+  color: LimeGreen;
+  -webkit-transition: all .1s linear;
+  -o-transition: all .1s linear;
+  -moz-transition: all .1s linear;
+  -ms-transition: all .1s linear;
+  -kthtml-transition: all .1s linear;
+  transition: all .1s linear;
+}
+
+::-webkit-input-placeholder {
+  color:#666;
+}
+
+input:focus {
+  outline:0;
+  color: LightSteelBlue
+}
+#backtoDash{
+  border-radius: 100px 50px 100px 50px;
+  background-color:darkgreen;
+  color: white;
+  font-size: 90%;
+  position: relative;
+  top:15px;
+  right:10px;
+  box-shadow:0 0 1px 1px white;
+  height: 40px;
+  width: 100px;
+  -webkit-transition: all .1s linear;
+  -o-transition: all .1s linear;
+  -moz-transition: all .1s linear;
+  -ms-transition: all .1s linear;
+  -kthtml-transition: all .1s linear;
+  transition: all .1s linear;
+}
+button:focus {outline:0;}
+</style>
+<script>
+    window.setup = dashBoardSetup;
+</script>
+<div align="right">
+    <button align = "center" id="backtoDash" onclick="window.location = '/dash/';">Dashboard</button>
+   </div>
+<header>
+  <font size="20"><span style="display:inline-block; width: 30px;"></span>PasteHuffer</font>
+</header> 
+   
+ <div class="titlebox">
+    <p>Submissions</p>
+  </div>
+  
 <script>window.setup = assignmentDashBoardSetup;</script>
 <div id="submissionGrid"></div>
+
+<footer>Texas A&amp;M University</footer>
+

@@ -12,8 +12,10 @@ Rails.application.routes.draw do
   #
   # Login Routes
   #
+  #root 'a_dash#index'
   root 'i_login#index'
   post 'ILogin/' => 'i_login#verifyCreds'
+  get 'logout/'  => 'i_login#destroy'
 
   #
   # Dash Board Routes
@@ -23,6 +25,7 @@ Rails.application.routes.draw do
   get 'dash/' => 'i_dash#index'
   get 's_login/' => 's_login#index'
   get 'submissions/'=> 'submissions#getSubmissions'
+  get 'i_login/' => 'i_login#index'
   
   # Student Login Routes
   get 'codeEdit/' => 'ce#index'
