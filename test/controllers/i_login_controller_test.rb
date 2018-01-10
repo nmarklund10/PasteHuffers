@@ -43,18 +43,18 @@ class ILoginControllerTest < ActionController::TestCase
   test "should login successfully" do
   	get :verifyCreds, {'username' => "SomeGuy", 'password' => "1234"}
   	response = JSON.parse(@response.body)
-  	assert_equal response['success'], true
+  	assert_equal true, response['success']
   end
 
-  test "should fail login" do
+  test "should fail login with incorrect username or password" do
   	get :verifyCreds, {'username' => "SomeGuy", 'password' => "123"}
   	response = JSON.parse(@response.body)
-  	assert_equal response['success'], false
-  	assert_equal response['reason'], "Incorrect Username or Password"
+  	assert_equal false, response['success'] , "should fail with correct username but wrong password"
+  	assert_equal "Incorrect Username or Password", response['reason']
   	get :verifyCreds, {'username' => "SomeGuys", 'password' => "1234"}
   	response = JSON.parse(@response.body)
-  	assert_equal response['success'], false
-  	assert_equal response['reason'], "Incorrect Username or Password"
+  	assert_equal false, response['success'], "should fail with wrong username"
+  	assert_equal "Incorrect Username or Password", response['reason']
   end
 
 
