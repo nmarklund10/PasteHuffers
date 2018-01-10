@@ -1,0 +1,51 @@
+<html>
+<head>
+    <title>SpecRunner</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js"
+            data-dojo-config="parseOnLoad: true, async: true,
+                              packages: [{
+                                          name: 'dgrid',
+                                          location: '//cdn.rawgit.com/SitePen/dgrid/v1.1.0'}]"></script>
+        
+  <script>
+    require(['dojo/dom',
+            "dijit/layout/ContentPane",
+            "dojo/request",
+            "dijit/Dialog",
+            "dijit/layout/TabContainer",
+            "dgrid/Grid",
+            "dijit/Editor", 
+            "dijit/_editor/plugins/LinkDialog",
+            "dijit/layout/ContentPane",
+            "dijit/layout/BorderContainer",
+            'dojo/on',
+            'dojo/ready',
+            'dojo/parser', 'dijit/form/TextBox','dijit/form/Button','dojox/form/Uploader', 'dijit/form/Select','dojo/domReady!'
+        ], function ( dom, 
+                      ContentPane,
+                      request,
+                      dialog,
+                      TabContainer,
+                      Grid,
+                      Editor,
+                      LinkDialog,
+                      ContentPane,
+                      BorderContainer,
+                      on,
+                      ready
+                      ) 
+            { ready(function(){
+              window.dom = dom;
+              window.request = request;
+              window.TabContainer = TabContainer;
+              window.ContentPane = ContentPane;
+              window.DojoDialog = dialog;
+              window.Editor = Editor;
+              window.ContentPane = ContentPane;
+              window.BorderContainer = BorderContainer;
+              window.Grid = Grid;
+              window.on = on;});});
+  </script>
+</head>
+<body></body>
+</html>
