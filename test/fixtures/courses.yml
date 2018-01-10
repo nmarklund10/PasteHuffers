@@ -1,25 +1,30 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 one:
+    id: 1
     name: CSCE 121 
     instructor_id: 1
     created_at: 2018-01-01 00:00:00
     updated_at: 2018-01-13 03:02:01
 two:
+    id: 2
     name: CSCE 222
     instructor_id: 1
     created_at: 2019-11-01 11:11:11
     updated_at: 2020-12-31 23:59:59
 three:
+    id: 3
     name: CSCE 469
     instructor_id: 1
     created_at: 2018-01-01 00:00:00
     updated_at: 2020-01-11 23:58:31
 four:
+    id: 4
     name: CSCE 313
     instructor_id: 1
     created_at: 2018-01-18 18:18:18
     updated_at: 2019-03-19 19:18:17
 three:
+    id: 5
     name: CSCE 314
     instructor_id: 1
     created_at: 2018-07-11 07:11:00
