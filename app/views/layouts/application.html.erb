@@ -30,6 +30,8 @@
             "dijit/layout/BorderContainer",
             'dojo/on',
             'dojo/ready',
+            'dojo/aspect',
+            'dojo/dom-class',
             'dojo/parser', 'dijit/form/TextBox','dijit/form/Button','dojox/form/Uploader', 'dijit/form/Select','dojo/domReady!'
         ], function ( dom,
                       declare, 
@@ -44,7 +46,9 @@
                       ContentPane,
                       BorderContainer,
                       on,
-                      ready
+                      ready,
+                      aspect,
+                      domClass
                       ) 
             { ready(function(){
               window.dom = dom;
@@ -59,6 +63,8 @@
               window.Grid = Grid;
               window.GridSelection = GridSelection;
               window.on = on;
+              window.aspect = aspect;
+              window.domClass = domClass;
               if( typeof window.setup !== "undefined")
               {
                 window.setup();
