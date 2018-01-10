@@ -170,8 +170,7 @@ function generateAssignmentsContainer(assignments,cuid)
 }
 function openAssignmentDashboard(event)
 {
-    console.log(window.selectedTab.grid.row(event));
-  //  sendPostRequest("a_dash/selectAssignment",){AUID:event.row}
+    window.location = "/a_dash/"+window.selectedTab.grid.row(event).data.id;
 }
 function createNewAssignmentDialog()
 {

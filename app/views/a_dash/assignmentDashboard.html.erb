@@ -196,10 +196,16 @@ input:focus {
   transition: all .1s linear;
 }
 button:focus {outline:0;}
+
+.rowWithPasteDetected {
+  background-color: #f74636 !important;
+}
 </style>
 <script>
     window.setup = dashBoardSetup;
+    window.assignmentId = <%= @auid %>;
 </script>
+
 <div align="right">
     <button align = "center" id="backtoDash" onclick="window.location = '/dash/';">Dashboard</button>
    </div>
