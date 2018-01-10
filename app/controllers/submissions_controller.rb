@@ -1,11 +1,11 @@
 class SubmissionsController < ApplicationController
-    def viewSubmissions
-       render "viewSubmissions"
-    end
+   
     def getSubmissions
-        auid = params["auid"]
-        if auid == nil then render json: [] end
-        @submissions = Submission.where("assignment_id = ?", auid)
-        render json: {"submissions" => @submissions} 
+        auid = session["auid"]
+        if auid == nil then 
+            render json: {"success" => false, "reason" => "No assignment id set, navigated to this page incorrectly."} 
+        end
+        @submissions = Submission.where(assignment_id: auid)
+        render json: {"success" => true, "submissions" => @submissions} 
     end
 end

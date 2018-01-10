@@ -12,3 +12,4 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w( themes/claro/claro.css )
 Rails.application.config.assets.precompile += %w( dojo/dojo.js )
 Rails.application.config.assets.precompile += %w( css/dgrid.css )
+Rails.application.config.assets.precompile += %w( css/skins/claro.css )
