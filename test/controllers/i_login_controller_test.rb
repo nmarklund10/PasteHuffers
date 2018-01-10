@@ -40,6 +40,22 @@ class ILoginControllerTest < ActionController::TestCase
   	assert_select "input:match('value', ?)", "Login"
   end
 
+  test "should login successfully" do
+  	get :verifyCreds, {'username' => "SomeGuy", 'password' => "1234"}
+  	response = JSON.parse(@response.body)
+  	assert_equal response['success'], true
+  end
+
+  test "should fail login" do
+  	get :verifyCreds, {'username' => "SomeGuy", 'password' => "123"}
+  	response = JSON.parse(@response.body)
+  	assert_equal response['success'], false
+  	assert_equal response['reason'], "Incorrect Username or Password"
+  	get :verifyCreds, {'username' => "SomeGuys", 'password' => "1234"}
+  	response = JSON.parse(@response.body)
+  	assert_equal response['success'], false
+  	assert_equal response['reason'], "Incorrect Username or Password"
+  end
 
 
 
