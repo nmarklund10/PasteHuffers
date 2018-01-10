@@ -71,7 +71,6 @@ class CDashControllerTest < ActionController::TestCase
 		get :createNewCourse, {"name" => "CSCE 123"}
 		response = JSON.parse(@response.body)
 		assert_equal true, response["success"]
-
 		assert_equal "CSCE 123", response["course"]["name"], "course name not matching"
 		assert_equal 1, response["course"]["instructor_id"], "instructor id not matching"
 	end
