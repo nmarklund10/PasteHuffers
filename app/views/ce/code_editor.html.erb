@@ -121,26 +121,42 @@ input:focus {
   function codeEditorSetup()
   {
     dijit.byId("editor").onLoadDeferred.then(function (){
+      window.logText = "";
       dijit.byId("editor").editNode.onkeydown = getKey;
       dijit.byId("editor").editNode.onpaste = logTextPaste;      
     });
   }
-  logText = ""
+  window.startTime = undefined
   function getKey(event) {
     var x = event.key;
     var time = new Date();
-    logText = logText + time.toString() + "\n" + x + "\n";
-    console.log(logText)
+    if (window.startTime == undefined) {
+      window.startTime = time;
+      time = window.startTime.toString();
+    }
+    else {
+      secondsElapsed = (time - window.startTime) / 1000;
+      //If it has been 15 minutes or more since first time stamp, make a new one
+      if (secondsElapsed >= 900) {
+        window.startTime = time;
+        time = time.toString();
+      }
+      else {
+        time = "H+" + secondsElapsed;    
+      }
+    }
+    window.logText = window.logText + time + "\n" + x + "\n";
+    console.log(window.logText);
   }
   function logTextPaste(event) {
-    var pastedText = '';
+    var pastedText = "";
     if (typeof event.clipboardData === 'undefined')
-      pastedText = window.clipboardData.getData('Text')
+      pastedText = window.clipboardData.getData('Text');
     else
-      pastedText = event.clipboardData.getData('text/plain')
+      pastedText = event.clipboardData.getData('text/plain');
     var time = new Date();
-    logText = logText + time.toString() + "\n" + pastedText + "\n";
-    console.log(logText)
+    window.logText = window.logText + time.toString() + "\n" + pastedText + "\n";
+    console.log(window.logText);
   }
 </script>
 <header>
