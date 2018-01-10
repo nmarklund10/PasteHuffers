@@ -191,10 +191,6 @@ function createNewAssignmentDialog()
         createInstructorFormDialog.set("content",response);
       });
 }
-function logOff(){
-    window.location = "/i_login/";
-    
-}
 
 function createNewAssignment()
 {
