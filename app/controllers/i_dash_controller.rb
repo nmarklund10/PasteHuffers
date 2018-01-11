@@ -5,6 +5,7 @@ class IDashController < ApplicationController
     def index
         render "dashboard"
     end
+<<<<<<< HEAD
     
     #upload skeleton code
     def upload
@@ -39,5 +40,26 @@ class IDashController < ApplicationController
         file = params[:uploadedFile].read()
         FileIO.write_skeleton_code(@iuid, @cuid, @auid, file)
         render json: {"success" => true}
+=======
+
+    #New object. Called when asking for input
+    def new
+    end
+
+    #Creates a record in database
+    def create
+    end
+
+    #Updates record in database
+    def update
+    end
+
+    #CAREFUL! Will not be used for some
+    def delete
+    end
+
+    #Displays one element
+    def show
+>>>>>>> 3dc219b9c93c521c3581fb480c5a33b3b1ac439b
     end
 end
