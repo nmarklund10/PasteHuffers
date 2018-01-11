@@ -186,7 +186,7 @@ function createNewAssignmentDialog()
         console.log("Selected Course is null");
         return;
     }
-    if(typeof window.createInstructorFormDialog !== 'undefined')
+    if(typeof window.createAssignmentFormDialog !== 'undefined')
     {
         createAssignmentFormDialog.show();
         window.dom.byId("newAssignmentName").value = "";
@@ -206,7 +206,7 @@ function createNewAssignment()
         console.log("Selected course is null!");
         return;
     }
-    var assignmentName = window.dom.byId("newAssignmentName").value;
+    var assignmentName = window.dom.byId("newAssignmentName").value.trim();
     var assignmentLanguage = dijit.byId("newAssignmentLanguage").attr("value");
     if(assignmentName == "" || assignmentLanguage == "")
     {
@@ -219,6 +219,7 @@ function createNewAssignment()
             // Will return a copy of the new assignment object
             if(response.success)
             {
+                dijit.byId("uploadedFile").upload();
                 window.selectedTab.assignments.push(response.assignment);
                 generateAssignmentsContainer(window.selectedTab.assignments,window.selectedTab.course.id);
                 window.createAssignmentFormDialog.hide();
