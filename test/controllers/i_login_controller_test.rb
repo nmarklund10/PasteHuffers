@@ -22,7 +22,7 @@ class ILoginControllerTest < ActionController::TestCase
 
   test "should have register button" do
   	get :index
-  	assert_select 'button', "Register New Account"
+  	assert_select 'button', "Register"
   end
 
   test "should have username field" do
