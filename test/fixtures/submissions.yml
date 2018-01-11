@@ -4,44 +4,36 @@
 #   student_id: MyString
 #   assignment_id:
 #   date_submitted: 2018-01-04 09:30:45
-#   on_time: false
+#   
 #   paste_detected: false
 
 # two:
 #   student_id: MyString
 #   assignment_id:
 #   date_submitted: 2018-01-04 09:30:45
-#   on_time: false
+#   
 #   paste_detected: false
 one:
     student_id: 1
     assignment_id: 1
-    date_submitted: 2018-01-01 00:00:00
-    on_time: true
     paste_detected: false
     created_at: 2017-01-01 00:00:00
     updated_at: 2018-01-01 00:00:00
 two:
     student_id: 2
     assignment_id: 1
-    date_submitted: 2020-19-18 01:02:03
-    on_time: true
     paste_detected: true
     created_at: 2017-01-01 00:00:00
     updated_at: 2020-19-18 01:02:03
 three:
     student_id: 3
     assignment_id: 2
-    date_submitted: 2017-02-01 00:00:00
-    on_time: true
     paste_detected: true
     created_at: 2017-01-01 00:00:00
     updated_at: 2017-02-01 00:00:00
 four:
     student_id: 4
     assignment_id: 2
-    date_submitted: 2018-02-01 00:00:00
-    on_time: false
     paste_detected: false
     created_at: 2017-01-01 00:00:00
     updated_at: 2020-02-01 00:00:00
