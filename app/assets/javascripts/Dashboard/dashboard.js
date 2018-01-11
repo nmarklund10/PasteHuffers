@@ -37,15 +37,22 @@ function dashBoardSetup()
                 // For each course, use its CUID to find all of the assignments
                 addCourseToCenterContainer(courses[i],i);
             }
-            
+            placeTabContainer();
         });
 }
 // When called, checks to see if all tabs are loaded, if so it places the tab container
 function placeTabContainer()
 {
     // After sending out requests for each course, place and start up the accordion container 
-    if(window.newCourseFormAdded && window.coursesCompleted.every(function(t){return t;}))
+    if(window.newCourseFormAdded)
     {
+        if (window.courses.length != 0)
+        {
+            if(window.coursesCompleted.every(function(t){return t}) == false)
+            {
+                return;
+            }
+        }
         window.centerContainer.placeAt("centerContainer");
         window.centerContainer.startup();
         window.centerContainer.resize();
