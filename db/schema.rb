@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180108093449) do
+ActiveRecord::Schema.define(version: 20180110071739) do
 
   create_table "assignments", force: :cascade do |t|
     t.string   "name"
@@ -35,9 +35,10 @@ ActiveRecord::Schema.define(version: 20180108093449) do
   create_table "instructors", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.string   "password"
+    t.string   "remember_digest"
   end
 
   create_table "submissions", force: :cascade do |t|
