@@ -30,12 +30,6 @@ class InstructorsControllerTest < ActionController::TestCase
     get :createInstructorForm
   	assert_select "button", "Register!"
   end
-<<<<<<< HEAD
-
-  test "create new instructor" do
-  	get :createNewInstructor
-
-=======
   test "should fail: register with insufficient data" do
   	get :createNewInstructor, {'name' => 'SomeGuy', 'email' => 'SomeGuy'}
   	response = JSON.parse(@response.body)
@@ -59,6 +53,5 @@ class InstructorsControllerTest < ActionController::TestCase
   	response = JSON.parse(@response.body)
   	assert_equal true, response['success']
   	assert_equal true, (Instructor.where(name: 'SomeGuy2').length == 1)
->>>>>>> 2c04bef6ec4ae8f6dca7fae8f6cb4e55e947f156
   end
 end
