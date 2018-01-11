@@ -1,1 +1,4 @@
-function assignmentDashBoardSetup(){}
+function assignmentDashBoardSetup()
+{
+    // Grab all submissions of the session:AUID
+}
