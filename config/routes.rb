@@ -48,6 +48,7 @@ Rails.application.routes.draw do
   get 'a_dash/:id' => 'a_dash#index'
   get 'codeEdit/skelCode' => 'ce#getSkeletonCode'
   
+  post 'dash/upload' => 'i_dash#upload'
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
