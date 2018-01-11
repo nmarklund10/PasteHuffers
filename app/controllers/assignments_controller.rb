@@ -1,6 +1,5 @@
 class AssignmentsController < ApplicationController
     
-
     def getAssignments
         cuid = params[:id]
         if cuid == nil then 
