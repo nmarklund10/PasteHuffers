@@ -39,10 +39,10 @@
   transition-property: background-color, border-color;
 }
 .claro .dgrid-row:hover {
-  background-color: #e9f2fe;
+  background-color: #1569d6;
 }
 .claro .dgrid-selected {
-  background-color: #cee6fa;
+  background-color: #50f888;
 }
 .claro .dgrid-selected:hover {
   background-color: #9bc6f2;

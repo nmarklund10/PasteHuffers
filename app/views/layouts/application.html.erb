@@ -14,35 +14,45 @@
                                           location: '//cdn.rawgit.com/SitePen/dgrid/v1.1.0'}]"></script>
             <%= stylesheet_link_tag "themes/claro/claro" %>
             <%= stylesheet_link_tag "css/dgrid" %>
+            <%= stylesheet_link_tag "css/skins/claro" %>
   <script>
     require(['dojo/dom',
+            "dojo/_base/declare",
             "dijit/layout/ContentPane",
             "dojo/request",
             "dijit/Dialog",
             "dijit/layout/TabContainer",
             "dgrid/Grid",
+            "dgrid/Selection",
             "dijit/Editor", 
             "dijit/_editor/plugins/LinkDialog",
             "dijit/layout/ContentPane",
             "dijit/layout/BorderContainer",
             'dojo/on',
             'dojo/ready',
+            'dojo/aspect',
+            'dojo/dom-class',
             'dojo/parser', 'dijit/form/TextBox','dijit/form/Button','dojox/form/Uploader', 'dijit/form/Select','dojo/domReady!'
-        ], function ( dom, 
+        ], function ( dom,
+                      declare, 
                       ContentPane,
                       request,
                       dialog,
                       TabContainer,
                       Grid,
+                      GridSelection,
                       Editor,
                       LinkDialog,
                       ContentPane,
                       BorderContainer,
                       on,
-                      ready
+                      ready,
+                      aspect,
+                      domClass
                       ) 
             { ready(function(){
               window.dom = dom;
+              window.declare = declare;
               window.request = request;
               window.TabContainer = TabContainer;
               window.ContentPane = ContentPane;
@@ -51,7 +61,10 @@
               window.ContentPane = ContentPane;
               window.BorderContainer = BorderContainer;
               window.Grid = Grid;
+              window.GridSelection = GridSelection;
               window.on = on;
+              window.aspect = aspect;
+              window.domClass = domClass;
               if( typeof window.setup !== "undefined")
               {
                 window.setup();

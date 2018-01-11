@@ -28,4 +28,10 @@ class ILoginController < ApplicationController
         session["IUID"] = instr.id
         render json: {"success" => true}
     end
+    def destroy
+         #session.delete("IUID")
+         #@current_user = nil
+         reset_session
+         redirect_to root_url
+    end
 end

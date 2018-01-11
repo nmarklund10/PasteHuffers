@@ -85,6 +85,7 @@ function submitInstructor()
                     {
                         if(response.success)
                         {
+                            window.createInstructorFormDialog.hide();
                             window.location = "/dash/";
                         }
                         else
