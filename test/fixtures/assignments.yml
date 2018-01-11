@@ -1,5 +1,4 @@
 # # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
   id: 1
   name: 'rails homework'
@@ -45,3 +44,14 @@ five:
 #   created_at: 2018-01-04 09:27:43
 #   updated_at: 2018-01-04 09:27:44
 # <% end %>
+# one:
+#   name: MyString
+#   date_due: 2018-01-04 09:27:43
+#   date_assigned: 2018-01-04 09:27:43
+#   course_id:
+
+# two:
+#   name: MyString
+#   date_due: 2018-01-04 09:27:43
+#   date_assigned: 2018-01-04 09:27:43
+#   course_id:

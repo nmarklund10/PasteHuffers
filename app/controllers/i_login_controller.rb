@@ -9,7 +9,6 @@ class ILoginController < ApplicationController
         #Retrieve POST data
         username = params["username"]
         password = params["password"]
-        puts params
         #Look for instructors with matching names in database
         possibleInstrs = Instructor.where(name: username)
         instr = possibleInstrs[0]
@@ -19,14 +18,20 @@ class ILoginController < ApplicationController
             return
         end
         #If we have any list of instr, just grab the first one. Instructor Creation should check unqiuness
-        
+
         if instr.password != password then
             #If passwords don't match return error
             render json: {"success" => false, "reason" => "Incorrect Username or Password"}
             return
-        end            
+        end
         #Verified info, save instructor id into the session then redirect to dashboard
         session["IUID"] = instr.id
         render json: {"success" => true}
+    end
+    def destroy
+         #session.delete("IUID")
+         #@current_user = nil
+         reset_session
+         redirect_to root_url
     end
 end

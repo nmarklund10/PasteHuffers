@@ -12,8 +12,10 @@ Rails.application.routes.draw do
   #
   # Login Routes
   #
+  #root 'a_dash#index'
   root 'i_login#index'
   post 'ILogin/' => 'i_login#verifyCreds'
+  get 'logout/'  => 'i_login#destroy'
 
   #
   # Dash Board Routes
@@ -23,6 +25,7 @@ Rails.application.routes.draw do
   get 'dash/' => 'i_dash#index'
   get 's_login/' => 's_login#index'
   get 'submissions/'=> 'submissions#getSubmissions'
+  get 'i_login/' => 'i_login#index'
   
   # Student Login Routes
   get 'codeEdit/' => 'ce#index'
@@ -41,8 +44,8 @@ Rails.application.routes.draw do
   get 'assignments/creationForm' => 'assignments#createAssignmentForm'
   post 'assignments/create' => 'assignments#createNewAssignment'
   
-  get 'submissions/viewSubmissions' => 'submissions#viewSubmissions'
-
+  get 'submissions/' => 'submissions#getSubmissions'
+  get 'a_dash/:id' => 'a_dash#index'
   get 'codeEdit/skelCode' => 'ce#getSkeletonCode'
   
   # Example of named route that can be invoked with purchase_url(id: product.id)

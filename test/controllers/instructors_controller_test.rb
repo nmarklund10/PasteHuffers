@@ -30,10 +30,35 @@ class InstructorsControllerTest < ActionController::TestCase
     get :createInstructorForm
   	assert_select "button", "Register!"
   end
+<<<<<<< HEAD
 
   test "create new instructor" do
   	get :createNewInstructor
 
+=======
+  test "should fail: register with insufficient data" do
+  	get :createNewInstructor, {'name' => 'SomeGuy', 'email' => 'SomeGuy'}
+  	response = JSON.parse(@response.body)
+  	assert_equal false, response['success']
+  	assert_equal "Insufficient Data Provided!", response['reason']
   end
-
+  test "should fail: register with existing name" do
+  	get :createNewInstructor, {'name' => 'SomeGuy', 'email' => 'SomeGuy', 'password' => 123456}
+  	response = JSON.parse(@response.body)
+  	assert_equal false, response['success']
+  	assert_equal "Instructor with that name already exists!", response['reason']
+  end
+  test "should fail: register with existing email" do
+  	get :createNewInstructor, {'name' => 'SomeGuy2', 'email' => 'someguy@someguy.com', 'password' => 123456}
+  	response = JSON.parse(@response.body)
+  	assert_equal false, response['success']
+  	assert_equal "Instructor with that email already exists!", response['reason']
+  end
+  test "should succeed: register" do
+  	get :createNewInstructor, {'name' => 'SomeGuy2', 'email' => 'someguy2@someguy.com', 'password' => 123456}
+  	response = JSON.parse(@response.body)
+  	assert_equal true, response['success']
+  	assert_equal true, (Instructor.where(name: 'SomeGuy2').length == 1)
+>>>>>>> 2c04bef6ec4ae8f6dca7fae8f6cb4e55e947f156
+  end
 end

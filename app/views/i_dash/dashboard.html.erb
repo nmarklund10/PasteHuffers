@@ -1,6 +1,5 @@
 <style>
 html {
-  background: LightSteelBlue;
   background: -webkit-gradient(linear, left top, right bottom, from(#53e3a6), to(Lemonchiffon));
   font-size:100%;
 }
@@ -9,6 +8,11 @@ html,input {
 }
 
 header{
+    position: absolute;
+    z-index: -1;
+    top:0px;
+    left: 0px;
+    width:100%;
     padding: 8px;
     color: white;
     background-color: #111;
@@ -32,7 +36,8 @@ body {
 }
 
 div.transbox {
-    margin: 20px;
+    margin: 50px;
+    margin-bottom: 20px;
     background: rgba(100, 225, 80, 0.3);
     border: 1px solid black;
     filter: alpha(opacity=30);
@@ -165,6 +170,24 @@ input[type="submit"]:hover {
 ::-webkit-input-placeholder {
   color:#666;
 }
+#logOut{
+  border-radius: 100px 50px 100px 50px;
+  background-color:darkred;
+  color: white;
+  font-size: 100%;
+  position: relative;
+  top:15px;
+  right:10px;
+  box-shadow:0 0 1px 1px white;
+  height: 40px;
+  width: 100px;
+  -webkit-transition: all .1s linear;
+  -o-transition: all .1s linear;
+  -moz-transition: all .1s linear;
+  -ms-transition: all .1s linear;
+  -kthtml-transition: all .1s linear;
+  transition: all .1s linear;
+}
 
 input:focus {
   outline:0;
@@ -174,6 +197,9 @@ input:focus {
 <script>
     window.setup = dashBoardSetup;
 </script>
+<div align="right">
+    <button align = "center" id="logOut" onclick="window.location = '/logout/';">Sign Out</button>
+   </div>
 <header>
   <font size="20"><span style="display:inline-block; width: 30px;"></span>
     PasteHuffer</font>

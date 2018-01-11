@@ -22,7 +22,11 @@ class ILoginControllerTest < ActionController::TestCase
 
   test "should have register button" do
   	get :index
+<<<<<<< HEAD
   	assert_select 'button', "Register New Account"
+=======
+  	assert_select 'button', "Register"
+>>>>>>> 2c04bef6ec4ae8f6dca7fae8f6cb4e55e947f156
   end
 
   test "should have username field" do
@@ -43,6 +47,7 @@ class ILoginControllerTest < ActionController::TestCase
   test "should login successfully" do
   	get :verifyCreds, {'username' => "SomeGuy", 'password' => "1234"}
   	response = JSON.parse(@response.body)
+<<<<<<< HEAD
   	assert_equal response['success'], true
   end
 
@@ -55,6 +60,20 @@ class ILoginControllerTest < ActionController::TestCase
   	response = JSON.parse(@response.body)
   	assert_equal response['success'], false
   	assert_equal response['reason'], "Incorrect Username or Password"
+=======
+  	assert_equal true, response['success']
+  end
+
+  test "should fail login with incorrect username or password" do
+  	get :verifyCreds, {'username' => "SomeGuy", 'password' => "123"}
+  	response = JSON.parse(@response.body)
+  	assert_equal false, response['success'] , "should fail with correct username but wrong password"
+  	assert_equal "Incorrect Username or Password", response['reason']
+  	get :verifyCreds, {'username' => "SomeGuys", 'password' => "1234"}
+  	response = JSON.parse(@response.body)
+  	assert_equal false, response['success'], "should fail with wrong username"
+  	assert_equal "Incorrect Username or Password", response['reason']
+>>>>>>> 2c04bef6ec4ae8f6dca7fae8f6cb4e55e947f156
   end
 
 
