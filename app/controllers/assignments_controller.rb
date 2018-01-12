@@ -1,5 +1,4 @@
 class AssignmentsController < ApplicationController
-    
 
     def getAssignments
         cuid = params[:id]
