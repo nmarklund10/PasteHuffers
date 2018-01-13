@@ -49,27 +49,32 @@
                       ready,
                       aspect,
                       domClass
-                      ) 
+                      )
             { ready(function(){
-              window.dom = dom;
-              window.declare = declare;
-              window.request = request;
-              window.TabContainer = TabContainer;
-              window.ContentPane = ContentPane;
-              window.DojoDialog = dialog;
-              window.Editor = Editor;
-              window.ContentPane = ContentPane;
-              window.BorderContainer = BorderContainer;
-              window.Grid = Grid;
-              window.GridSelection = GridSelection;
-              window.on = on;
-              window.aspect = aspect;
-              window.domClass = domClass;
-              if( typeof window.setup !== "undefined")
-              {
-                window.setup();
-              }
-            });
+                if(dojox.embed.Flash.available){
+                  dojo.require("dojox/form/uploader/plugins/Flash");
+                }else{
+                  dojo.require("dojox/form/uploader/plugins/IFrame");
+                }
+                window.dom = dom;
+                window.declare = declare;
+                window.request = request;
+                window.TabContainer = TabContainer;
+                window.ContentPane = ContentPane;
+                window.DojoDialog = dialog;
+                window.Editor = Editor;
+                window.ContentPane = ContentPane;
+                window.BorderContainer = BorderContainer;
+                window.Grid = Grid;
+                window.GridSelection = GridSelection;
+                window.on = on;
+                window.aspect = aspect;
+                window.domClass = domClass;
+                if( typeof window.setup !== "undefined")
+                {
+                  window.setup();
+                }
+              });
             });
   </script>
 </head>

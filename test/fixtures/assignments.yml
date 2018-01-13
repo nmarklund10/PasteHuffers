@@ -1,13 +1,13 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  date_due: 2018-01-04 09:27:43
-  date_assigned: 2018-01-04 09:27:43
-  course_id: 
+# one:
+#   name: MyString
+#   date_due: 2018-01-04 09:27:43
+#   date_assigned: 2018-01-04 09:27:43
+#   course_id:
 
-two:
-  name: MyString
-  date_due: 2018-01-04 09:27:43
-  date_assigned: 2018-01-04 09:27:43
-  course_id: 
+# two:
+#   name: MyString
+#   date_due: 2018-01-04 09:27:43
+#   date_assigned: 2018-01-04 09:27:43
+#   course_id:

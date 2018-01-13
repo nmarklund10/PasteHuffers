@@ -13,7 +13,13 @@
                 <label for="skeleton">Skeleton Code:</label>
             </td>
             <td>
-                <input name="file" multiple="false" type="file" dojoType="dojox.form.Uploader" label="Select File" id="uploadedfile" />
+                <input name="uploadedFile" multiple="false" type="file" dojoType="dojox/form/Uploader" label="Select File" id="uploadedFile" url="upload"/>
+            </td>
+        </tr>
+        <tr>
+            <td/>
+            <td>
+                <div id="files" data-dojo-type="dojox/form/uploader/FileList" data-dojo-props='uploaderId:"uploadedFile"'></div>
             </td>
         </tr>
         <tr>
@@ -21,8 +27,8 @@
                 <label for="skeleton">Language:</label>
             </td>
             <td>
-	            <select name="select" data-dojo-type="dijit/form/Select" required="true" id="newAssignmentLanguage">
-	            	<option disabled selected value> -- select an option -- </option>
+	            <select required name="select" data-dojo-type="dijit/form/Select" id="newAssignmentLanguage">
+	            	<option value=""> -- select an option -- </option>
 				    <option value="Ruby">Ruby</option>
 				    <option value="Python">Python</option>
 				    <option value="Java">Java</option>
@@ -33,6 +39,5 @@
 			</td>
         </tr>
     </table>
-
-    <button data-dojo-type="dijit/form/Button" name="createNewAssingmentButton" onclick="createNewAssignment();">Create Assignment</button>
+    <button data-dojo-type="dijit/form/Button" type="submit" onclick="createNewAssignment()">Create Assignment</button>
 </div>
