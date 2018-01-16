@@ -1,4 +1,4 @@
-// Send the login request with the current username and password
+// Sends POST request 
 function sendLoginRequest()
 {
     // Grab user info from the forms
@@ -38,7 +38,8 @@ function openCreateInstructorForm()
         createInstructorFormDialog.set("content",response);
       });
   }
-// Grabs the data from the modal form presented by the register button
+
+// Sends a POST request to create a new instructor 
 function submitInstructor()
 {
     // Grab all the data from the form
@@ -77,9 +78,7 @@ function submitInstructor()
         {
             if(response.success)
             {
-                //Log in with new data
-                // Send POST request for login
-                // A succesful response will end in redirect, any other response will provide information about error
+                // Log in with new instructor data
                 sendPostRequest("/ILogin/", {"username":instrName, "password":instrPassword},
                     function(response)
                     {

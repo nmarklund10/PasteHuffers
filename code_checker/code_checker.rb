@@ -22,9 +22,9 @@ class CodeChecker
         elsif (language == "Java")
             @compile_result = runCommand("javac " + filename)
             if (@compile_result[SUCCESS])
-                outFileName = filename.chomp(".java")                
-                @compile_result = runCommand("java " + outFileName)
-                runCommand("rm " + outFileName)
+                filename = filename.chomp(".java")
+                @compile_result = runCommand("java " + filename)
+                runCommand("rm " + filename + ".class")
             end
         elsif (language == "C++" || language == "C")
             if (language == "C++")
