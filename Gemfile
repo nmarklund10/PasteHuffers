@@ -12,7 +12,7 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
 #gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+#gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -49,6 +49,7 @@ group :development do
 #  gem 'spring'
 end
 
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -67,7 +68,7 @@ group :development, :test do
 end
 
 group :production do
-  gem 'pg' # for Heroku deployment
+  gem 'pg', '~> 0.20' # for Heroku deployment
   gem 'rails_12factor'
 end
 
