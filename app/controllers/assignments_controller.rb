@@ -29,4 +29,29 @@ class AssignmentsController < ApplicationController
         session[:auid] = @assignment.id
         render json: {"success" => true, "assignment" => @assignment}
     end
+    
+    def deleteAssignment
+        if session["IUID"] == nil then
+            render json: {"success" => false, "reason" => "No User Logged in"}
+            return
+        end
+        if params["id"] == nil then
+            render json: {"success" => false, "reason" => "Invalid delete request"}
+            return
+        end
+        begin
+            assignment = Assignment.find(params["id"])
+            if Course.find(assignment.course_id).instructor_id != session["IUID"] then
+                raise "Requesting Professor does not have ownership of course"
+            end
+            assignment.destroy
+            
+            render json: {"success" => true}
+            return
+        rescue
+            render json: {"success" => false, "reason" => "Invalid delete request"}
+            return
+        end
+    end
+    
 end

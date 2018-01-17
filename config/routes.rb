@@ -40,9 +40,11 @@ Rails.application.routes.draw do
 
   get 'courses/creationForm' => 'c_dash#createCourseForm'
   post 'courses/create' => 'c_dash#createNewCourse'
+  post 'courses/delete' => 'c_dash#deleteCourse'
 
   get 'assignments/creationForm' => 'assignments#createAssignmentForm'
   post 'assignments/create' => 'assignments#createNewAssignment'
+  post 'assignments/delete' => 'assignments#deleteAssignment'
   
   get 'submissions/' => 'submissions#getSubmissions'
   get 'a_dash/:id' => 'a_dash#index'

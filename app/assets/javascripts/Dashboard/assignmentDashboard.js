@@ -51,3 +51,32 @@ function openSubmissionDialog(event)
 {
     alert("Opened dialog for "+window.submissionGridRef.row(event));
 }
+
+function showDeleteAssignmentDialog()
+{
+    // Create confirmation dialog
+    if(typeof window.deleteAssignmentDialog !== 'undefined')
+    {
+        window.deleteAssignmentDialog.show();
+        return;
+    }
+    window.deleteAssignmentDialog = new window.DojoDialog({title:"Delete Assignment",
+                                                               content: 'Are you sure you want to delete this assignment?<br/><button data-dojo-type="dijit/form/Button" id="deleteCourseYesButton" onclick="deleteAssignment();">Yes</button><button data-dojo-type="dijit/form/Button" id="deleteCourseNoButton" onclick="window.deleteAssignmentDialog.hide();">No</button>'});
+    window.deleteAssignmentDialog.show();
+}
+
+function deleteAssignment()
+{
+    sendPostRequest("/assignments/delete",{id:window.assignmentId},
+        function(response)
+        {
+            if(response.success)
+            {
+                window.location = "/dash/";
+            }
+            else
+            {
+                alert(response.reason);
+            }
+        });
+}
