@@ -5,35 +5,35 @@ one:
   course_id: 1
   created_at: 2018-01-04 09:27:43
   updated_at: 2018-01-04 09:27:43
-  language: 'ruby'
+  language: 'Ruby'
 two:
   id: 2
   name: 'rails homework2'
   course_id: 1
   created_at: 2019-01-04 09:27:43
   updated_at: 2019-01-04 09:27:45
-  language: 'ruby'
+  language: 'Ruby'
 three:
   id: 3
   name: 'rails homework3'
   course_id: 1
   created_at: 2018-01-04 09:27:43
   updated_at: 2018-03-04 09:27:43
-  language: 'ruby'
+  language: 'Ruby'
 four:
   id: 4
   name: 'mancala game'
   course_id: 1
   created_at: 2018-01-04 09:27:43
   updated_at: 2020-01-04 09:27:55
-  language: 'java'
+  language: 'Java'
 five:
   id: 5
   name: 'that stupid 121 fltk game'
   course_id: 1
   created_at: 2018-01-04 09:27:43
   updated_at: 2021-01-04 09:27:46
-  language: 'cpp'
+  language: 'C++'
 
 #You can use ERB to generate lots of test cases
 #This ERB currently doesn't work. 
