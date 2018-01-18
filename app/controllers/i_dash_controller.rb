@@ -1,4 +1,4 @@
-require_relative '../../fileIO/fileIO.rb'
+require_relative '../../fileIO/fileIO'
 class IDashController < ApplicationController
     skip_before_action :verify_authenticity_token, :only => :upload
     #List all in database

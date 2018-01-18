@@ -44,8 +44,44 @@ function cleanNewCourseForm()
 function switchToTabByCUID(cuid)
 {
     window.centerContainer.selectChild(window.tabs[cuid].contentPane);
+    window.selectedTab = window.tabs[cuid];
+    window.selectedCourse = window.tabs[cuid].course;
 }
 
+function switchToNewCourseTab()
+{
+    window.centerContainer.selectChild(window.tabs["NewCourseTab"]);
+    window.selectedCourse = null;
+    window.selectedTab = null;
+}
+function showDeleteCourseDialog()
+{
+    // Create confirmation dialog
+    if(typeof window.deleteCourseDialog !== 'undefined')
+    {
+        window.deleteCourseDialog.show();
+        return;
+    }
+    window.deleteCourseDialog = new window.DojoDialog({title:"Delete Selected Course",
+                                                               content: 'Are you sure you want to delete this course?<br/><button data-dojo-type="dijit/form/Button" id="deleteCourseYesButton" onclick="deleteSelectedCourse();window.deleteCourseDialog.hide();">Yes</button><button data-dojo-type="dijit/form/Button" id="deleteCourseNoButton" onclick="window.deleteCourseDialog.hide();">No</button>'});
+    window.deleteCourseDialog.show();
+}
+function deleteSelectedCourse()
+{
+    sendPostRequest("/courses/delete",{id:window.selectedCourse.id},
+        function(response)
+        {
+            if(response.success)
+            {
+                window.centerContainer.removeChild(window.selectedTab.contentPane);
+                switchToNewCourseTab();
+            }
+            else
+            {
+                alert(response.reason);
+            }
+        });
+}
 
 /* ********************************************************
 *  Assignment Specific Code for the Instructor dashboard  *
@@ -58,11 +94,13 @@ function generateAssignmentsContainer(assignments,cuid)
             identifier: "id",
             items : assignments
         }
+
         var columns = [
             { "label":"AUID",     "field":"id", "width":"200px"},
             { "label":"Name",     "field":"name", "width":"200px"},
-            { "label":"Language", "field":"language", "width":"200px"}
+            { "label":"Language", "field":"language", "width":"200px"},
         ];
+
         var grid = new (window.declare([window.Grid, window.GridSelection]))({
             columns:columns,
             selectionMode: 'single',
@@ -88,7 +126,7 @@ function createNewAssignmentDialog()
         console.log("Selected Course is null");
         return;
     }
-    if(typeof window.createInstructorFormDialog !== 'undefined')
+    if(typeof window.createAssignmentFormDialog !== 'undefined')
     {
         createAssignmentFormDialog.show();
         window.dom.byId("newAssignmentName").value = "";
