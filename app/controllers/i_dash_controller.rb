@@ -5,7 +5,6 @@ class IDashController < ApplicationController
     def index
         render "dashboard"
     end
-    
     #upload skeleton code
     def upload
         if !(@auid = session[:auid])

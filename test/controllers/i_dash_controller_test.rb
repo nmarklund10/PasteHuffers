@@ -9,18 +9,19 @@ class IDashControllerTest < ActionController::TestCase
     assert_select 'header','PasteHuffer'
   end
   
-  # test "should display course tabs" do
+  # test "should have course tabs" do
   #   get :index
   #   assert_select ''
+  #   Courses.name
   # end
   
-  test "should be able to add a new course" do
-    get :index
+  # test "should be able to add a new course" do
+  #   get :index
     
-  end
+  # end
   
-  test "should have create assignment button" do
-    get :index
+  # test "should have create assignment button" do
+  #   get :index
     
-  end
+  # end
 end
