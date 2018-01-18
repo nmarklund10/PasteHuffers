@@ -3,24 +3,27 @@ require 'tempfile'
 require_relative '../fileIO/fileIO'
 class CodeChecker
     SUCCESS = 0
-    STDOUT = 1
-    STDERR = 2
+    OUTPUT = 1
     def self.runCommand(cmd)
         #Runs command and returns if it is successful and stdout and stderr output
         result = []
-        Open3.popen3(cmd) do |stdin, stdout, stderr, wait_thr|
-            puts stderr.read
-            result = [wait_thr.value.success?, stdout.read, stderr.read]
-        end
+        result, status = Open3.capture2e(cmd)
+        success = (status == 0)
+        puts cmd
+        puts status
         puts result
-        return result
+        return [success, result]
     end
     
     def self.testCode(language,suid,code)
         ext = FileIO.get_file_extension(language)
-        tempFileWithCode = Tempfile.new([suid,ext])
+        tempFileWithCode = Tempfile.new([suid,ext], :encoding => 'ASCII-8BIT')
+        code = "# -*- coding: utf-8 -*-\n" + code
         tempFileWithCode.write(code)
-        return CodeChecker.runProgram(language,tempFileWithCode.path)
+        tempFileWithCode.flush()
+        tempFileWithCode.rewind()
+        puts tempFileWithCode.read()        
+        return CodeChecker.runProgram(language, tempFileWithCode.path)
     end
 
     def self.runProgram(language, filename)
@@ -53,9 +56,9 @@ class CodeChecker
         end
         #returns output of program as string
         if (@compile_result[SUCCESS])
-            return "Compile Success!\nOutput:\n\n" + @compile_result[STDOUT]
+            return "Compile Success!\nOutput:\n\n" + @compile_result[OUTPUT]
         else
-            return "Compile Failure!\nTrace:\n\n" + @compile_result[STDERR]
+            return "Compile Failure!\nTrace:\n\n" + @compile_result[OUTPUT]
         end
     end
 end

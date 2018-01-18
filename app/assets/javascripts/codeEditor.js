@@ -43,6 +43,10 @@ class CopyPasteDetector {
     var copyPaste = false;    
 
     var getKey = function(event) {
+      if (event.key == "Tab") {
+        event.preventDefault();
+        event.stopPropagation();
+      }
       editLog.push(new Edit(event.key, false));
     }
     var logTextPaste = function(event) {
