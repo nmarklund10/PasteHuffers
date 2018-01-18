@@ -1,3 +1,4 @@
+require_relative "../../code_checker/code_checker"
 class CeController < ApplicationController
     #List all in database
     def index
@@ -7,10 +8,6 @@ class CeController < ApplicationController
     #New object. Called when asking for input
     def getSkeletonCode
         auid = params["AUID"]
-        if session["IUID"] == nil then 
-            render json: {"success" => false, "reason" => "No User Logged in"} 
-            return 
-        end
         if auid == nil then 
             render json: {"success" => false, "reason" => "Need an AUID"} 
             return 
@@ -34,19 +31,19 @@ class CeController < ApplicationController
         render json: {"success" => true, "code" => code}
     end
     
-    #Creates a record in database
-    def create
-    end
-    
-    #Updates record in database
-    def update
-    end
-    
-    #CAREFUL! Will not be used for some
-    def delete
-    end
-    
-    #Displays one element
-    def show
+    def testCode
+        begin
+            if session["AUID"] == nil or session["SUID"] == nil then
+                raise "AUID or SUID was not in session"
+            end
+            if params["code"] == nil then
+                raise "No code given"
+            end
+            output = CodeChecker.testCode(Assignment.find(session["AUID"]).language, session["SUID"],params["code"])
+            render json: {"success" => true, "output" => output}
+        rescue Exception => e
+            puts e
+            render json: {"success" => false, "reason" => "Invalid code test request"}
+        end
     end
 end

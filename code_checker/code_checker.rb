@@ -1,5 +1,6 @@
 require 'open3'
-
+require 'tempfile'
+require_relative '../fileIO/fileIO'
 class CodeChecker
     SUCCESS = 0
     STDOUT = 1
@@ -8,11 +9,20 @@ class CodeChecker
         #Runs command and returns if it is successful and stdout and stderr output
         result = []
         Open3.popen3(cmd) do |stdin, stdout, stderr, wait_thr|
+            puts stderr.read
             result = [wait_thr.value.success?, stdout.read, stderr.read]
         end
+        puts result
         return result
     end
     
+    def self.testCode(language,suid,code)
+        ext = FileIO.get_file_extension(language)
+        tempFileWithCode = Tempfile.new([suid,ext])
+        tempFileWithCode.write(code)
+        return CodeChecker.runProgram(language,tempFileWithCode.path)
+    end
+
     def self.runProgram(language, filename)
         #Run command to compile and run input program based on language
         if (language == "Python")

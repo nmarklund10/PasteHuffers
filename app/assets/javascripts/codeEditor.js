@@ -106,4 +106,19 @@ class CopyPasteDetector {
     dijit.byId("editor").editNode.onpaste = logTextPaste;
   }
 }
-
+function testCode()
+{
+    submission = dijit.byId("editor").editNode.innerText;
+    sendPostRequest('/codeEdit/test', {"code":submission}, 
+      function(response)
+      {
+        if(response.success)
+        {
+          dom.byId("tempOutputArea").innerHTML = response.output;
+        }
+        else
+        {
+          alert(response.reason);
+        }
+      });
+}
