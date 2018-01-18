@@ -118,46 +118,6 @@ input:focus {
 </style>
 <script>
   window.setup = codeEditorSetup;
-  function codeEditorSetup()
-  {
-    dijit.byId("editor").onLoadDeferred.then(function (){
-      window.logText = "";
-      dijit.byId("editor").editNode.onkeydown = getKey;
-      dijit.byId("editor").editNode.onpaste = logTextPaste;      
-    });
-  }
-  window.startTime = undefined
-  function getKey(event) {
-    var x = event.key;
-    var time = new Date();
-    if (window.startTime == undefined) {
-      window.startTime = time;
-      time = window.startTime.toString();
-    }
-    else {
-      secondsElapsed = (time - window.startTime) / 1000;
-      //If it has been 15 minutes or more since first time stamp, make a new one
-      if (secondsElapsed >= 900) {
-        window.startTime = time;
-        time = time.toString();
-      }
-      else {
-        time = "H+" + secondsElapsed;    
-      }
-    }
-    window.logText = window.logText + time + "\n" + x + "\n";
-    console.log(window.logText);
-  }
-  function logTextPaste(event) {
-    var pastedText = "";
-    if (typeof event.clipboardData === 'undefined')
-      pastedText = window.clipboardData.getData('Text');
-    else
-      pastedText = event.clipboardData.getData('text/plain');
-    var time = new Date();
-    window.logText = window.logText + time.toString() + "\n" + pastedText + "\n";
-    console.log(window.logText);
-  }
 </script>
 <header>
     <font size="20"><span style="display:inline-block; width: 30px;"></span>PasteHuffer</font>
