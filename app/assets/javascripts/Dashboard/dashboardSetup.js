@@ -45,7 +45,7 @@ When called, will attempt to place the TabContainer for the dashboard
 If the flag signifying that the tabContainer has already been placed is true then nothing happens
 If any of the SYNC flags are false then nothing happens.
 When placing the tab container, we add an event listener that keeps track of the currently selected tab and course with:
-    window.selectedCourse and window.selectedTab
+     and window.selectedTab
 */
 function placeTabContainer()
 {

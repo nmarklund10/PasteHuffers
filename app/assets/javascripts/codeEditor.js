@@ -21,6 +21,21 @@ class Edit {
   }
 }
 
+function sendSubmission() {
+  submission = dijit.byId("editor").editNode.innerText;
+  sendPostRequest('/submit', {"submission":submission}, 
+    function(response) {
+      if(response.success)
+        {
+          
+        }
+        else
+        {
+          alert(response.reason);
+        }
+    });
+}
+
 class CopyPasteDetector {
   constructor() {
     var editLog = [];    
@@ -80,10 +95,6 @@ class CopyPasteDetector {
         _lastEdit = curTime;
       }
       return _logText;
-    }
-
-    this.getCode = function() {
-      return dijit.byId("editor").editNode.innerText;
     }
 
     dijit.byId("editor").editNode.onkeydown = getKey;

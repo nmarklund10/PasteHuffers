@@ -9,4 +9,13 @@ class SubmissionsController < ApplicationController
         @submissions = Submission.where(assignment_id: auid)
         render json: {"success" => true, "submissions" => @submissions} 
     end
+
+    def createSubmission
+        submission = params["submission"]
+        auid = session["AUID"]
+        if (auid == null) {
+            
+        }
+
+    end
 end
