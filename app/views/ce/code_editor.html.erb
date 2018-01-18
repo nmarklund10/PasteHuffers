@@ -138,7 +138,9 @@ input:focus {
     <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'" style="background-color: white;">
        <div data-dojo-type="dijit/Editor" id="editor" data-dojo-props="plugins:['bold','italic','|','createLink']">Sample Code</div>
     </div>
-    <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'trailing'" style="width: 25%;">Output my dudes</div>
+    <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'trailing'" style="width: 25%;">Output my dudes
+        <button data-dojo-type="dijit/form/Button" id="submitButton" onclick="sendSubmission();">Submit</button></div>
+
     <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'bottom'" style="background-color: black;">Bottom pane</div>
 </div>
   
