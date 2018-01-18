@@ -4,7 +4,7 @@ class AssignmentsController < ApplicationController
     def getAssignments
         cuid = params[:id]
         if cuid == nil then 
-                render json: "" 
+                render json: {"success" => false}
                 return 
         end
         @assignments = Assignment.where("course_id = ?", cuid)
