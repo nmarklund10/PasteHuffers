@@ -23,7 +23,8 @@ class Edit {
 
 function sendSubmission() {
   submission = dijit.byId("editor").editNode.innerText;
-  sendPostRequest('/submit', {"submission":submission}, 
+  log = window.detector.makeLog();
+  sendPostRequest('/submissions/submit', {"submission":submission, "log": log, "cp":window.detector.getCP()}, 
     function(response) {
       if(response.success)
         {
@@ -38,7 +39,8 @@ function sendSubmission() {
 
 class CopyPasteDetector {
   constructor() {
-    var editLog = [];    
+    var editLog = [];
+    var copyPaste = false;    
 
     var getKey = function(event) {
       editLog.push(new Edit(event.key, false));
@@ -51,6 +53,8 @@ class CopyPasteDetector {
         pastedText = event.clipboardData.getData('text/plain');
       editLog.push(new Edit(pastedText, true));
     }
+    var logCopyPaste = function() { copyPaste = true; }
+    this.getCP = function() { return copyPaste; }
     this.getLog = function() { return editLog; }
     this.makeLog = function() {
       var _lastStamp = undefined;
@@ -68,6 +72,7 @@ class CopyPasteDetector {
           }
           _logText += "**********COPY PASTE**********\n" + curTime.toString() + "\n" + text + "\n******************************\n";
           cpdetected = true;
+          logCopyPaste();
         }
         else {
           if (_lastStamp == undefined) {
