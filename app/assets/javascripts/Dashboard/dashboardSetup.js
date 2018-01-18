@@ -11,21 +11,24 @@ function dashBoardSetup()
     window.newCourseFormAdded = false;
     window.startedCourses = false;
     window.alreadyPlaced = false;
-   
+    window.tabs = {};
     // Set up create new course form first
     sendGetRequestForHTML('/courses/creationForm',{},
         function(response)
         {
-            window.centerContainer.addChild(new window.ContentPane({title:"Create a New Course", content:response}));
+            var cp = new window.ContentPane({title:"Create a New Course", content:response});
+            window.centerContainer.addChild(cp);
             window.newCourseFormAdded = true;
+            window.tabs["NewCourseTab"] = cp;
         });
 
     // GET the courses for the session, the add a new tab and SYNC flag for each, then place the tab container
+    
     sendGetRequestForJSON("/courses/",{},
         function(courses){
             // Set Global objects
             window.courses = courses;
-            window.tabs = {};
+            
             // Set up SYNC flags
             for(var i in courses)
             {
@@ -100,7 +103,7 @@ function addCourseToCenterContainer(c, indexForLoadup=-1)
         function(courseAssignMentDict){
             // Create the inner html for the tab
             var innerDivId = "grid-"+courseAssignMentDict.course.id;
-            var innerContent ='<button data-dojo-type="dijit/form/Button" id="newAssignButton'+courseAssignMentDict.course.id+'" onclick="createNewAssignmentDialog();">Create new assignment</button><div id="'+innerDivId+'" ></div>';
+            var innerContent ='<button data-dojo-type="dijit/form/Button" id="newAssignButton'+courseAssignMentDict.course.id+'" onclick="createNewAssignmentDialog();">Create new assignment</button><button data-dojo-type="dijit/form/Button" style="color: red;" id="deleteCourse'+courseAssignMentDict.course.id+'" onclick="showDeleteCourseDialog();">Delete This Course</button><div id="'+innerDivId+'" ></div>';
             var contentPaneForTab = new window.ContentPane({title:courseAssignMentDict.course.name,
                                                             content:innerContent, 
                                                             id:"tab-"+courseAssignMentDict.course.id,
