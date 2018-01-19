@@ -43,6 +43,10 @@ class CopyPasteDetector {
     var copyPaste = false;    
 
     var getKey = function(event) {
+      if (event.key == "Tab") {
+        event.preventDefault();
+        event.stopPropagation();
+      }
       editLog.push(new Edit(event.key, false));
     }
     var logTextPaste = function(event) {
@@ -106,4 +110,19 @@ class CopyPasteDetector {
     dijit.byId("editor").editNode.onpaste = logTextPaste;
   }
 }
-
+function testCode()
+{
+    submission = dijit.byId("editor").editNode.innerText;
+    sendPostRequest('/codeEdit/test', {"code":submission}, 
+      function(response)
+      {
+        if(response.success)
+        {
+          dom.byId("tempOutputArea").innerText = response.output;
+        }
+        else
+        {
+          alert(response.reason);
+        }
+      });
+}

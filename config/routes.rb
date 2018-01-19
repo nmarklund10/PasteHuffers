@@ -49,6 +49,7 @@ Rails.application.routes.draw do
   get 'submissions/' => 'submissions#getSubmissions'
   get 'a_dash/:id' => 'a_dash#index'
   get 'codeEdit/skelCode' => 'ce#getSkeletonCode'
+  post 'codeEdit/test' => 'ce#testCode'
   
   post 'dash/upload' => 'i_dash#upload'
   post 'submissions/submit' => 'submissions#createSubmission'
