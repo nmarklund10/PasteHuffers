@@ -9,20 +9,18 @@ class CodeChecker
         result = []
         result, status = Open3.capture2e(cmd)
         success = (status == 0)
-        puts cmd
-        puts status
-        puts result
         return [success, result]
     end
     
     def self.testCode(language,suid,code)
         ext = FileIO.get_file_extension(language)
         tempFileWithCode = Tempfile.new([suid,ext], :encoding => 'ASCII-8BIT')
-        code = "# -*- coding: utf-8 -*-\n" + code
+        if (language == "Python")
+            code = "# -*- coding: utf-8 -*-\n" + code
+        end
+        code = code.encode('ASCII', invalid: :replace, undef: :replace, replace: "")
         tempFileWithCode.write(code)
         tempFileWithCode.flush()
-        tempFileWithCode.rewind()
-        puts tempFileWithCode.read()        
         return CodeChecker.runProgram(language, tempFileWithCode.path)
     end
 
@@ -48,7 +46,7 @@ class CodeChecker
                 @compile_result = runCommand("gcc " + filename + " -o " + outFileName)
             end
             if (@compile_result[SUCCESS])
-                @compile_result = runCommand("./" + outFileName)
+                @compile_result = runCommand(outFileName)
                 runCommand("rm " + outFileName)
             end      
         else
