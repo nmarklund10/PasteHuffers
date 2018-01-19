@@ -118,7 +118,7 @@ function testCode()
       {
         if(response.success)
         {
-          dom.byId("tempOutputArea").innerHTML = response.output;
+          dom.byId("tempOutputArea").innerText = response.output;
         }
         else
         {
