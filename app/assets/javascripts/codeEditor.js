@@ -3,6 +3,16 @@ function codeEditorSetup()
   dijit.byId("editor").onLoadDeferred.then(function (){
     window.detector = Object.freeze(new CopyPasteDetector());
   });
+  sendGetRequestForJSON('/assignments/getSkeletonCode', {}, 
+    function(response) {
+      if (response.success) {
+        console.log(response.skeletonCode);
+        dijit.byId("editor").editNode.innerText = response.skeletonCode;
+      }
+      else {
+        alert(response.reason);
+      }
+    });
 }
 
 class Edit {
@@ -43,10 +53,10 @@ class CopyPasteDetector {
     var copyPaste = false;    
 
     var getKey = function(event) {
-      if (event.key == "Tab") {
+      /*if (event.key == "Tab") {
         event.preventDefault();
         event.stopPropagation();
-      }
+      }*/
       editLog.push(new Edit(event.key, false));
     }
     var logTextPaste = function(event) {
