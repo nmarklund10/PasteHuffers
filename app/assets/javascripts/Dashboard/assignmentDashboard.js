@@ -49,7 +49,38 @@ function generateSubmissionsGrid()
 }
 function openSubmissionDialog(event)
 {
-    alert("Opened dialog for "+window.submissionGridRef.row(event));
+    if(typeof window.downloadSubmissionDialog !== 'undefined')
+    {
+        window.downloadSubmissionDialog.set("title",window.submissionGridRef.row(event).data.student_id);
+        window.downloadSubmissionDialog.show();
+        window.downloadSubmissionDialog.rowClickedOn = window.submissionGridRef.row(event);
+        return;
+    }
+    window.downloadSubmissionDialog = new window.DojoDialog({title:window.submissionGridRef.row(event).data.student_id});
+    window.downloadSubmissionDialog.rowClickedOn = window.submissionGridRef.row(event);
+    window.downloadSubmissionDialog.show();
+    window.downloadSubmissionDialog.set("content", '<button data-dojo-type="dijit/form/Button" id="downloadLogButton" onclick="downloadLog(window.downloadSubmissionDialog.rowClickedOn);">Download Log</button><button data-dojo-type="dijit/form/Button" id="downloadSubmissionButton" onclick="downloadSubmission(window.downloadSubmissionDialog.rowClickedOn);">Download Submission</button>')
+}
+
+function downloadLog(row)
+{
+    window.IFrame.send({
+        url:"/submissions/downloadLog",
+        method:"GET",
+        content:{
+        "submissionId": row.data.id
+        }
+        });
+}
+function downloadSubmission(row)
+{
+    window.IFrame.send({
+        url:"/submissions/downloadSubmission",
+        method:"GET",
+        content:{
+        "submissionId": row.data.id
+        }
+        });
 }
 
 function showDeleteAssignmentDialog()
