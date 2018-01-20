@@ -53,6 +53,8 @@ Rails.application.routes.draw do
   
   post 'dash/upload' => 'i_dash#upload'
   post 'submissions/submit' => 'submissions#createSubmission'
+  get  'submissions/downloadLog' => 'submissions#downloadLog'
+  get  'submissions/downloadSubmission' => 'submissions#downloadSubmission'
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 

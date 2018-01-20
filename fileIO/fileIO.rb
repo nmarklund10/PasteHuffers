@@ -1,6 +1,16 @@
 require 'fileutils'
 #skeleton code, logs, and submissions
 class FileIO
+    def self.constructFileName(iuid,cuid,auid,suid,isLog,language=nil)
+        if isLog then
+            return File.join(Rails.root.join("files", iuid.to_s, cuid.to_s, auid.to_s).to_s , suid.to_s + "-log")
+        end
+        if language == nil then
+            return ""
+        end
+        return File.join(Rails.root.join("files", iuid.to_s, cuid.to_s, auid.to_s).to_s ,suid.to_s + "-submission" + get_file_extension(language))
+    end
+
     def self.get_file_extension(language)
         if (language == "Python")
             return ".py"
@@ -18,6 +28,8 @@ class FileIO
     end
     def self.write_log(iuid,cuid,auid,suid,input)
         path = Rails.root.join("files", iuid.to_s, cuid.to_s, auid.to_s)
+        puts path
+        puts auid
         FileUtils.makedirs(path)
         path = File.join(path.to_s, suid.to_s + "-log")
         File.write(path, input)
