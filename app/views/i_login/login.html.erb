@@ -148,6 +148,9 @@ input:focus {
 <div align="left">
   <button align = "center" id="createStudentLogin" onclick="openStudentLogin();">Student Login</button>
 </div>
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id" content="689505337354-q1iajmjh8kuksrkhtqkqsdsd49ebl49f.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <div id="login">
   <div id="formDiv">
     <input type="text" placeholder="Username" id="username">
@@ -156,10 +159,10 @@ input:focus {
     <input type="button" id="loginButton" value="Login" onclick="sendLoginRequest();">
   </div>
 </div><br />
-<div align="center">
+<!--<div align="center">
   <button align = "center" id="createInstructorButton" onclick="openCreateInstructorForm()">Register</button>
-</div>
-
+</div>-->
+<div class="g-signin2" data-onsuccess="sendLoginRequest" data-theme="dark" align="center"></div>
 <footer>Texas A&amp;M University</footer>
 
 

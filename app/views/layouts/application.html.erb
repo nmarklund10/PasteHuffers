@@ -33,7 +33,7 @@
             'dojo/aspect',
             'dojo/dom-class',
             'dojo/io/iframe',
-            'dojo/parser', 'dijit/form/TextBox','dijit/form/Button','dojox/form/Uploader', 'dijit/form/Select','dojo/domReady!', 'dojo/io/iframe'
+            'dojo/parser', 'dijit/form/TextBox','dijit/form/Button','dojox/form/Uploader', 'dijit/form/Select','dojo/domReady!'
         ], function ( dom,
                       declare, 
                       ContentPane,
@@ -73,6 +73,7 @@
                 window.aspect = aspect;
                 window.domClass = domClass;
                 window.IFrame = IFrame;
+                console.log(window.setup);
                 if( typeof window.setup !== "undefined")
                 {
                   window.setup();

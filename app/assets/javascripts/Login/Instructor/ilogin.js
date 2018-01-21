@@ -1,7 +1,21 @@
 // Sends POST request 
-function sendLoginRequest()
+function sendLoginRequest(googleUser)
 {
-    // Grab user info from the forms
+    var id_token = googleUser.getAuthResponse().id_token;
+    sendPostRequest("/ILogin/",{"id_token":id_token},
+    function(response)
+    {
+        if(response.success)
+        {
+            window.name = response.name;
+            window.location = "/dash/";
+        }
+        else
+        {
+            alert(response.reason);
+        }
+    });
+    /*// Grab user info from the forms
     var username = window.dom.byId("username").value;
     var password = window.dom.byId("password").value;
     console.log("Sending Request")
@@ -18,7 +32,7 @@ function sendLoginRequest()
         {
           alert(response.reason);
         }
-      });
+      });*/
 }
 function openStudentLogin(){
     window.location = "/s_login/";
