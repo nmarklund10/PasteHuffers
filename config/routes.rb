@@ -45,10 +45,10 @@ Rails.application.routes.draw do
   get 'assignments/creationForm' => 'assignments#createAssignmentForm'
   post 'assignments/create' => 'assignments#createNewAssignment'
   post 'assignments/delete' => 'assignments#deleteAssignment'
+  get '/assignments/getSkeletonCode' => 'assignments#getSkeletonCode'
   
   get 'submissions/' => 'submissions#getSubmissions'
   get 'a_dash/:id' => 'a_dash#index'
-  get 'codeEdit/skelCode' => 'ce#getSkeletonCode'
   post 'codeEdit/test' => 'ce#testCode'
   
   post 'dash/upload' => 'i_dash#upload'

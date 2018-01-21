@@ -1,5 +1,21 @@
+require_relative '../../fileIO/fileIO'
 class AssignmentsController < ApplicationController
     
+    def getSkeletonCode
+        auid = session["AUID"]
+        begin
+            if auid == nil then 
+                raise "No AUID"
+            end
+            currentAssignment = Assignment.find(auid)
+            currentCourse = Course.find(currentAssignment.course_id)
+            skeletonCode = FileIO.read_skeleton_code(currentCourse.instructor_id, currentAssignment.course_id, auid, currentAssignment.language)
+            render json: {"success" => true, "skeletonCode" => skeletonCode }
+        rescue Exception => e
+            puts e
+            render json: {"success" => false, "reason" => "Invalid Skeleton Get request."}
+        end
+    end
 
     def getAssignments
         cuid = params[:id]
