@@ -44,7 +44,6 @@ function dashBoardSetup()
             }
             placeTabContainer();
         });
-    console.log("hi");
     window.dom.byId("instructorName").innerHTML = "Welcome, " + window.name + "!";
 }
 /*
