@@ -115,13 +115,20 @@ input:focus {
    <font size="20"><span style="display:inline-block; width: 30px;"></span>PasteHuffer</font>
    <h5><span style="display:inline-block; width: 30px;"></span>Student</h5>
 </header>
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id" content="689505337354-q1iajmjh8kuksrkhtqkqsdsd49ebl49f.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <div id="login">
   <form>
     <input type="text" placeholder="Username" id="username">
     <div class="spacer"></div>
     <input type="password" placeholder="Access Code" id="access">
     <input type="button" id="loginButton" value="Login" onclick="sendAccessRequest();">
+    
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="689505337354-q1iajmjh8kuksrkhtqkqsdsd49ebl49f.apps.googleusercontent.com">
   </form>
 </div>
+<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" align="center" onclick="onSignIn()"></div>
 <footer>Texas A&amp;M University</footer>
 </body>
