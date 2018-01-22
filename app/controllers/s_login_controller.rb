@@ -19,7 +19,8 @@ class SLoginController < ApplicationController
         response = https.request(request)
         response = JSON.parse(response.body)
         name = response["name"]
-        session["SUID"] = name + response["email"]
+        session["SUID"] = response["email"] + "(" + name + ")"
+        puts session["SUID"]
         render json: {"success" => true, "name" => name}
     end
     
@@ -30,7 +31,7 @@ class SLoginController < ApplicationController
         possibleAssignment = Assignment.where( id: accessId)
         if possibleAssignment.length == 0 then
             #Return error if we do not find anybody
-            render json: {"success" => false, "reason" => "Access code or Name is empty"}
+            render json: {"success" => false, "reason" => "No assignment found with that Assignment ID."}
             return
         end
         #If we have any list of instr, just grab the first one. Instructor Creation should check unqiuness

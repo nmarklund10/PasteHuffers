@@ -4,48 +4,7 @@
 /*dashBoardSetup is set as window.setup by dashboard.html
   it will query for the course creation form and all the courses and call addCourseToContainer and placeTabContainer
 */
-function dashBoardSetup()
-{
-    // Create Tab Container and set up SYNC flags
-    console.log("hello");
-    window.centerContainer = new window.TabContainer({style:"height:100%;", doLayout:false});
-    window.newCourseFormAdded = false;
-    window.startedCourses = false;
-    window.alreadyPlaced = false;
-    window.tabs = {};
-    // Set up create new course form first
-    sendGetRequestForHTML('/courses/creationForm',{},
-        function(response)
-        {
-            var cp = new window.ContentPane({title:"Create a New Course", content:response});
-            window.centerContainer.addChild(cp);
-            window.newCourseFormAdded = true;
-            window.tabs["NewCourseTab"] = cp;
-            placeTabContainer();
-        });
 
-    // GET the courses for the session, the add a new tab and SYNC flag for each, then place the tab container
-    
-    sendGetRequestForJSON("/courses/",{},
-        function(courses){
-            // Set Global objects
-            window.courses = courses;
-            
-            // Set up SYNC flags
-            for(var i in courses)
-            {
-                window.tabs[courses[i].id] = {course: courses[i]};
-            }
-            window.coursesCompleted = [];
-            for (var i=0;i<courses.length; i++)
-            {
-                window.coursesCompleted.push(false);
-                addCourseToCenterContainer(courses[i],i);
-            }
-            placeTabContainer();
-        });
-    window.dom.byId("instructorName").innerHTML = "Welcome, " + window.name + "!";
-}
 /*
 When called, will attempt to place the TabContainer for the dashboard
 If the flag signifying that the tabContainer has already been placed is true then nothing happens
@@ -145,6 +104,7 @@ function dashBoardSetup()
             window.centerContainer.addChild(cp);
             window.newCourseFormAdded = true;
             window.tabs["NewCourseTab"] = cp;
+            placeTabContainer();
         });
 
     // GET the courses for the session, the add a new tab and SYNC flag for each, then place the tab container
@@ -167,6 +127,7 @@ function dashBoardSetup()
             }
             placeTabContainer();
         });
+    window.dom.byId("instructorName").innerHTML = "Welcome, " + window.name + "!"
 }
 /*
 When called, will attempt to place the TabContainer for the dashboard

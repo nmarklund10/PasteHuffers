@@ -1,3 +1,7 @@
+function studentLoginSetup() {
+    gapi.auth2.getAuthInstance().attachClickHandler(window.dom.byId("googleButton"), {}, onSignIn, null);
+}
+
 function onSignIn(googleUser) {
   var id_token = googleUser.getAuthResponse().id_token;
   sendPostRequest("/SLogin",{"id_token":id_token},
@@ -13,7 +17,7 @@ function onSignIn(googleUser) {
             }
             window.getAssignmentIDDialog = new window.DojoDialog({title:"Welcome, " + response.name});
             window.getAssignmentIDDialog.show();
-            sendGetRequestForHTML("assignmentID/", {}, function(response){
+            sendGetRequestForHTML("/s_login/assignmentID/", {}, function(response){
               getAssignmentIDDialog.set("content",response);
             });
         }
@@ -26,7 +30,7 @@ function onSignIn(googleUser) {
 
 function getAssignmentID() {
   accessId = dijit.byId("assignmentID").value;
-  sendPostRequest("verifyCreds/", {"access":accessId}, 
+  sendPostRequest("/s_login/verifyCreds/", {"access":accessId}, 
       function(response)
       {
         if(response.success)

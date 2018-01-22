@@ -13,7 +13,7 @@ class CodeChecker
     end
     
     def self.testCode(language,suid,code)
-        ext = FileIO.get_file_extension(language)
+        ext = FileIO::FileIO.get_file_extension(language)
         tempFileWithCode = Tempfile.new([suid,ext], :encoding => 'ASCII-8BIT')
         if (language == "Python")
             code = "# -*- coding: utf-8 -*-\n" + code

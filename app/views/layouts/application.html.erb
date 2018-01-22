@@ -32,7 +32,6 @@
             'dojo/ready',
             'dojo/aspect',
             'dojo/dom-class',
-            'dojo/io/iframe',
             'dojo/parser', 'dijit/form/TextBox','dijit/form/Button','dojox/form/Uploader', 'dijit/form/Select','dojo/domReady!'
         ], function ( dom,
                       declare, 
@@ -50,13 +49,10 @@
                       ready,
                       aspect,
                       domClass,
-                      IFrame
                       )
             { ready(function(){
                 if(dojox.embed.Flash.available){
                   dojo.require("dojox/form/uploader/plugins/Flash");
-                }else{
-                  dojo.require("dojox/form/uploader/plugins/IFrame");
                 }
                 window.dom = dom;
                 window.declare = declare;
@@ -72,8 +68,6 @@
                 window.on = on;
                 window.aspect = aspect;
                 window.domClass = domClass;
-                window.IFrame = IFrame;
-                console.log(window.setup);
                 if( typeof window.setup !== "undefined")
                 {
                   window.setup();

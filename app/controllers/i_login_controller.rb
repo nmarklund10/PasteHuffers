@@ -18,14 +18,11 @@ class ILoginController < ApplicationController
         username = response["name"]
         
         #Look for instructors with matching names in database
-        possibleInstrs = Instructor.where(name: username)
+        possibleInstrs = Instructor.where(email: response["email"])
         instr = possibleInstrs[0]
         if instr == nil then
-            instr = Instructor.create(name: response["name"], email: "", password: "")
-            if instr == nil then
-                render json: {"success" => false, "reaons" => "Could not create account!"}
-                return
-            end
+            render json: {"create" => true, "name" => username, "email" => response["email"]}
+            return
         end
         #If we have any list of instr, just grab the first one. Instructor Creation should check unqiuness
         #Verified info, save instructor id into the session then redirect to dashboard

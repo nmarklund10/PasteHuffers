@@ -141,6 +141,9 @@ input:focus {
   color: LightSteelBlue
 }
 </style>
+<script>
+  window.setup = instructorLoginSetup;
+</script>
 <header>
   <font size="20"><span style="display:inline-block; width: 30px;"></span>
     PasteHuffer</font>
@@ -156,13 +159,10 @@ input:focus {
     <input type="text" placeholder="Username" id="username">
     <div class="spacer"></div>
     <input type="password" placeholder="Password" id="password">
-    <input type="button" id="loginButton" value="Login" onclick="sendLoginRequest();">
+    <input type="button" id="loginButton" value="Login" onclick="">
   </div>
 </div><br />
-<!--<div align="center">
-  <button align = "center" id="createInstructorButton" onclick="openCreateInstructorForm()">Register</button>
-</div>-->
-<div class="g-signin2" data-onsuccess="sendLoginRequest" data-theme="dark" align="center"></div>
+<div id="googleButton" class="g-signin2" data-longtitle="true" data-theme="dark" data-width="240" data-height="50" data-theme="dark" align="center"></div>
 <footer>Texas A&amp;M University</footer>
 
 
