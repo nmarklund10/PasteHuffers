@@ -11,7 +11,7 @@ function sendLoginRequest(googleUser)
     function(response)
     {
         if (response.create) {
-            if (confirm("There are no accounts associated with the email: " + response.email + ".  Pressing OK will create a new one.")) {
+            if (confirm("There are no accounts associated with the email: " + response.email + "  Pressing OK will create a new one.")) {
                 sendPostRequest("instructors/create", {"name":response.name, "email":response.email},
                     function(r)
                     {
