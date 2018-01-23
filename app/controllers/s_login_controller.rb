@@ -18,8 +18,8 @@ class SLoginController < ApplicationController
         request = Net::HTTP::Post.new(uri.request_uri)
         response = https.request(request)
         response = JSON.parse(response.body)
-        name = response["name"]
-        session["SUID"] = response["email"] + "(" + name + ")"
+        name = response["name"].gsub(/ /, '_')
+        session["SUID"] = response["email"] + "[" + name + "]"
         puts session["SUID"]
         render json: {"success" => true, "name" => name}
     end

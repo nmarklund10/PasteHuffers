@@ -6,6 +6,7 @@ class CodeChecker
     OUTPUT = 1
     def self.runCommand(cmd)
         #Runs command and returns if it is successful and stdout and stderr output
+        puts cmd
         result = []
         result, status = Open3.capture2e(cmd)
         success = (status == 0)
