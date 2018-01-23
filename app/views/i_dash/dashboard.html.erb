@@ -185,6 +185,7 @@ input[type="submit"]:hover {
   box-shadow:0 0 1px 1px white;
   height: 40px;
   width: 100px;
+  cursor: pointer;
   -webkit-transition: all .1s linear;
   -o-transition: all .1s linear;
   -moz-transition: all .1s linear;
@@ -200,7 +201,7 @@ input:focus {
 button:focus {outline:0;}
 </style>
 <script>
-    window.setup = dashBoardSetup;
+  window.setup = dashBoardSetup;
 </script>
 <div align="right">
     <button align = "center" id="logOut" onclick="window.location = '/logout/';">Sign Out</button>
@@ -210,7 +211,7 @@ button:focus {outline:0;}
     PasteHuffer</font>
 </header>
  <div class="transbox">
-    <p>Welcome Instructor.</p>
+    <p id="instructorName"></p>
   </div>
 <div align="center" style="height:100%;">
     <div id="centerContainer" name="centerContainer"></div>

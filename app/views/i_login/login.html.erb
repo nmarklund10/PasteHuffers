@@ -102,6 +102,7 @@ input[type="password"] {
   transition: all .1s linear;
 }
 #createStudentLogin{
+  cursor:pointer;  
   background-color:#111;
   color: white;
   box-shadow:0 0 1px 1px white;
@@ -140,6 +141,9 @@ input:focus {
   color: LightSteelBlue
 }
 </style>
+<script>
+  window.setup = instructorLoginSetup;
+</script>
 <header>
   <font size="20"><span style="display:inline-block; width: 30px;"></span>
     PasteHuffer</font>
@@ -147,18 +151,18 @@ input:focus {
 <div align="left">
   <button align = "center" id="createStudentLogin" onclick="openStudentLogin();">Student Login</button>
 </div>
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id" content="689505337354-q1iajmjh8kuksrkhtqkqsdsd49ebl49f.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <div id="login">
   <div id="formDiv">
     <input type="text" placeholder="Username" id="username">
     <div class="spacer"></div>
     <input type="password" placeholder="Password" id="password">
-    <input type="button" id="loginButton" value="Login" onclick="sendLoginRequest();">
+    <input type="button" id="loginButton" value="Login">
   </div>
 </div><br />
-<div align="center">
-  <button align = "center" id="createInstructorButton" onclick="openCreateInstructorForm()">Register</button>
-</div>
-
+<div id="googleButton" class="g-signin2" data-longtitle="true" data-theme="dark" data-width="240" data-height="50" data-theme="dark" align="center"></div>
 <footer>Texas A&amp;M University</footer>
 
 

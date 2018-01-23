@@ -118,46 +118,6 @@ input:focus {
 </style>
 <script>
   window.setup = codeEditorSetup;
-  function codeEditorSetup()
-  {
-    dijit.byId("editor").onLoadDeferred.then(function (){
-      window.logText = "";
-      dijit.byId("editor").editNode.onkeydown = getKey;
-      dijit.byId("editor").editNode.onpaste = logTextPaste;      
-    });
-  }
-  window.startTime = undefined
-  function getKey(event) {
-    var x = event.key;
-    var time = new Date();
-    if (window.startTime == undefined) {
-      window.startTime = time;
-      time = window.startTime.toString();
-    }
-    else {
-      secondsElapsed = (time - window.startTime) / 1000;
-      //If it has been 15 minutes or more since first time stamp, make a new one
-      if (secondsElapsed >= 900) {
-        window.startTime = time;
-        time = time.toString();
-      }
-      else {
-        time = "H+" + secondsElapsed;    
-      }
-    }
-    window.logText = window.logText + time + "\n" + x + "\n";
-    console.log(window.logText);
-  }
-  function logTextPaste(event) {
-    var pastedText = "";
-    if (typeof event.clipboardData === 'undefined')
-      pastedText = window.clipboardData.getData('Text');
-    else
-      pastedText = event.clipboardData.getData('text/plain');
-    var time = new Date();
-    window.logText = window.logText + time.toString() + "\n" + pastedText + "\n";
-    console.log(window.logText);
-  }
 </script>
 <header>
     <font size="20"><span style="display:inline-block; width: 30px;"></span>PasteHuffer</font>
@@ -176,9 +136,12 @@ input:focus {
     </div>
   </div>
     <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'" style="background-color: white;">
-       <div data-dojo-type="dijit/Editor" id="editor" data-dojo-props="plugins:['bold','italic','|','createLink']">Sample Code</div>
+       <div data-dojo-type="dijit/Editor" id="editor" data-dojo-props="">Sample Code</div>
     </div>
-    <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'trailing'" style="width: 25%;">Output my dudes</div>
+    <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'trailing'" style="width: 25%;"><div id="tempOutputArea">Output my dudes</div>
+        <button data-dojo-type="dijit/form/Button" id="submitButton" onclick="sendSubmission();">Submit</button>
+        <button data-dojo-type="dijit/form/Button" id="testButton" onclick="testCode();">Test</button></div>
+
     <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'bottom'" style="background-color: black;">Bottom pane</div>
 </div>
   

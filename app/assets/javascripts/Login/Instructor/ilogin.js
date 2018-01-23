@@ -1,24 +1,40 @@
-// Send the login request with the current username and password
-function sendLoginRequest()
+function instructorLoginSetup() {
+    gapi.auth2.getAuthInstance().attachClickHandler(window.dom.byId("googleButton"), {}, sendLoginRequest, null);
+}
+
+// Sends POST request 
+function sendLoginRequest(googleUser)
 {
-    // Grab user info from the forms
-    var username = window.dom.byId("username").value;
-    var password = window.dom.byId("password").value;
-    console.log("Sending Request")
-    // Send POST request for login
-    // A succesful response will end in redirect, any other response will provide information about error
-    sendPostRequest("/ILogin/", {"username":username, "password":password}, 
-      function(response)
-      {
-        if(response.success)
+    var authResult = googleUser.getAuthResponse();
+    var id_token = authResult.id_token;
+    sendPostRequest("/ILogin/",{"id_token":id_token},
+    function(response)
+    {
+        if (response.create) {
+            if (confirm("There are no accounts associated with the email: " + response.email + "  Pressing OK will create a new one.")) {
+                sendPostRequest("instructors/create", {"name":response.name, "email":response.email},
+                    function(r)
+                    {
+                        if (r.success) {
+                            window.name = response.name;
+                            window.location = "/dash/";
+                        }
+                        else {
+                            alert(r.reason);
+                        }
+                    });
+            }
+        }
+        else if(response.success)
         {
-          window.location = "/dash/";
+            window.name = response.name;
+            window.location = "/dash/";
         }
         else
         {
-          alert(response.reason);
+            alert(response.reason);
         }
-      });
+    });
 }
 function openStudentLogin(){
     window.location = "/s_login/";
@@ -38,7 +54,8 @@ function openCreateInstructorForm()
         createInstructorFormDialog.set("content",response);
       });
   }
-// Grabs the data from the modal form presented by the register button
+
+// Sends a POST request to create a new instructor 
 function submitInstructor()
 {
     // Grab all the data from the form
@@ -77,9 +94,7 @@ function submitInstructor()
         {
             if(response.success)
             {
-                //Log in with new data
-                // Send POST request for login
-                // A succesful response will end in redirect, any other response will provide information about error
+                // Log in with new instructor data
                 sendPostRequest("/ILogin/", {"username":instrName, "password":instrPassword},
                     function(response)
                     {

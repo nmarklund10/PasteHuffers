@@ -40,14 +40,22 @@ Rails.application.routes.draw do
 
   get 'courses/creationForm' => 'c_dash#createCourseForm'
   post 'courses/create' => 'c_dash#createNewCourse'
+  post 'courses/delete' => 'c_dash#deleteCourse'
 
   get 'assignments/creationForm' => 'assignments#createAssignmentForm'
   post 'assignments/create' => 'assignments#createNewAssignment'
+  post 'assignments/delete' => 'assignments#deleteAssignment'
   
   get 'submissions/' => 'submissions#getSubmissions'
-  get 'a_dash/' => 'a_dash#index'
+  get 'a_dash/:id' => 'a_dash#index'
   get 'codeEdit/skelCode' => 'ce#getSkeletonCode'
+  post 'codeEdit/test' => 'ce#testCode'
   
+  post 'dash/upload' => 'i_dash#upload'
+  post 'submissions/submit' => 'submissions#createSubmission'
+  get  'submissions/downloadLog' => 'submissions#downloadLog'
+  get  'submissions/downloadSubmission' => 'submissions#downloadSubmission'
+  get  'submissions/downloadAll' => 'submissions#massDownloadSubmission'
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 

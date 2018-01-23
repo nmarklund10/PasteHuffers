@@ -111,17 +111,24 @@ input:focus {
   color: LightSteelBlue
 }
 </style>
+<script>
+  window.setup = studentLoginSetup;
+</script>
 <header>
    <font size="20"><span style="display:inline-block; width: 30px;"></span>PasteHuffer</font>
    <h5><span style="display:inline-block; width: 30px;"></span>Student</h5>
 </header>
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id" content="689505337354-q1iajmjh8kuksrkhtqkqsdsd49ebl49f.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <div id="login">
   <form>
     <input type="text" placeholder="Username" id="username">
     <div class="spacer"></div>
     <input type="password" placeholder="Access Code" id="access">
-    <input type="button" id="loginButton" value="Login" onclick="sendAccessRequest();">
+    <input type="button" id="loginButton" value="Login">
   </form>
 </div>
+<div id="googleButton" class="g-signin2" data-longtitle="true" data-theme="dark" data-width="240" data-height="50" data-theme="dark" align="center"></div>
 <footer>Texas A&amp;M University</footer>
 </body>

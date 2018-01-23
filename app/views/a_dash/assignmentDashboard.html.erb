@@ -108,6 +108,7 @@ input:focus {
   box-shadow:0 0 1px 1px white;
   height: 40px;
   width: 100px;
+  cursor: pointer;
   -webkit-transition: all .1s linear;
   -o-transition: all .1s linear;
   -moz-transition: all .1s linear;
@@ -116,21 +117,29 @@ input:focus {
   transition: all .1s linear;
 }
 button:focus {outline:0;}
+
+.rowWithPasteDetected {
+  background-color: #f74636 !important;
+}
 </style>
 <script>
     window.setup = dashBoardSetup;
+    window.assignmentId = <%= @auid %>;
 </script>
+
 <div align="right">
     <button align = "center" id="backtoDash" onclick="window.location = '/dash/';">Dashboard</button>
    </div>
 <header>
   <font size="20"><span style="display:inline-block; width: 30px;"></span>PasteHuffer</font>
 </header> 
-   
  <div class="titlebox">
     <p>Submissions</p>
   </div>
-  
+  <div>
+  <button data-dojo-type="dijit/form/Button" id="downloadAllButton" onclick="downloadAllSubmissions();" align ="right">Download All Submissions</button>
+  <button data-dojo-type="dijit/form/Button" id="deleteAssignmentButton" onclick="showDeleteAssignmentDialog();" align ="right">Delete This Assignment</button>
+  </div>
 <script>window.setup = assignmentDashBoardSetup;</script>
 <div id="submissionGrid"></div>
 
