@@ -96,6 +96,7 @@ function dashBoardSetup()
     window.startedCourses = false;
     window.alreadyPlaced = false;
     window.tabs = {};
+    window.courses = [];
     // Set up create new course form first
     sendGetRequestForHTML('/courses/creationForm',{},
         function(response)
