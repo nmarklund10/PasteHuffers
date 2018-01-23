@@ -1,4 +1,5 @@
 require_relative '../../fileIO/fileIO'
+
 class SubmissionsController < ApplicationController
    
     def getSubmissions
@@ -79,6 +80,25 @@ class SubmissionsController < ApplicationController
         rescue Exception => e
             puts e
             render json: {"success" => false, "reason" => "Invalid download request"}
+        end
+    end
+
+    def massDownloadSubmission
+        begin
+            if session["IUID"] == nil then
+                raise "No user logged in"
+            end
+            if params["AUID"] == nil then
+                raise "Not enough information given"
+            end
+            cuid = Assignment.find(params["AUID"]).course_id
+            if Course.find(cuid).instructor_id != session["IUID"] then
+                raise "User does not have ownership of submission"
+            end
+            send_file(FileIO.generateZipFile(session["IUID"],cuid,params["AUID"]), filename: "all-submissions.zip")
+        rescue Exception => e
+            puts e
+            render json: {"success" => false, "reason" => "Server error"}
         end
     end
 end

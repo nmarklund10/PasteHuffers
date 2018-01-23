@@ -12,6 +12,7 @@ function dashBoardSetup()
     window.startedCourses = false;
     window.alreadyPlaced = false;
     window.tabs = {};
+    window.courses = [];
     // Set up create new course form first
     sendGetRequestForHTML('/courses/creationForm',{},
         function(response)
@@ -20,6 +21,7 @@ function dashBoardSetup()
             window.centerContainer.addChild(cp);
             window.newCourseFormAdded = true;
             window.tabs["NewCourseTab"] = cp;
+            placeTabContainer();
         });
 
     // GET the courses for the session, the add a new tab and SYNC flag for each, then place the tab container
