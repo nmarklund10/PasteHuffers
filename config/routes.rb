@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   #
   get 'courses/' => 'c_dash#getClasses'
   get 'assignments/' => 'assignments#getAssignments'
+  get 'assignments/getSkeletonCode' => 'assignments#getSkeletonCode'
   get 'dash/' => 'i_dash#index'
   get 's_login/' => 's_login#index'
   get 'submissions/'=> 'submissions#getSubmissions'
@@ -29,8 +30,9 @@ Rails.application.routes.draw do
   
   # Student Login Routes
   get 'codeEdit/' => 'ce#index'
-  post 'SLogin/' => 's_login#verifyCreds'
-
+  post 'SLogin/' => 's_login#googleLogIn'
+  post '/s_login/verifyCreds/' => 's_login#verifyCreds'
+  get '/s_login/assignmentID/' => 's_login#getAssignmentID'
 
   #
   #Form Routes
