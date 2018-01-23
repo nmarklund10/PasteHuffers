@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   #
   # Login Routes
   #
+  #root 'a_dash#index'
   root 'i_login#index'
   post 'ILogin/' => 'i_login#verifyCreds'
   get 'logout/'  => 'i_login#destroy'
@@ -28,9 +29,7 @@ Rails.application.routes.draw do
   
   # Student Login Routes
   get 'codeEdit/' => 'ce#index'
-  post 'SLogin/' => 's_login#googleLogIn'
-  get 's_login/assignmentID/' => 's_login#getAssignmentID'
-  post 's_login/verifyCreds/' => 's_login#verifyCreds'
+  post 'SLogin/' => 's_login#verifyCreds'
 
 
   #
@@ -41,23 +40,22 @@ Rails.application.routes.draw do
 
   get 'courses/creationForm' => 'c_dash#createCourseForm'
   post 'courses/create' => 'c_dash#createNewCourse'
+  post 'courses/delete' => 'c_dash#deleteCourse'
 
   get 'assignments/creationForm' => 'assignments#createAssignmentForm'
   post 'assignments/create' => 'assignments#createNewAssignment'
-
   post 'assignments/delete' => 'assignments#deleteAssignment'
-  get '/assignments/getSkeletonCode' => 'assignments#getSkeletonCode'
   
   get 'submissions/' => 'submissions#getSubmissions'
   get 'a_dash/:id' => 'a_dash#index'
-  post 'codeEdit/test' => 'ce#testCode'
   get 'codeEdit/skelCode' => 'ce#getSkeletonCode'
-
+  post 'codeEdit/test' => 'ce#testCode'
+  
   post 'dash/upload' => 'i_dash#upload'
-
   post 'submissions/submit' => 'submissions#createSubmission'
   get  'submissions/downloadLog' => 'submissions#downloadLog'
   get  'submissions/downloadSubmission' => 'submissions#downloadSubmission'
+  get  'submissions/downloadAll' => 'submissions#massDownloadSubmission'
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 

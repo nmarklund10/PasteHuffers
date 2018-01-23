@@ -3,6 +3,10 @@ class IDashController < ApplicationController
     skip_before_action :verify_authenticity_token, :only => :upload
     #List all in database
     def index
+        if session["IUID"] == nil then
+            render json: {"success" => false, "reason" => "No User signed in"}
+            return
+        end
         render "dashboard"
     end
     #upload skeleton code

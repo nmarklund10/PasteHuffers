@@ -64,23 +64,38 @@ function openSubmissionDialog(event)
 
 function downloadLog(row)
 {
-    window.IFrame.send({
+    console.log("Attempting to download log for "+row.data.student_id);
+    var dfd = window.IFrame.send({
         url:"/submissions/downloadLog",
         method:"GET",
         content:{
         "submissionId": row.data.id
         }
         });
+    dfd.cancel();
 }
 function downloadSubmission(row)
 {
-    window.IFrame.send({
+    console.log("Attempting to download submission for "+row.data.student_id);
+    var dfd = window.IFrame.send({
         url:"/submissions/downloadSubmission",
         method:"GET",
         content:{
         "submissionId": row.data.id
         }
         });
+    dfd.cancel();
+}
+function downloadAllSubmissions()
+{
+    var dfd = window.IFrame.send({
+        url:"/submissions/downloadAll",
+        method:"GET",
+        content:{
+        "AUID": window.assignmentId
+        }
+        });
+    dfd.cancel();
 }
 
 function showDeleteAssignmentDialog()
