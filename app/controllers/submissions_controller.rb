@@ -54,6 +54,7 @@ class SubmissionsController < ApplicationController
             if Course.find(cuid).instructor_id != session["IUID"] then
                 raise "User does not have ownership of submission"
             end
+            puts FileIO.constructFileName(session["IUID"],cuid,auid,suid,true).to_s
             send_file(FileIO.constructFileName(session["IUID"],cuid,auid,suid,true), filename: suid+"-log.txt",  type: "application/txt")
         rescue Exception => e
             puts e
