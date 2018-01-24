@@ -133,7 +133,6 @@ function createNewAssignmentDialog()
         return;
     }
     window.createAssignmentFormDialog = new window.DojoDialog({title:"Create New Assignment"});
-    createAssignmentFormDialog.startup();
     createAssignmentFormDialog.show();
     sendGetRequestForHTML("/assignments/creationForm", {}, function(response){
         createAssignmentFormDialog.set("content",response);
