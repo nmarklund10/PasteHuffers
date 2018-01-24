@@ -159,7 +159,8 @@ function createNewAssignment()
             // Will return a copy of the new assignment object
             if(response.success)
             {
-                dijit.byId("uploadedFile").upload();
+                if (dijit.byId("uploadedFile").getFileList().length == 1)
+                    dijit.byId("uploadedFile").upload();
                 window.selectedTab.assignments.push(response.assignment);
                 generateAssignmentsContainer(window.selectedTab.assignments,window.selectedTab.course.id);
                 window.createAssignmentFormDialog.hide();

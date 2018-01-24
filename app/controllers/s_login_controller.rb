@@ -1,6 +1,8 @@
 require 'net/http'
 require 'uri'
 require 'json'
+require_relative '../../fileIO/fileIO'
+
 class SLoginController < ApplicationController
     #List all in database
     def index
@@ -18,26 +20,31 @@ class SLoginController < ApplicationController
         request = Net::HTTP::Post.new(uri.request_uri)
         response = https.request(request)
         response = JSON.parse(response.body)
-        name = response["name"]
-        session["SUID"] = response["email"] + "(" + name + ")"
+        name = response["name"].gsub(/ /, '_')
+        session["SUID"] = response["email"] + "[" + name + "]"
         puts session["SUID"]
         render json: {"success" => true, "name" => name}
     end
     
     def verifyCreds
         #Retrieve POST data
-        accessId = params["access"]
-        #Look for instructors with matching names in database
-        possibleAssignment = Assignment.where( id: accessId)
-        if possibleAssignment.length == 0 then
-            #Return error if we do not find anybody
-            render json: {"success" => false, "reason" => "No assignment found with that Assignment ID."}
-            return
+        auid = params["access"]
+        #Look for assignments with ID
+        currentAssignment = Assignment.find_by_id(auid)
+        if (currentAssignment == nil)
+           render json: {"success" => false, "reason" => "No Assignment found with that ID!"}
+           return
         end
-        #If we have any list of instr, just grab the first one. Instructor Creation should check unqiuness
-        
-        #Verified info, save instructor id into the session then redirect to dashboard
-        session["AUID"] = possibleAssignment[0].id
+        #check if student already has a submission for this assignment
+        currentCourse = Course.find(currentAssignment.course_id)
+        cuid = currentAssignment.course_id
+        iuid = currentCourse.instructor_id
+        if File.file?(FileIO.constructFileName(iuid, cuid, auid, session["SUID"], true))
+           render json: {"success" => false, "reason" => "You already have a submission for that assignment!"}
+           return 
+        end
+        #Verified info, save assignment id into session and go to code editor
+        session["AUID"] = auid
         render json: {"success" => true}
     end
 end

@@ -56,7 +56,7 @@ function openSubmissionDialog(event)
         window.downloadSubmissionDialog.rowClickedOn = window.submissionGridRef.row(event);
         return;
     }
-    window.downloadSubmissionDialog = new window.DojoDialog({title:window.submissionGridRef.row(event).data.student_id});
+    window.downloadSubmissionDialog = new window.DojoDialog({title:window.submissionGridRef.row(event).data.student_id, style: "width: 400px"});
     window.downloadSubmissionDialog.rowClickedOn = window.submissionGridRef.row(event);
     window.downloadSubmissionDialog.show();
     window.downloadSubmissionDialog.set("content", '<button data-dojo-type="dijit/form/Button" id="downloadLogButton" onclick="downloadLog(window.downloadSubmissionDialog.rowClickedOn);">Download Log</button><button data-dojo-type="dijit/form/Button" id="downloadSubmissionButton" onclick="downloadSubmission(window.downloadSubmissionDialog.rowClickedOn);">Download Submission</button>')
