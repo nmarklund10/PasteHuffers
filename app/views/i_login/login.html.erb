@@ -70,12 +70,9 @@ input[type="password"] {
 #loginButton {
   background-color:#111;
   color: white;
-  position:absolute;
-  bottom:35px;
-  right:-15px;
   box-shadow:0 0 1px 4px #53e3a6;
   border-radius:50px;
-  width:75px;
+  width:150px;
   height:50px;
   padding:0;
   -webkit-transition: all .1s linear;
@@ -148,21 +145,18 @@ input:focus {
   <font size="20"><span style="display:inline-block; width: 30px;"></span>
     PasteHuffer</font>
 </header>
-<div align="left">
-  <button align = "center" id="createStudentLogin" onclick="openStudentLogin();">Student Login</button>
-</div>
 <meta name="google-signin-scope" content="profile email">
 <meta name="google-signin-client_id" content="689505337354-q1iajmjh8kuksrkhtqkqsdsd49ebl49f.apps.googleusercontent.com">
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <div id="login">
   <div id="formDiv">
-    <input type="text" placeholder="Username" id="username">
-    <div class="spacer"></div>
-    <input type="password" placeholder="Password" id="password">
-    <input type="button" id="loginButton" value="Login">
+    <p align="center" style="color:white;">Instructors, Click Here to Sign In or Register:</p>
+    <div id="googleButton" class="g-signin2" data-longtitle="true" data-theme="dark" data-width="240" data-height="50" data-theme="dark" align="center"></div>
+    <br>
+    <p align="center" style="color:white;">Students, Click Here:</p>
+    <div align="center"><input type="button" id="loginButton" onclick="openStudentLogin();" value="Student Login"></div>
   </div>
 </div><br />
-<div id="googleButton" class="g-signin2" data-longtitle="true" data-theme="dark" data-width="240" data-height="50" data-theme="dark" align="center"></div>
 <footer>Texas A&amp;M University</footer>
 
 
