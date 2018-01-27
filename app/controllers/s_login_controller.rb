@@ -35,19 +35,6 @@ class SLoginController < ApplicationController
            render json: {"success" => false, "reason" => "No Assignment found with that ID!"}
            return
         end
-<<<<<<< HEAD
-        #If we have any list of instr, just grab the first one. Instructor Creation should check unqiuness
-        auid = session["AUID"]
-        suid = session["SUID"]
-        if auid == nil then 
-            render json: {"success" => false, "reason" => "No assignment id set, navigated to this page incorrectly."} 
-        end
-        if suid == nil then 
-            render json: {"success" => false, "reason" => "No student id set, navigated to this page incorrectly."} 
-        end
-        #Verified info, save instructor id into the session then redirect to dashboard
-        session["AUID"] = possibleAssignment[0].id
-=======
         #check if student already has a submission for this assignment
         currentCourse = Course.find(currentAssignment.course_id)
         cuid = currentAssignment.course_id
@@ -58,7 +45,6 @@ class SLoginController < ApplicationController
         end
         #Verified info, save assignment id into session and go to code editor
         session["AUID"] = auid
->>>>>>> f162b9ce0a5d7c6514d08234bf0b6d344668560f
         render json: {"success" => true}
     end
 end

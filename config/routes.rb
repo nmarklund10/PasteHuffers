@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   # Login Routes
   #
   #root 'a_dash#index'
-  root 'i_login#index'
+  root 'ce#index'
   post 'ILogin/' => 'i_login#verifyCreds'
   get 'logout/'  => 'i_login#destroy'
 
