@@ -6,27 +6,6 @@ class ILoginController < ApplicationController
     def index
         render "login"
     end
-    def log_in(instructor)
-        session["IUID"] = instructor.id
-    end
-    def remember(instr)
-        instr.remember
-        cookies.permanent.signed["IUID"] = instructor.id
-        cookies.permanent[:remember_token] = instructor.remember_token
-    end
-    # Returns the instructor corresponding to the remember token cookie.
-    def current_instr
-        if (instructor_id = session["IUID"])
-            @current_instructor ||= Instructor.find_by(id: instructor_id)
-        elsif (instructor_id = cookies.signed["IUID"])
-            instructor = Instructor.find_by(id: instructor_id)
-            if instructor && instructor.authenticated?(cookies[:remember_token])
-                log_in instructor
-                @current_instructor = instructor
-            end
-        end
-    end
-  
     #Verifies the given credentials
     #If correct then a object telling success is given back and the instructor is redirected to the dashboard
     def verifyCreds
@@ -49,9 +28,6 @@ class ILoginController < ApplicationController
         #Verified info, save instructor id into the session then redirect to dashboard
         session["IUID"] = instr.id
         render json: {"success" => true, "name" => username}
-    end
-    def logged_in?
-        !current_instructor.nil?
     end
     def destroy
          #session.delete("IUID")
