@@ -32,13 +32,14 @@ class Edit {
 }
 
 function sendSubmission() {
+  confirm("Are you sure?  You will be unable to access your work after pressing OK.");
   submission = dijit.byId("editor").editNode.innerText;
   log = window.detector.makeLog();
   sendPostRequest('/submissions/submit', {"submission":submission, "log": log, "cp":window.detector.getCP()}, 
     function(response) {
       if(response.success)
         {
-          
+          window.location = '/s_login/';
         }
         else
         {

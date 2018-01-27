@@ -33,6 +33,8 @@ class SubmissionsController < ApplicationController
             Submission.create(student_id: suid, assignment_id: auid, paste_detected: params[:cp])
             FileIO.write_submission(currentCourse.instructor_id, currentAssignment.course_id, auid, suid, params[:submission], currentAssignment.language)
             FileIO.write_log(currentCourse.instructor_id, currentAssignment.course_id, auid, suid, params[:log])
+            session["SUID"] = nil
+            session["AUID"] = nil
             render json: {"success" => true }        
         rescue Exception => e
             puts e

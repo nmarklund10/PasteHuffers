@@ -5,7 +5,7 @@ require 'tempfile'
 class FileIO
     def self.constructFileName(iuid,cuid,auid,suid,isLog,language=nil)
         if isLog then
-            return File.join(Rails.root.join("files", iuid.to_s, cuid.to_s, auid.to_s).to_s , suid.to_s + "-log")
+            return File.join(Rails.root.join("files", iuid.to_s, cuid.to_s, auid.to_s).to_s , suid.to_s + "-log.txt")
         end
         if language == nil then
             return ""
@@ -17,7 +17,6 @@ class FileIO
         tmp = Tempfile.new(["all-submissions",".zip"])
         zipFile = ZipFileGenerator.new(Rails.root.join("files", iuid.to_s, cuid.to_s, auid.to_s).to_s, Rails.root.join("files", iuid.to_s, cuid.to_s, auid.to_s).to_s+"allsubmissions.zip")
         zipFile.write
-        puts "Wrote ZipFile"
         return Rails.root.join("files", iuid.to_s, cuid.to_s, auid.to_s).to_s+"allsubmissions.zip"#tmp.path
         # entries = Dir.entries(Rails.root.join("files", iuid.to_s, cuid.to_s, auid.to_s).to_s) - %w(. ..)
 
@@ -48,7 +47,7 @@ class FileIO
         puts path
         puts auid
         FileUtils.makedirs(path)
-        path = File.join(path.to_s, suid.to_s + "-log")
+        path = File.join(path.to_s, suid.to_s + "-log.txt")
         File.write(path, input)
     end
     def self.write_submission(iuid,cuid,auid,suid,input,language)
@@ -66,7 +65,7 @@ class FileIO
     end
     
     def self.read_log(iuid,cuid,auid,suid)
-        path = Rails.root.join("files", iuid.to_s, cuid.to_s, auid.to_s, suid.to_s + "-log")
+        path = Rails.root.join("files", iuid.to_s, cuid.to_s, auid.to_s, suid.to_s + "-log.txt")
         File.read(path)
     end
     def self.read_submission(iuid,cuid,auid,suid,language)

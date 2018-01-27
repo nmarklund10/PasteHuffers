@@ -50,6 +50,7 @@
                       ready,
                       aspect,
                       domClass,
+                      IFrame
                       )
             { ready(function(){
                 if(dojox.embed.Flash.available){
@@ -69,6 +70,7 @@
                 window.on = on;
                 window.aspect = aspect;
                 window.domClass = domClass;
+                window.IFrame = IFrame;
                 if( typeof window.setup !== "undefined")
                 {
                   window.setup();
