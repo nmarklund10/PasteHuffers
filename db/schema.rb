@@ -38,7 +38,6 @@ ActiveRecord::Schema.define(version: 20180110070411) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.string   "password"
-    t.string   "remember_digest"
   end
 
   create_table "submissions", force: :cascade do |t|
