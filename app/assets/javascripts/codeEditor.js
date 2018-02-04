@@ -54,10 +54,6 @@ class CopyPasteDetector {
     var copyPaste = false;    
 
     var getKey = function(event) {
-      /*if (event.key == "Tab") {
-        event.preventDefault();
-        event.stopPropagation();
-      }*/
       editLog.push(new Edit(event.key, false));
     }
     var logTextPaste = function(event) {
@@ -81,6 +77,9 @@ class CopyPasteDetector {
         var curTime = editLog[i].getTime();
         var timeString = "";
         var cp = editLog[i].copyPaste();
+        if (text == "Enter") {
+          text = "\n";
+        }
         if (cp) {
           if (i != 0) {
             _logText += "\n\n"
@@ -104,8 +103,8 @@ class CopyPasteDetector {
               _lastStamp = curTime;
               timeString = "\n" + _lastStamp.toString() + "\n";
             }
-            //Make relative timestamp if last edit was not made less than 15 seconds ago or copy paste was detected
-            else if (editSecondsElapsed > 15 || cpdetected) {
+            //Make relative timestamp if last edit was not made less than 10 seconds ago or copy paste was detected
+            else if (editSecondsElapsed > 10 || cpdetected) {
               timeString = "\nH+" + tsSecondsElapsed + "\n";
             }
           }
