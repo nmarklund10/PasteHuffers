@@ -21,8 +21,8 @@ class Edit {
     var _text = text;
     var _copyPaste = cp;
     //Column and line start from 0
-    var _column = dijit.byId("editor").selection.getBookmark().mark.startOffset;
-    var _line = dijit.byId("editor").editNode.innerHTML.split("<div>").length - 1;
+    //var _column = dijit.byId("editor").selection.getBookmark().mark.startOffset;
+    //var _line = dijit.byId("editor").editNode.innerHTML.split("<div>").length - 1;
     this.getTime = function() { return _time; }
     this.getText = function() { return _text; }
     this.copyPaste = function() { return _copyPaste; }
@@ -69,7 +69,6 @@ class CopyPasteDetector {
     this.getLog = function() { return editLog; }
     this.makeLog = function() {
       var _lastStamp = undefined;
-      var _lastEdit = undefined;
       var _logText = "";
       var cpdetected = false;
       for (var i = 0; i < editLog.length; i++) {
@@ -77,42 +76,36 @@ class CopyPasteDetector {
         var curTime = editLog[i].getTime();
         var timeString = "";
         var cp = editLog[i].copyPaste();
-        if (text == "Enter") {
-          text = "\n";
+        if (i == 0) {
+          _lastStamp = curTime;
+          if (cp)
+            timeString += "\n";
+          timeString += _lastStamp.toString() + "\n";
+        }
+        else {
+          var tsSecondsElapsed = (curTime - _lastStamp) / 1000;
+        //If it has been 15 minutes or more since first time stamp, make a new one
+          if (tsSecondsElapsed >= 900) {
+            _lastStamp = curTime;
+            timeString = "\n" + _lastStamp.toString() + "\n";
+          }
+          //Make relative timestamp if last edit was not made less than 10 seconds ago or copy paste was detected
+          else {
+            timeString = "\n--H+" + tsSecondsElapsed + "--\n";
+          }
         }
         if (cp) {
           if (i != 0) {
-            _logText += "\n\n"
+            _logText += "\n"
           }
-          _logText += "**********COPY PASTE**********\n" + curTime.toString() + "\n" + text + "\n******************************\n";
+          _logText += "**********COPY PASTE**********" + timeString + text + "\n******************************";
           cpdetected = true;
           logCopyPaste();
+          continue;
         }
-        else {
-          if (_lastStamp == undefined) {
-            _lastStamp = curTime;
-            if (i != 0)
-              timeString += "\n";
-            timeString += _lastStamp.toString() + "\n";
-          }
-          else {
-            var tsSecondsElapsed = (curTime - _lastStamp) / 1000;
-            var editSecondsElapsed = (curTime - _lastEdit) / 1000;
-          //If it has been 15 minutes or more since first time stamp, make a new one
-            if (tsSecondsElapsed >= 900) {
-              _lastStamp = curTime;
-              timeString = "\n" + _lastStamp.toString() + "\n";
-            }
-            //Make relative timestamp if last edit was not made less than 10 seconds ago or copy paste was detected
-            else if (editSecondsElapsed > 10 || cpdetected) {
-              timeString = "\nH+" + tsSecondsElapsed + "\n";
-            }
-          }
-          cpdetected = false;    
-          _logText += timeString + text;
-        }        
-        _lastEdit = curTime;
+        _logText += timeString + text;
       }
+      _logText += "\n";        
       return _logText;
     }
 
