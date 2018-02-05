@@ -17,7 +17,7 @@ class ILoginController < ApplicationController
         response = JSON.parse(response.body)
         username = response["name"]
         if AcceptedInstructor.where(email: response["email"])[0] == nil and Admin.where(email: response["email"])[0] == nil then
-            render json: {"success" => true, "reason" => "This email has not been whitelisted for use. Contact the admin for approval."}
+            render json: {"success" => false, "reason" => "This email has not been whitelisted for use. Contact the admin for approval."}
             return
         end
         #Look for instructors with matching names in database
