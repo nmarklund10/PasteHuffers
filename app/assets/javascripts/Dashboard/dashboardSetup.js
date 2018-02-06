@@ -94,7 +94,7 @@ function setupAdmin(response)
     htmlContent += '<label for="deleteInstrWhiteListEmail">Delete Instructor:</label><select id="deleteInstrWhiteListSelect" data-dojo-type="dijit/form/Select">';
     for(var i in response)
     {
-        htmlContent += '<option value="'+response[i]+'">'+response[i]+'</option>';
+        htmlContent += '<option value="'+response[i].email+'">'+response[i].email+'</option>';
     }
     htmlContent += '</select><button data-dojo-type="dijit/form/Button" id="deleteInstrWhiteListEmailButton" onclick="deleteInstrFromWhiteList();">Delete Instructor</button><br /></div>';
     window.centerContainer.addChild(new window.ContentPane({title:"Admin/Tools", content:htmlContent, id:"admin/tools"}));
@@ -116,7 +116,7 @@ function createNewWhiteListInstructor()
         // Update the select to include the instr
         if(response.success)
         {
-            window.dijit.byId("deleteInstrWhiteListSelect").addOption(email);
+            window.dijit.byId("deleteInstrWhiteListSelect").addOption({disabled:false, label:email, value:email});
         }
         else
         {
