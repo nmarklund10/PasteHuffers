@@ -88,6 +88,27 @@ function addCourseToCenterContainer(c, indexForLoadup=-1)
 /*dashBoardSetup is set as window.setup by dashboard.html
   it will query for the course creation form and all the courses and call addCourseToContainer and placeTabContainer
 */
+function setupAdmin(response)
+{
+    var htmlContent = '<div id="outerAdminDiv"><label for="newinstrWhiteListEmail">New Instructor Email:</label><input type="text" id="newInstrWhiteListEmail" name="name" required="true" data-dojo-type="dijit/form/TextBox"/><button data-dojo-type="dijit/form/Button" id="submitNewWhiteListButton" onclick="createNewWhiteListInstructor();">Add To Whitelist</button><br />';
+    htmlContent += '<label for="deleteInstrWhiteListEmail">Delete Instructor:</label><select id="deleteInstrWhiteListSelect" data-dojo-type="dijit/form/Select">';
+    for(var i in response)
+    {
+        htmlContent += '<option value="'+response[i]+'">'+response[i]+'</option>';
+    }
+    htmlContent += '</select><button data-dojo-type="dijit/form/Button" id="deleteInstrWhiteListEmailButton" onclick="deleteInstrFromWhiteList();">Delete Instructor</button><br /></div>';
+    window.centerContainer.addChild(new window.ContentPane({title:"Admin/Tools", content:htmlContent, id:"admin/tools"}));
+}
+function createNewWhiteListInstructor()
+{
+    // Send request to update DB with new instr
+    // Update the select to include the instr
+}
+function deleteInstrFromWhiteList()
+{
+    // Send request to delete instr from DB
+    // Update the select to not include the instr
+}
 function dashBoardSetup()
 {
     // Create Tab Container and set up SYNC flags
@@ -108,6 +129,10 @@ function dashBoardSetup()
             placeTabContainer();
         });
 
+    if(window.isAdmin)
+    {
+        sendGetRequestForJSON('/whitelist/',{},setupAdmin);
+    }
     // GET the courses for the session, the add a new tab and SYNC flag for each, then place the tab container
     
     sendGetRequestForJSON("/courses/",{},
