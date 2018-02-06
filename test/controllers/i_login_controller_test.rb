@@ -56,8 +56,4 @@ class ILoginControllerTest < ActionController::TestCase
   	assert_equal false, response['success'], "should fail with wrong username"
   	assert_equal "Incorrect Username or Password", response['reason']
   end
-
-
-
-
 end
