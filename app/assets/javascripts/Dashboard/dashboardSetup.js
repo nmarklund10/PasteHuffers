@@ -117,6 +117,7 @@ function createNewWhiteListInstructor()
         if(response.success)
         {
             window.dijit.byId("deleteInstrWhiteListSelect").addOption({disabled:false, label:email, value:email});
+            window.dijit.byId("deleteInstrWhiteListSelect").reset();
         }
         else
         {
@@ -134,6 +135,11 @@ function deleteInstrFromWhiteList()
 {
     // Send request to delete instr from DB
     var email = window.dijit.byId("deleteInstrWhiteListSelect").value;
+    if(email == "")
+    {
+        alert("No email selected for deletion");
+        return;
+    }
     sendPostRequest('/whitelist/delete',{'email': email},
     function(response)
     {
@@ -143,6 +149,7 @@ function deleteInstrFromWhiteList()
         if(response.success)
         {
             window.dijit.byId("deleteInstrWhiteListSelect").removeOption(email);
+            window.dijit.byId("deleteInstrWhiteListSelect").reset();
         }
         else
         {
