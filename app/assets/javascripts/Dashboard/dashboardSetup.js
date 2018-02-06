@@ -149,6 +149,7 @@ function deleteInstrFromWhiteList()
         if(response.success)
         {
             window.dijit.byId("deleteInstrWhiteListSelect").removeOption(email);
+            window.dijit.byId("deleteInstrWhiteListSelect")._setDisplay("");
             window.dijit.byId("deleteInstrWhiteListSelect").reset();
         }
         else
@@ -157,6 +158,7 @@ function deleteInstrFromWhiteList()
         }
     });
 }
+
 function dashBoardSetup()
 {
     // Create Tab Container and set up SYNC flags
