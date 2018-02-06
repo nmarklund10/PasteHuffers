@@ -1,8 +1,18 @@
+function setLanguage(lang) {
+  if (lang == "Python")
+      window.editor.session.setMode("ace/mode/python");
+  else if (lang == "Ruby")
+      window.editor.session.setMode("ace/mode/ruby");
+  else if (lang == "Java")
+      window.editor.session.setMode("ace/mode/java");
+  else if (lang == "C++" || lang == "C")
+      window.editor.session.setMode("ace/mode/c_cpp");
+}
+
 function codeEditorSetup()
 {
   window.editor = ace.edit("editor");
   window.editor.setTheme("ace/theme/monokai");
-  window.editor.session.setMode("ace/mode/python");
   window.editor.setShowPrintMargin(false);
   window.editor.$blockScrolling = Infinity;
   document.getElementById('editor').style.fontSize='15px';
@@ -10,7 +20,7 @@ function codeEditorSetup()
   sendGetRequestForJSON('/assignments/getSkeletonCode', {}, 
     function(response) {
       if (response.success) {
-        console.log(response.skeletonCode);
+        setLanguage(response.language);
         window.editor.setValue(response.skeletonCode);
       }
       else {
@@ -25,19 +35,17 @@ class Edit {
     var _text = text;
     var _copyPaste = cp;
     //Column and line start from 0
-    //var _column = dijit.byId("editor").selection.getBookmark().mark.startOffset;
-    //var _line = dijit.byId("editor").editNode.innerHTML.split("<div>").length - 1;
+    var _position = window.editor.getCursorPosition()
     this.getTime = function() { return _time; }
     this.getText = function() { return _text; }
     this.copyPaste = function() { return _copyPaste; }
-    this.getColumn = function() { return _column; }
-    this.getLine = function() { return _line; }
+    this.getPosition = function() { return _position; }
   }
 }
 
 function sendSubmission() {
   confirm("Are you sure?  You will be unable to access your work after pressing OK.");
-  submission = dijit.byId("editor").editNode.innerText;
+  submission = window.editor.getValue();
   log = window.detector.makeLog();
   sendPostRequest('/submissions/submit', {"submission":submission, "log": log, "cp":window.detector.getCP()}, 
     function(response) {
@@ -118,13 +126,13 @@ class CopyPasteDetector {
 }
 function testCode()
 {
-    submission = dijit.byId("editor").editNode.innerText;
+    submission = window.editor.getValue();
     sendPostRequest('/codeEdit/test', {"code":submission}, 
       function(response)
       {
         if(response.success)
         {
-          dom.byId("tempOutputArea").innerText = response.output;
+          document.getElementById("output").innerText = response.output;
         }
         else
         {
