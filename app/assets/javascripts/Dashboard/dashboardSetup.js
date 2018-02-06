@@ -102,12 +102,49 @@ function setupAdmin(response)
 function createNewWhiteListInstructor()
 {
     // Send request to update DB with new instr
-    // Update the select to include the instr
+    var email = window.dom.byId("newInstrWhiteListEmail").value;
+    if(!validateEmail(email))
+    {
+        alert("Enter in a valid email!");
+        return;
+    }
+    sendPostRequest('/whitelist/add',{'email': email},
+    function(response)
+    {
+        // Update the select to include the instr
+        if(response.success)
+        {
+            window.dijit.byId("deleteInstrWhiteListSelect").addOption(email);
+        }
+        else
+        {
+            alert(response.reason);
+        }
+    });
 }
+/*The below function is from a SO post here https://stackoverflow.com/questions/46155/how-can-you-validate-an-email-address-in-javascript*/
+function validateEmail(email) {
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+
 function deleteInstrFromWhiteList()
 {
     // Send request to delete instr from DB
-    // Update the select to not include the instr
+    var email = window.dijit.byId("deleteInstrWhiteListSelect").value;
+    sendPostRequest('/whitelist/delete',{'email': email},
+    function(response)
+    {
+        // Update the select to not include the instr
+        if(response.success)
+        {
+            window.dijit.byId("deleteInstrWhiteListSelect").removeOption(email);
+        }
+        else
+        {
+            alert(response.reason);
+        }
+    });
 }
 function dashBoardSetup()
 {
