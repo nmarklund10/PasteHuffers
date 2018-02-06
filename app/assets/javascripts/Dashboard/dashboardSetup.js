@@ -111,6 +111,8 @@ function createNewWhiteListInstructor()
     sendPostRequest('/whitelist/add',{'email': email},
     function(response)
     {
+        console.log(response);
+        console.log(email);
         // Update the select to include the instr
         if(response.success)
         {
@@ -135,6 +137,8 @@ function deleteInstrFromWhiteList()
     sendPostRequest('/whitelist/delete',{'email': email},
     function(response)
     {
+        console.log(response);
+        console.log(email);
         // Update the select to not include the instr
         if(response.success)
         {
