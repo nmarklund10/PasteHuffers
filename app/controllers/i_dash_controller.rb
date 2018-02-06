@@ -58,7 +58,8 @@ class IDashController < ApplicationController
                 raise "Instructor is not admin"
             end
             render json: AcceptedInstructors.all
-        rescue
+        rescue Exception => e
+            puts e
             render json: {"success" => false, "reason" => "The logged in instructor does not have privelege for this resource"}
             return
         end
