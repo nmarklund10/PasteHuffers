@@ -54,10 +54,9 @@ class IDashController < ApplicationController
         begin
             instructor = Instructor.find(session["IUID"])
             if Admin.where(email: instructor.email)[0] == nil then
-                puts("INSTRUCTOR NOT ADMIN");
                 raise "Instructor is not admin"
             end
-            render json: AcceptedInstructors.all
+            render json: AcceptedInstructor.all
         rescue Exception => e
             puts e
             render json: {"success" => false, "reason" => "The logged in instructor does not have privelege for this resource"}
@@ -71,10 +70,11 @@ class IDashController < ApplicationController
             if Admin.where(email: instructor.email)[0] == nil then
                 raise "Instructor is not admin"
             end
-            AcceptedInstructors.create(email:params["email"])
+            AcceptedInstructor.create(email:params["email"])
             render json: {"success" => true}
             return
-        rescue
+        rescue Exception => e
+            puts e
             render json: {"success" => false, "reason" => "Invalid request"}
             return
         end
@@ -86,10 +86,11 @@ class IDashController < ApplicationController
             if Admin.where(email: instructor.email)[0] == nil then
                 raise "Instructor is not admin"
             end
-            AcceptedInstructors.where(email:params["email"]).destroy_all
+            AcceptedInstructor.where(email:params["email"]).destroy_all
             render json: {"success" => true}
             return
-        rescue
+        rescue Exception => e
+            puts e
             render json: {"success" => false, "reason" => "Invalid request"}
             return
         end
