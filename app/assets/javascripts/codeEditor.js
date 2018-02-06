@@ -1,13 +1,17 @@
 function codeEditorSetup()
 {
-  dijit.byId("editor").onLoadDeferred.then(function (){
-    window.detector = Object.freeze(new CopyPasteDetector());
-  });
+  window.editor = ace.edit("editor");
+  window.editor.setTheme("ace/theme/monokai");
+  window.editor.session.setMode("ace/mode/python");
+  window.editor.setShowPrintMargin(false);
+  window.editor.$blockScrolling = Infinity;
+  document.getElementById('editor').style.fontSize='15px';
+  window.detector = Object.freeze(new CopyPasteDetector());
   sendGetRequestForJSON('/assignments/getSkeletonCode', {}, 
     function(response) {
       if (response.success) {
         console.log(response.skeletonCode);
-        dijit.byId("editor").editNode.innerText = response.skeletonCode;
+        window.editor.setValue(response.skeletonCode);
       }
       else {
         alert(response.reason);
@@ -108,9 +112,8 @@ class CopyPasteDetector {
       _logText += "\n";        
       return _logText;
     }
-
-    dijit.byId("editor").editNode.onkeydown = getKey;
-    dijit.byId("editor").editNode.onpaste = logTextPaste;
+    window.editor.textInput.getElement().addEventListener('keydown', getKey);
+    window.editor.textInput.getElement().addEventListener('paste', logTextPaste);
   }
 }
 function testCode()
