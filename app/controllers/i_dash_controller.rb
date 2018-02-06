@@ -54,6 +54,7 @@ class IDashController < ApplicationController
         begin
             instructor = Instructor.find(session["IUID"])
             if Admin.where(email: instructor.email)[0] == nil then
+                puts("INSTRUCTOR NOT ADMIN");
                 raise "Instructor is not admin"
             end
             render json: AcceptedInstructors.all
