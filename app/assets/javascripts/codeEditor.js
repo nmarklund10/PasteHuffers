@@ -1,3 +1,7 @@
+function hideElementById(id) {
+  document.getElementById(id).style.visibility = 'hidden';
+}
+
 function setLanguage(lang) {
   if (lang == "Python")
       window.editor.session.setMode("ace/mode/python");
@@ -8,9 +12,12 @@ function setLanguage(lang) {
   else if (lang == "C++" || lang == "C")
       window.editor.session.setMode("ace/mode/c_cpp");
   else {
-      document.getElementById("testButton").style.visibility = 'hidden';
+      hideElementById("outputPane");
+      hideElementById("testButton");
+      document.getElementById("editor").style.width = '100%';
       window.editor.setOptions({
-        fontFamily: "Lucida Console"
+        fontFamily: "Lucida Console",
+        fontSize: "15px"
       });
   }
 }
@@ -145,9 +152,12 @@ class CopyPasteDetector {
 function testCode()
 {
     submission = window.editor.getValue();
+    document.getElementById("output").innerText = "Compiling...";
+    document.getElementById("testButton").disabled = true;
     sendPostRequest('/codeEdit/test', {"code":submission}, 
       function(response)
       {
+        document.getElementById("testButton").disabled = false;
         if(response.success)
         {
           document.getElementById("output").innerText = response.output;
