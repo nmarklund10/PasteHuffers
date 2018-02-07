@@ -9,6 +9,32 @@ class IDashControllerTest < ActionController::TestCase
   #   assert_select 'header','PasteHuffer'
   # end
   
+  def sign_in_as_admin
+    old_controller = @controller
+    @controller = ILoginController.new
+    post :testLogin, :name => "Neil Young", :email => "NeilYoung@tamu.edu"
+    @controller = old_controller
+  end
+  
+  def sign_in_as_normal_user
+    old_controller = @controller
+    @controller = ILoginController.new
+    post :testLogin, :name => "Kraig Orcutt", :email => "kwizzle@gmail.com"
+    @controller = old_controller
+  end
+  
+  test "load admin dashboard" do
+    sign_in_as_admin
+    get :index
+    assert_equal true, assigns(:isAdmin)
+  end
+  
+  test "load normal dashboard" do
+    sign_in_as_normal_user
+    get :index
+    assert_equal false, assigns(:isAdmin)
+  end
+  
   test "index returns false when no AUID is provided" do
     get :index
     response = JSON.parse(@response.body)

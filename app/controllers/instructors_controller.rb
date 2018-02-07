@@ -3,7 +3,7 @@ class InstructorsController < ApplicationController
     render "createInstructorForm"
   end
   def createNewInstructor
-    instr = Instructor.create(name: params[:name], email: params[:email], password: "")
+    instr = Instructor.create(name: params[:name], email: params[:email])
     session["IUID"] = instr.id
     render json: {"success" => true}
   end

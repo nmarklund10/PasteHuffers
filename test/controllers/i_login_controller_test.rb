@@ -4,6 +4,26 @@ class ILoginControllerTest < ActionController::TestCase
   # test "the truth" do
   #   assert true
   # end
+  test "should ask to create account" do
+    post :testLogin, :name => "Paste Huffer", :email => "pastehuffer@tamu.edu"
+    response = JSON.parse(@response.body)
+    assert_equal true, response['create']
+    assert_equal 'Paste Huffer', response['name']
+    assert_equal 'pastehuffer@tamu.edu', response['email']
+  end
+  
+  test "should login as admin" do
+    post :testLogin, :name => "Neil Young", :email => "NeilYoung@tamu.edu"
+    response = JSON.parse(@response.body)
+    assert_equal 'Neil Young', response['name']
+  end
+  
+  test "should login as normal user" do
+    post :testLogin, :name => "Kraig Orcutt", :email => "kwizzle@gmail.com"
+    response = JSON.parse(@response.body)
+    assert_equal 'Kraig Orcutt', response['name']
+  end
+  
   test "should get index" do
   	get :index
   	assert_template layout: "layouts/application"

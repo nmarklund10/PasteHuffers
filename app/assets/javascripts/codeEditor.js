@@ -164,6 +164,7 @@ function testCode()
         }
         else
         {
+          document.getElementById("output").innerText = "";
           alert(response.reason);
         }
       });
