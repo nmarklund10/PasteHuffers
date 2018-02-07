@@ -73,12 +73,9 @@ input[type="password"] {
 #loginButton {
   background-color:#111;
   color: white;
-  position:absolute;
-  bottom:35px;
-  right:-15px;
   box-shadow:0 0 1px 4px #53e3a6;
   border-radius:50px;
-  width:75px;
+  width:150px;
   height:50px;
   padding:0;
   -webkit-transition: all .1s linear;
@@ -89,11 +86,10 @@ input[type="password"] {
   transition: all .1s linear;
 }
 
-#loginButton:hover {
+#loginButton:hover, #createInstructorButton:hover {
   cursor:pointer;
   box-shadow:0 0 0.5px 8px #53e3a6;
   color: LimeGreen;
-  <a href=" ">
   -webkit-transition: all .1s linear;
   -o-transition: all .1s linear;
   -moz-transition: all .1s linear;
@@ -122,13 +118,13 @@ input:focus {
 <meta name="google-signin-client_id" content="689505337354-q1iajmjh8kuksrkhtqkqsdsd49ebl49f.apps.googleusercontent.com">
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <div id="login">
-  <div id="formDiv">
+  <form>
     <p style="color:white;" align="center">Students, Click Here to Start Your Assignments:</p>
     <div id="googleButton" class="g-signin2" data-longtitle="true" data-theme="dark" data-width="240" data-height="50" data-theme="dark" align="center"></div>
     <br>
     <p align="center" style="color:white;">Instructors, Click Here:</p>
     <div align="center"><input type="button" id="loginButton" onclick="window.location = '/';" value="Instructor Login"></div>
-  </div>
+  </form>
 </div>
 <footer>Texas A&amp;M University</footer>
 </body>
