@@ -29,9 +29,9 @@ class CodeChecker
     def self.testCode(language,suid,code)
         ext = FileIO.get_file_extension(language)
         tempFileWithCode = Tempfile.new([suid,ext], :encoding => 'ASCII-8BIT')
-        if (language == "Python")
-            code = "# -*- coding: utf-8 -*-\n" + code
-        end
+        # if (language == "Python")
+        #     code = "# -*- coding: utf-8 -*-\n" + code
+        # end
         code = code.encode('ASCII', invalid: :replace, undef: :replace, replace: "")
         tempFileWithCode.write(code)
         tempFileWithCode.flush()
@@ -40,6 +40,7 @@ class CodeChecker
 
     def self.runProgram(language, filename)
         #Run command to compile and run input program based on language
+        outFileName = ""
         if (language == "Python")
             @compile_result = runCommand("python " + filename)
         elsif (language == "Ruby")
@@ -62,9 +63,14 @@ class CodeChecker
                 @compile_result = runCommand(outFileName)
             end      
         else
+            runCommand("rm " + filename);
             return false
         end
         #returns output of program as string
+        runCommand("rm " + filename);
+        if (outFileName != "")
+            runCommand("rm " + outFileName);
+        end
         if (@compile_result[SUCCESS])
             return "Compile Success!\nOutput:\n\n" + @compile_result[OUTPUT]
         else
