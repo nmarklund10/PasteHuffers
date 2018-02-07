@@ -1,15 +1,43 @@
+function hideElementById(id) {
+  document.getElementById(id).style.visibility = 'hidden';
+}
+
+function setLanguage(lang) {
+  if (lang == "Python")
+      window.editor.session.setMode("ace/mode/python");
+  else if (lang == "Ruby")
+      window.editor.session.setMode("ace/mode/ruby");
+  else if (lang == "Java")
+      window.editor.session.setMode("ace/mode/java");
+  else if (lang == "C++" || lang == "C")
+      window.editor.session.setMode("ace/mode/c_cpp");
+  else {
+      hideElementById("outputPane");
+      hideElementById("testButton");
+      document.getElementById("editor").style.width = '100%';
+      window.editor.setOptions({
+        fontFamily: "Lucida Console",
+        fontSize: "15px"
+      });
+  }
+}
+
 function codeEditorSetup()
 {
-  dijit.byId("editor").onLoadDeferred.then(function (){
-    window.detector = Object.freeze(new CopyPasteDetector());
-  });
+  window.editor = ace.edit("editor");
+  window.editor.setTheme("ace/theme/monokai");
+  window.editor.setShowPrintMargin(false);
+  window.editor.$blockScrolling = Infinity;
+  document.getElementById('editor').style.fontSize='16px';
+  window.detector = Object.freeze(new CopyPasteDetector());
   sendGetRequestForJSON('/assignments/getSkeletonCode', {}, 
     function(response) {
       if (response.success) {
-        console.log(response.skeletonCode);
-        dijit.byId("editor").editNode.innerText = response.skeletonCode;
+        setLanguage(response.language);
+        window.editor.setValue(response.skeletonCode);
       }
       else {
+        setLanguage("");
         alert(response.reason);
       }
     });
@@ -21,19 +49,17 @@ class Edit {
     var _text = text;
     var _copyPaste = cp;
     //Column and line start from 0
-    //var _column = dijit.byId("editor").selection.getBookmark().mark.startOffset;
-    //var _line = dijit.byId("editor").editNode.innerHTML.split("<div>").length - 1;
+    var _position = window.editor.getCursorPosition();
     this.getTime = function() { return _time; }
     this.getText = function() { return _text; }
     this.copyPaste = function() { return _copyPaste; }
-    this.getColumn = function() { return _column; }
-    this.getLine = function() { return _line; }
+    this.getPosition = function() { return _position; }
   }
 }
 
 function sendSubmission() {
   confirm("Are you sure?  You will be unable to access your work after pressing OK.");
-  submission = dijit.byId("editor").editNode.innerText;
+  submission = window.editor.getValue();
   log = window.detector.makeLog();
   sendPostRequest('/submissions/submit', {"submission":submission, "log": log, "cp":window.detector.getCP()}, 
     function(response) {
@@ -51,17 +77,27 @@ function sendSubmission() {
 class CopyPasteDetector {
   constructor() {
     var editLog = [];
-    var copyPaste = false;    
+    var copyPaste = false; 
+    var pasteEvent = false;
 
     var getKey = function(event) {
-      editLog.push(new Edit(event.key, false));
+      //Only log non-copy paste events
+      if (pasteEvent) {
+        pasteEvent = false;
+        return;
+      }
+      var text;
+      if (event.action == "remove")
+        text = "Backspace";
+      else if (event.lines.length == 2)
+        text = "Enter";
+      else
+        text = event.lines[0];
+      editLog.push(new Edit(text, false));
     }
     var logTextPaste = function(event) {
-      var pastedText = "";
-      if (typeof event.clipboardData === 'undefined')
-        pastedText = window.clipboardData.getData('Text');
-      else
-        pastedText = event.clipboardData.getData('text/plain');
+      pasteEvent = true;
+      var pastedText = event.text;
       editLog.push(new Edit(pastedText, true));
     }
     var logCopyPaste = function() { copyPaste = true; }
@@ -108,23 +144,27 @@ class CopyPasteDetector {
       _logText += "\n";        
       return _logText;
     }
-
-    dijit.byId("editor").editNode.onkeydown = getKey;
-    dijit.byId("editor").editNode.onpaste = logTextPaste;
+    window.editor.on('change', getKey);
+    window.editor.on('paste', logTextPaste);
+    //window.editor.textInput.getElement().addEventListener('paste', logTextPaste);
   }
 }
 function testCode()
 {
-    submission = dijit.byId("editor").editNode.innerText;
+    submission = window.editor.getValue();
+    document.getElementById("output").innerText = "Compiling...";
+    document.getElementById("testButton").disabled = true;
     sendPostRequest('/codeEdit/test', {"code":submission}, 
       function(response)
       {
+        document.getElementById("testButton").disabled = false;
         if(response.success)
         {
-          dom.byId("tempOutputArea").innerText = response.output;
+          document.getElementById("output").innerText = response.output;
         }
         else
         {
+          document.getElementById("output").innerText = "";
           alert(response.reason);
         }
       });

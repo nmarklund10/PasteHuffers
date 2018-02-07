@@ -1,0 +1,8 @@
+#This fixture is to test login for existing instructors who are whitelisted
+one:
+    id: 1
+    email: kwizzle@gmail.com
+# This fixture is to test account creation, there should be no associated instructor
+two:
+    id: 2
+    email: pastehuffer@tamu.edu
