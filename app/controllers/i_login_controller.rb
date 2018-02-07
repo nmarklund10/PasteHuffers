@@ -16,7 +16,10 @@ class ILoginController < ApplicationController
         response = https.request(request)
         response = JSON.parse(response.body)
         username = response["name"]
-        
+        if AcceptedInstructor.where(email: response["email"])[0] == nil and Admin.where(email: response["email"])[0] == nil then
+            render json: {"success" => false, "reason" => "This email has not been whitelisted for use. Contact the admin for approval."}
+            return
+        end
         #Look for instructors with matching names in database
         possibleInstrs = Instructor.where(email: response["email"])
         instr = possibleInstrs[0]

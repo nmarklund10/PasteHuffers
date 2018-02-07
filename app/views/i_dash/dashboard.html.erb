@@ -195,8 +195,10 @@ input:focus {
   color: LightSteelBlue
 }
 </style>
+
 <script>
   window.setup = dashBoardSetup;
+  window.isAdmin = <%= @isAdmin %>;
 </script>
 <div align="right">
     <button align = "center" id="logOut" onclick="window.location = '/logout/';">Sign Out</button>
