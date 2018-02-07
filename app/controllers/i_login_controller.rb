@@ -24,7 +24,6 @@ class ILoginController < ApplicationController
         possibleInstrs = Instructor.where(email: response["email"])
         instr = possibleInstrs[0]
         if instr == nil then
-                        puts "hi"
             render json: {"create" => true, "name" => username, "email" => response["email"]}
             return
         end
