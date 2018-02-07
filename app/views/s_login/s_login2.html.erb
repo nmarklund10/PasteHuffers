@@ -115,7 +115,7 @@ input:focus {
   window.setup = studentLoginSetup;
 </script>
 <header>
-   <font size="20"><span style="display:inline-block; width: 30px;"></span>PasteHuffer</font>
+   <div onclick="window.dash = '/';"><font size="20"><span style="display:inline-block; width: 30px;"></span>PasteHuffer</font></div>
    <h5><span style="display:inline-block; width: 30px;"></span>Student</h5>
 </header>
 <meta name="google-signin-scope" content="profile email">
@@ -125,6 +125,9 @@ input:focus {
   <form>
     <p style="color:white;" align="center">Students, Click Here to Start Your Assignments:</p>
     <div id="googleButton" class="g-signin2" data-longtitle="true" data-theme="dark" data-width="240" data-height="50" data-theme="dark" align="center"></div>
+    <br>
+    <p align="center" style="color:white;">Students, Click Here:</p>
+    <div align="center"><input type="button" id="toInstructorLogin" onclick="window.dash = /;" value="Instructor Login"></div>
   </form>
 </div>
 <footer>Texas A&amp;M University</footer>
