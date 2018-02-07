@@ -6,7 +6,6 @@
   <%= csrf_meta_tags %>
   
   <title>PasteHuffer</title>
- <!--<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dijit/themes/claro/claro.css" />-->
   <script src="https://ajax.googleapis.com/ajax/libs/dojo/1.13.0/dojo/dojo.js"
             data-dojo-config="parseOnLoad: true, async: true,
                               packages: [{
@@ -53,11 +52,11 @@
                       IFrame
                       )
             { ready(function(){
-              if(dojox.embed!=undefined){
-                if(dojox.embed.Flash.available){
-                  dojo.require("dojox/form/uploader/plugins/Flash");
+                if(dojox.embed!=undefined){
+                  if(dojox.embed.Flash.available){
+                    dojo.require("dojox/form/uploader/plugins/Flash");
+                  }
                 }
-              }
                 window.dom = dom;
                 window.declare = declare;
                 window.request = request;

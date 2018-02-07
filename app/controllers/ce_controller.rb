@@ -2,10 +2,10 @@ require_relative "../../code_checker/code_checker"
 class CeController < ApplicationController
     #List all in database
     def index
-        # if session["AUID"] == nil or session["SUID"] == nil then
-        #     render json: {"success" => false, "reason" => "No User signed in"}
-        #     return
-        # end
+        if session["AUID"] == nil or session["SUID"] == nil then
+            render json: {"success" => false, "reason" => "No User signed in"}
+            return
+        end
         render "code_editor"
     end    
     

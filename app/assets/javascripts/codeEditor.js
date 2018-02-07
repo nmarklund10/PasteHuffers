@@ -7,6 +7,12 @@ function setLanguage(lang) {
       window.editor.session.setMode("ace/mode/java");
   else if (lang == "C++" || lang == "C")
       window.editor.session.setMode("ace/mode/c_cpp");
+  else {
+      document.getElementById("testButton").style.visibility = 'hidden';
+      window.editor.setOptions({
+        fontFamily: "Lucida Console"
+      });
+  }
 }
 
 function codeEditorSetup()
@@ -15,7 +21,7 @@ function codeEditorSetup()
   window.editor.setTheme("ace/theme/monokai");
   window.editor.setShowPrintMargin(false);
   window.editor.$blockScrolling = Infinity;
-  document.getElementById('editor').style.fontSize='15px';
+  document.getElementById('editor').style.fontSize='16px';
   window.detector = Object.freeze(new CopyPasteDetector());
   sendGetRequestForJSON('/assignments/getSkeletonCode', {}, 
     function(response) {
@@ -24,6 +30,7 @@ function codeEditorSetup()
         window.editor.setValue(response.skeletonCode);
       }
       else {
+        setLanguage("");
         alert(response.reason);
       }
     });
@@ -35,7 +42,7 @@ class Edit {
     var _text = text;
     var _copyPaste = cp;
     //Column and line start from 0
-    var _position = window.editor.getCursorPosition()
+    var _position = window.editor.getCursorPosition();
     this.getTime = function() { return _time; }
     this.getText = function() { return _text; }
     this.copyPaste = function() { return _copyPaste; }
@@ -63,17 +70,27 @@ function sendSubmission() {
 class CopyPasteDetector {
   constructor() {
     var editLog = [];
-    var copyPaste = false;    
+    var copyPaste = false; 
+    var pasteEvent = false;
 
     var getKey = function(event) {
-      editLog.push(new Edit(event.key, false));
+      //Only log non-copy paste events
+      if (pasteEvent) {
+        pasteEvent = false;
+        return;
+      }
+      var text;
+      if (event.action == "remove")
+        text = "Backspace";
+      else if (event.lines.length == 2)
+        text = "Enter";
+      else
+        text = event.lines[0];
+      editLog.push(new Edit(text, false));
     }
     var logTextPaste = function(event) {
-      var pastedText = "";
-      if (typeof event.clipboardData === 'undefined')
-        pastedText = window.clipboardData.getData('Text');
-      else
-        pastedText = event.clipboardData.getData('text/plain');
+      pasteEvent = true;
+      var pastedText = event.text;
       editLog.push(new Edit(pastedText, true));
     }
     var logCopyPaste = function() { copyPaste = true; }
@@ -120,8 +137,9 @@ class CopyPasteDetector {
       _logText += "\n";        
       return _logText;
     }
-    window.editor.textInput.getElement().addEventListener('keydown', getKey);
-    window.editor.textInput.getElement().addEventListener('paste', logTextPaste);
+    window.editor.on('change', getKey);
+    window.editor.on('paste', logTextPaste);
+    //window.editor.textInput.getElement().addEventListener('paste', logTextPaste);
   }
 }
 function testCode()
