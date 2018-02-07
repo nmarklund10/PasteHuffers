@@ -88,6 +88,77 @@ function addCourseToCenterContainer(c, indexForLoadup=-1)
 /*dashBoardSetup is set as window.setup by dashboard.html
   it will query for the course creation form and all the courses and call addCourseToContainer and placeTabContainer
 */
+function setupAdmin(response)
+{
+    var htmlContent = '<div id="outerAdminDiv"><label for="newinstrWhiteListEmail">New Instructor Email:</label><input type="text" id="newInstrWhiteListEmail" name="name" required="true" data-dojo-type="dijit/form/TextBox"/><button data-dojo-type="dijit/form/Button" id="submitNewWhiteListButton" onclick="createNewWhiteListInstructor();">Add To Whitelist</button><br />';
+    htmlContent += '<label for="deleteInstrWhiteListEmail">Delete Instructor:</label><select id="deleteInstrWhiteListSelect" data-dojo-type="dijit/form/Select">';
+    for(var i in response)
+    {
+        htmlContent += '<option value="'+response[i].email+'">'+response[i].email+'</option>';
+    }
+    htmlContent += '</select><button data-dojo-type="dijit/form/Button" id="deleteInstrWhiteListEmailButton" onclick="deleteInstrFromWhiteList();">Delete Instructor</button><br /></div>';
+    window.centerContainer.addChild(new window.ContentPane({title:"Admin/Tools", content:htmlContent, id:"admin/tools"}));
+}
+function createNewWhiteListInstructor()
+{
+    // Send request to update DB with new instr
+    var email = window.dom.byId("newInstrWhiteListEmail").value;
+    if(!validateEmail(email))
+    {
+        alert("Enter in a valid email!");
+        return;
+    }
+    sendPostRequest('/whitelist/add',{'email': email},
+    function(response)
+    {
+        console.log(response);
+        console.log(email);
+        // Update the select to include the instr
+        if(response.success)
+        {
+            window.dijit.byId("deleteInstrWhiteListSelect").addOption({disabled:false, label:email, value:email});
+            window.dijit.byId("deleteInstrWhiteListSelect").reset();
+        }
+        else
+        {
+            alert(response.reason);
+        }
+    });
+}
+/*The below function is from a SO post here https://stackoverflow.com/questions/46155/how-can-you-validate-an-email-address-in-javascript*/
+function validateEmail(email) {
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+
+function deleteInstrFromWhiteList()
+{
+    // Send request to delete instr from DB
+    var email = window.dijit.byId("deleteInstrWhiteListSelect").value;
+    if(email == "")
+    {
+        alert("No email selected for deletion");
+        return;
+    }
+    sendPostRequest('/whitelist/delete',{'email': email},
+    function(response)
+    {
+        console.log(response);
+        console.log(email);
+        // Update the select to not include the instr
+        if(response.success)
+        {
+            window.dijit.byId("deleteInstrWhiteListSelect").removeOption(email);
+            window.dijit.byId("deleteInstrWhiteListSelect")._setDisplay("");
+            window.dijit.byId("deleteInstrWhiteListSelect").reset();
+        }
+        else
+        {
+            alert(response.reason);
+        }
+    });
+}
+
 function dashBoardSetup()
 {
     // Create Tab Container and set up SYNC flags
@@ -108,6 +179,10 @@ function dashBoardSetup()
             placeTabContainer();
         });
 
+    if(window.isAdmin)
+    {
+        sendGetRequestForJSON('/whitelist/',{},setupAdmin);
+    }
     // GET the courses for the session, the add a new tab and SYNC flag for each, then place the tab container
     
     sendGetRequestForJSON("/courses/",{},
