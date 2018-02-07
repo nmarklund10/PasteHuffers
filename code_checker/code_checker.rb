@@ -11,9 +11,9 @@ class CodeChecker
         success = -1
         Open3.popen2e(cmd) { |input, output, wait_thr|
             begin
-                Timeout.timeout(10) do
+                Timeout.timeout(2) do
                 until output.eof? do
-                    result = output.read
+                    result += output.read
                 end
             end
             rescue Timeout::Error

@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   root 'i_login#index'
   post 'ILogin/' => 'i_login#verifyCreds'
   get 'logout/'  => 'i_login#destroy'
+  
+  post'testLogin/' => 'i_login#testLogin'
 
   #
   # Dash Board Routes

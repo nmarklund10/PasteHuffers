@@ -15,3 +15,4 @@
 #Submission.create(student_id:"Chad", assignment_id:1, paste_detected:false)
 
 Admin.create(email:"matorin57@gmail.com")
+AcceptedInstructor.create(email: "nmarklund10@tamu.edu")
