@@ -52,10 +52,8 @@
                       IFrame
                       )
             { ready(function(){
-                if(dojox.embed!=undefined){
-                  if(dojox.embed.Flash.available){
-                    dojo.require("dojox/form/uploader/plugins/Flash");
-                  }
+                if(dojox.embed.Flash.available){
+                  dojo.require("dojox/form/uploader/plugins/Flash");
                 }
                 window.dom = dom;
                 window.declare = declare;
