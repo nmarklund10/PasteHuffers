@@ -10,7 +10,8 @@ function setLanguage(lang) {
   else {
       document.getElementById("testButton").style.visibility = 'hidden';
       window.editor.setOptions({
-        fontFamily: "Lucida Console"
+        fontFamily: "Lucida Console",
+        fontSize: "15px"
       });
   }
 }
