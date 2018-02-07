@@ -34,4 +34,28 @@ class AssignmentsControllerTest < ActionController::TestCase
     response = JSON.parse(@response.body)
     assert_equal true, response["success"] 
   end
+  
+  test 'getSkeletonCode returns false with no AUID' do
+    get :getSkeletonCode
+    response = JSON.parse(@response.body)
+    assert_equal false, response["success"] 
+  end
+  
+  test 'getAssignments returns false with no id' do
+    get :getAssignments
+    response = JSON.parse(@response.body)
+    assert_equal false, response["success"] 
+  end
+  
+  test 'getSkeletonCode returns false with no info' do
+    get :createNewAssignment
+    response = JSON.parse(@response.body)
+    assert_equal false, response["success"] 
+  end
+  
+  test 'deleteAssignment returns false with no IUID' do
+    get :deleteAssignment
+    response = JSON.parse(@response.body)
+    assert_equal false, response["success"] 
+  end
 end

@@ -24,6 +24,7 @@ class ILoginController < ApplicationController
         possibleInstrs = Instructor.where(email: response["email"])
         instr = possibleInstrs[0]
         if instr == nil then
+                        puts "hi"
             render json: {"create" => true, "name" => username, "email" => response["email"]}
             return
         end
@@ -32,6 +33,7 @@ class ILoginController < ApplicationController
         session["IUID"] = instr.id
         render json: {"success" => true, "name" => username}
     end
+    
     def destroy
          #session.delete("IUID")
          #@current_user = nil
