@@ -54,9 +54,7 @@ class SubmissionsController < ApplicationController
             if Course.find(cuid).instructor_id != session["IUID"] then
                 raise "User does not have ownership of submission"
             end
-            FileIO.write_log(session["IUID"], cuid, auid, suid, Submission.find(params["submissionId"]).log)
-            send_file(FileIO.constructFileName(session["IUID"],cuid,auid,suid,true), filename: suid+"-log.txt",  type: "application/txt")
-            #FileIO.cleanLog(session["IUID"], cuid, auid, suid)
+            send_data(Submission.find(params["submissionId"]).log, filename: suid+"-log.txt",  type: "application/txt")
         rescue Exception => e
             puts e
             render json: {"success" => false, "reason" => "Invalid download request"}
@@ -78,10 +76,7 @@ class SubmissionsController < ApplicationController
             if Course.find(cuid).instructor_id != session["IUID"] then
                 raise "User does not have ownership of submission"
             end
-            #FileIO.write_submission(session["IUID"], cuid, auid, suid, Submission.find(params["submissionId"]).code, language)
-            #send_file(FileIO.constructFileName(session["IUID"],cuid,auid,suid,false,language), filename: suid+"-submission"+FileIO.get_file_extension(language),  type: "application/txt")
             send_data(Submission.find(params["submissionId"]).code, filename: suid+"-submission"+FileIO.get_file_extension(language),  type: "application/txt")
-            #FileIO.cleanCode(session["IUID"], cuid, auid, suid, language)
         rescue Exception => e
             puts e
             render json: {"success" => false, "reason" => "Invalid download request"}
@@ -105,10 +100,10 @@ class SubmissionsController < ApplicationController
                 FileIO.write_log(session["IUID"], cuid, params["AUID"], submission.id, submission.log)
             end
             send_file(FileIO.generateZipFile(session["IUID"],cuid,params["AUID"]), filename: "all-submissions.zip")
-            #Submission.where(assignment_id: params["AUID"]).each do |submission|
-            #    FileIO.cleanCode(session["IUID"], cuid, params["AUID"], submission.student_id, Assignment.find(params["AUID"]).language)
-            #    FileIO.cleanLog(session["IUID"], cuid, params["AUID"], submission.student_id)
-            #end
+            Submission.where(assignment_id: params["AUID"]).each do |submission|
+                FileIO.cleanCode(session["IUID"], cuid, params["AUID"], submission.student_id, Assignment.find(params["AUID"]).language)
+                FileIO.cleanLog(session["IUID"], cuid, params["AUID"], submission.student_id)
+            end
         rescue Exception => e
             puts e
             render json: {"success" => false, "reason" => "Server error"}
