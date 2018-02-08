@@ -56,6 +56,16 @@ class FileIO
         path = File.join(path.to_s, suid.to_s + "-submission" + get_file_extension(language))
         File.write(path, input)
     end
+    def self.cleanLog(iuid,cuid,auid,suid)
+        path = Rails.root.join("files", iuid.to_s, cuid.to_s, auid.to_s)
+        path = File.join(path.to_s, suid.to_s + "-log.txt")
+        FileUtils.rm(path)
+    end
+    def self.cleanCode(iuid,cuid,auid,suid,language)
+        path = Rails.root.join("files", iuid.to_s, cuid.to_s, auid.to_s)
+        path = File.join(path.to_s, suid.to_s + "-submission" + get_file_extension(language))
+        FileUtils.rm(path)
+    end
     def self.write_skeleton_code(iuid,cuid,auid,input,language)
         path = Rails.root.join("files", iuid.to_s, cuid.to_s, auid.to_s)
         FileUtils.makedirs(path)

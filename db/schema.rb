@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180208025002) do
+ActiveRecord::Schema.define(version: 20180208032905) do
 
   create_table "accepted_instructors", force: :cascade do |t|
     t.string   "email"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20180208025002) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "language"
+    t.text     "skeleton"
   end
 
   add_index "assignments", ["course_id"], name: "index_assignments_on_course_id"
