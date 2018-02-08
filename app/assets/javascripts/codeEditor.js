@@ -22,6 +22,10 @@ function setLanguage(lang) {
   }
 }
 
+backToDash() {
+  window.location = "/codeEdit/";
+}
+
 function codeEditorSetup()
 {
   window.editor = ace.edit("editor");

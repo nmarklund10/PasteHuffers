@@ -9,6 +9,12 @@ class CeController < ApplicationController
         render "code_editor"
     end    
     
+    def demo
+        @demo = true;
+        @aid = session["AUID"]
+        render "code_editor"
+    end
+    
     def testCode
         begin
             if session["AUID"] == nil or session["SUID"] == nil then

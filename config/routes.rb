@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   
   # Student Login Routes
   get 'codeEdit/' => 'ce#index'
+  get 'codeEditDemo/' => 'ce#demo'
   post 'SLogin/' => 's_login#googleLogIn'
   post '/s_login/verifyCreds/' => 's_login#verifyCreds'
   get '/s_login/assignmentID/' => 's_login#getAssignmentID'

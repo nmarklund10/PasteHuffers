@@ -196,6 +196,26 @@ input:focus {
   -kthtml-transition: all .1s linear;
   transition: all .1s linear;
 }
+
+#codeDemo {
+  border-radius: 100px 50px 100px 50px;
+  background-color:darkred;
+  color: white;
+  font-size: 90%;
+  position: relative;
+  top:15px;
+  right:10px;
+  box-shadow:0 0 1px 1px white;
+  height: 40px;
+  width: 100px;
+  cursor: pointer;
+  -webkit-transition: all .1s linear;
+  -o-transition: all .1s linear;
+  -moz-transition: all .1s linear;
+  -ms-transition: all .1s linear;
+  -kthtml-transition: all .1s linear;
+  transition: all .1s linear;
+}
 button:focus {outline:0;}
 
 .rowWithPasteDetected {
@@ -208,6 +228,7 @@ button:focus {outline:0;}
 </script>
 
 <div align="right">
+    <button align = "center" id="codeDemo" onclick="goToDemo();">Demo</button>
     <button align = "center" id="backtoDash" onclick="window.location = '/dash/';">Dashboard</button>
    </div>
 <header>
