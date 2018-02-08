@@ -100,14 +100,14 @@ class SubmissionsController < ApplicationController
                 raise "User does not have ownership of submission"
             end
             Submission.where(assignment_id: params["AUID"]).each do |submission|
-                FileIO.write_submission(session["IUID"], cuid, params["AUID"], submission.student_id, submission.code, submission.language)
+                FileIO.write_submission(session["IUID"], cuid, params["AUID"], submission.student_id, submission.code, Assignment.find(params["AUID"]).language)
                 FileIO.write_log(session["IUID"], cuid, params["AUID"], submission.id, submission.log)
             end
             send_file(FileIO.generateZipFile(session["IUID"],cuid,params["AUID"]), filename: "all-submissions.zip")
-            Submission.where(assignment_id: params["AUID"]).each do |submission|
-                FileIO.cleanCode(session["IUID"], cuid, params["AUID"], submission.student_id, submission.language)
-                FileIO.cleanLog(session["IUID"], cuid, params["AUID"], submission.student_id)
-            end
+            #Submission.where(assignment_id: params["AUID"]).each do |submission|
+            #    FileIO.cleanCode(session["IUID"], cuid, params["AUID"], submission.student_id, Assignment.find(params["AUID"]).language)
+            #    FileIO.cleanLog(session["IUID"], cuid, params["AUID"], submission.student_id)
+            #end
         rescue Exception => e
             puts e
             render json: {"success" => false, "reason" => "Server error"}
