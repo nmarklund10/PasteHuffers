@@ -60,7 +60,7 @@ class FileIO
         begin
             path = Rails.root.join("files", iuid.to_s, cuid.to_s, auid.to_s)
             path = File.join(path.to_s, suid.to_s + "-log.txt")
-            FileUtils.rm(path)
+            File.delete(path)
         rescue Exception => e
             puts e
             return
@@ -70,7 +70,7 @@ class FileIO
         begin
             path = Rails.root.join("files", iuid.to_s, cuid.to_s, auid.to_s)
             path = File.join(path.to_s, suid.to_s + "-submission" + get_file_extension(language))
-            FileUtils.rm(path)
+            File.delete(path)
         rescue Exception => e
             puts e
             return
