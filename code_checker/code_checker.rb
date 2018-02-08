@@ -10,12 +10,7 @@ class CodeChecker
         puts "Running command: " + cmd
         result = ""
         success = -1
-        if chroot then
-            newCommand = "sudo chroot "+Dir.tmpdir+" "+cmd
-        else
-            newCommand = cmd
-        end
-        Open3.popen2e(newCommand) { |input, output, wait_thr|
+        Open3.popen2e(cmd) { |input, output, wait_thr|
             begin
                 Timeout.timeout(2) do
                 until output.eof? do
