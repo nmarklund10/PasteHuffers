@@ -8,7 +8,7 @@ class SubmissionsController < ApplicationController
             render json: {"success" => false, "reason" => "No assignment id set, navigated to this page incorrectly."} 
             return
         end
-        @submissions = Submission.where(assignment_id: auid)
+        @submissions = Submission.select("id, paste_detected, student_id, created_at").where(assignment_id: auid)
         render json: {"success" => true, "submissions" => @submissions} 
     end
 
