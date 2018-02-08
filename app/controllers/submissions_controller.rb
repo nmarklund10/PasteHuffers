@@ -97,7 +97,7 @@ class SubmissionsController < ApplicationController
             end
             Submission.where(assignment_id: params["AUID"]).each do |submission|
                 FileIO.write_submission(session["IUID"], cuid, params["AUID"], submission.student_id, submission.code, Assignment.find(params["AUID"]).language)
-                FileIO.write_log(session["IUID"], cuid, params["AUID"], submission.id, submission.log)
+                FileIO.write_log(session["IUID"], cuid, params["AUID"], submission.student_id, submission.log)
             end
             send_file(FileIO.generateZipFile(session["IUID"],cuid,params["AUID"]), filename: "all-submissions.zip")
             Submission.where(assignment_id: params["AUID"]).each do |submission|
