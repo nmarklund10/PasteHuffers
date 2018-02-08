@@ -1,10 +1,11 @@
 require 'open3'
 require 'tempfile'
+require 'tmpdir'
 require_relative '../fileIO/fileIO'
 class CodeChecker
     SUCCESS = 0
     OUTPUT = 1
-    def self.runCommand(cmd)
+    def self.runCommand(cmd, chroot=true)
         #Runs command and returns if it is successful and stdout and stderr output
         puts "Running command: " + cmd
         result = ""
@@ -43,7 +44,7 @@ class CodeChecker
         elsif (language == "Ruby")
             @compile_result = runCommand("ruby " + filename)
         elsif (language == "Java")
-            @compile_result = runCommand("javac " + filename)
+            @compile_result = runCommand("javac " + filename, false)
             if (@compile_result[SUCCESS])
                 filename = filename.chomp(".java")
                 @compile_result = runCommand("java " + filename)
@@ -51,10 +52,10 @@ class CodeChecker
         elsif (language == "C++" || language == "C")
             if (language == "C++")
                 outFileName = filename.chomp(".cpp") + ".out"
-                @compile_result = runCommand("g++ " + filename + " -o " + outFileName)
+                @compile_result = runCommand("g++ " + filename + " -o " + outFileName,false)
             elsif (language == "C")
                 outFileName = filename.chomp(".c") + ".out"
-                @compile_result = runCommand("gcc " + filename + " -o " + outFileName)
+                @compile_result = runCommand("gcc " + filename + " -o " + outFileName, false)
             end
             if (@compile_result[SUCCESS])
                 @compile_result = runCommand(outFileName)
