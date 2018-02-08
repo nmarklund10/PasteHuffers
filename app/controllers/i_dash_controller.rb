@@ -46,7 +46,9 @@ class IDashController < ApplicationController
         end
         @cuid = @assignment.course_id
         file = params[:uploadedFile].read()
-        FileIO.write_skeleton_code(@iuid, @cuid, @auid, file, @assignment.language)
+        @assignment.skeleton = file
+        @assignment.save
+        #FileIO.write_skeleton_code(@iuid, @cuid, @auid, file, @assignment.language)
         render json: {"success" => true}
     end
 

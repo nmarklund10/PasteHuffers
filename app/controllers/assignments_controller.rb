@@ -9,8 +9,8 @@ class AssignmentsController < ApplicationController
             end
             currentAssignment = Assignment.find(auid)
             currentCourse = Course.find(currentAssignment.course_id)
-            skeletonCode = FileIO.read_skeleton_code(currentCourse.instructor_id, currentAssignment.course_id, auid, currentAssignment.language)
-            render json: {"success" => true, "skeletonCode" => skeletonCode, "language" => currentAssignment.language }
+            #skeletonCode = FileIO.read_skeleton_code(currentCourse.instructor_id, currentAssignment.course_id, auid, currentAssignment.language)
+            render json: {"success" => true, "skeletonCode" => currentAssignment.skeleton, "language" => currentAssignment.language }
         rescue Exception => e
             puts e
             render json: {"success" => false, "reason" => "Invalid Skeleton Get request."}
@@ -23,7 +23,7 @@ class AssignmentsController < ApplicationController
                 render json: {"success" => false}
                 return 
         end
-        @assignments = Assignment.where("course_id = ?", cuid)
+        @assignments = Assignment.select("id, name, language").where("course_id = ?", cuid)
         render json: {"assignments" => @assignments, "course" => Course.find(cuid)} 
     end
 
