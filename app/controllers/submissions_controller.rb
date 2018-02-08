@@ -30,9 +30,7 @@ class SubmissionsController < ApplicationController
         begin
             currentAssignment = Assignment.find(auid)
             currentCourse = Course.find(currentAssignment.course_id)
-            Submission.create(student_id: suid, assignment_id: auid, paste_detected: params[:cp])
-            FileIO.write_submission(currentCourse.instructor_id, currentAssignment.course_id, auid, suid, params[:submission], currentAssignment.language)
-            FileIO.write_log(currentCourse.instructor_id, currentAssignment.course_id, auid, suid, params[:log])
+            Submission.create(student_id: suid, assignment_id: auid, paste_detected: params[:cp], log: params[:log], code: params[:submission])
             session["SUID"] = nil
             session["AUID"] = nil
             render json: {"success" => true }        
@@ -56,6 +54,7 @@ class SubmissionsController < ApplicationController
             if Course.find(cuid).instructor_id != session["IUID"] then
                 raise "User does not have ownership of submission"
             end
+            FileIO.write_log(session["IUID"], cuid, auid, suid, Submission.find(params["submissionId"]).log)
             send_file(FileIO.constructFileName(session["IUID"],cuid,auid,suid,true), filename: suid+"-log.txt",  type: "application/txt")
         rescue Exception => e
             puts e
@@ -78,6 +77,7 @@ class SubmissionsController < ApplicationController
             if Course.find(cuid).instructor_id != session["IUID"] then
                 raise "User does not have ownership of submission"
             end
+            FileIO.write_submission(session["IUID"], cuid, auid, suid, Submission.find(params["submissionId"]).code)
             send_file(FileIO.constructFileName(session["IUID"],cuid,auid,suid,false,language), filename: suid+"-submission"+FileIO.get_file_extension(language),  type: "application/txt")
         rescue Exception => e
             puts e
@@ -96,6 +96,10 @@ class SubmissionsController < ApplicationController
             cuid = Assignment.find(params["AUID"]).course_id
             if Course.find(cuid).instructor_id != session["IUID"] then
                 raise "User does not have ownership of submission"
+            end
+            Submission.where(assignment_id: params["AUID"]).each do |submission|
+                FileIO.write_submission(session["IUID"], cuid, params["AUID"], submission.id, submission.code)
+                FileIO.write_log(session["IUID"], cuid, params["AUID"], submission.id, submission.log)
             end
             send_file(FileIO.generateZipFile(session["IUID"],cuid,params["AUID"]), filename: "all-submissions.zip")
         rescue Exception => e
