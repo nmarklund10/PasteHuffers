@@ -11,7 +11,7 @@ class CodeChecker
         result = ""
         success = -1
         if chroot then
-            newCommand = "chroot "+Dir.tmpDir+" "+cmd
+            newCommand = "chroot "+Dir.tmpdir+" "+cmd
         else
             newCommand = cmd
         end
