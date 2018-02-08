@@ -77,7 +77,7 @@ class SubmissionsController < ApplicationController
             if Course.find(cuid).instructor_id != session["IUID"] then
                 raise "User does not have ownership of submission"
             end
-            FileIO.write_submission(session["IUID"], cuid, auid, suid, Submission.find(params["submissionId"]).code)
+            FileIO.write_submission(session["IUID"], cuid, auid, suid, Submission.find(params["submissionId"]).code, language)
             send_file(FileIO.constructFileName(session["IUID"],cuid,auid,suid,false,language), filename: suid+"-submission"+FileIO.get_file_extension(language),  type: "application/txt")
         rescue Exception => e
             puts e
