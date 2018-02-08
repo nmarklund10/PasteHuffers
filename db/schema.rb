@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180205204921) do
+ActiveRecord::Schema.define(version: 20180208032905) do
 
   create_table "accepted_instructors", force: :cascade do |t|
     t.string   "email"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20180205204921) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "language"
+    t.text     "skeleton"
   end
 
   add_index "assignments", ["course_id"], name: "index_assignments_on_course_id"
@@ -49,7 +50,6 @@ ActiveRecord::Schema.define(version: 20180205204921) do
     t.string   "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "password"
   end
 
   create_table "submissions", force: :cascade do |t|
@@ -58,6 +58,8 @@ ActiveRecord::Schema.define(version: 20180205204921) do
     t.boolean  "paste_detected"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.text     "log"
+    t.text     "code"
   end
 
   add_index "submissions", ["assignment_id"], name: "index_submissions_on_assignment_id"

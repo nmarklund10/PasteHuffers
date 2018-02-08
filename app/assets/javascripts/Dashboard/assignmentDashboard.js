@@ -17,6 +17,10 @@ function assignmentDashBoardSetup()
         });
 }
 
+function goToDemo() {
+    window.location = '/codeEditDemo/' + window.assignmentId;
+}
+
 function generateSubmissionsGrid()
 {
     console.log(window.submissionGridRef);

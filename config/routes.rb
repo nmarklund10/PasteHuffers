@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   root 'i_login#index'
   post 'ILogin/' => 'i_login#verifyCreds'
   get 'logout/'  => 'i_login#destroy'
+  
+  post'testLogin/' => 'i_login#testLogin'
 
   #
   # Dash Board Routes
@@ -30,6 +32,7 @@ Rails.application.routes.draw do
   
   # Student Login Routes
   get 'codeEdit/' => 'ce#index'
+  get 'codeEditDemo/:id' => 'ce#demo'
   post 'SLogin/' => 's_login#googleLogIn'
   post '/s_login/verifyCreds/' => 's_login#verifyCreds'
   get '/s_login/assignmentID/' => 's_login#getAssignmentID'

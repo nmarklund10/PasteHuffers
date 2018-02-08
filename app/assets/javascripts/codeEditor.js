@@ -1,3 +1,7 @@
+function hideElementById(id) {
+  document.getElementById(id).style.visibility = 'hidden';
+}
+
 function setLanguage(lang) {
   if (lang == "Python")
       window.editor.session.setMode("ace/mode/python");
@@ -8,32 +12,55 @@ function setLanguage(lang) {
   else if (lang == "C++" || lang == "C")
       window.editor.session.setMode("ace/mode/c_cpp");
   else {
-      document.getElementById("testButton").style.visibility = 'hidden';
+      hideElementById("outputPane");
+      hideElementById("testButton");
+      document.getElementById("editor").style.width = '100%';
       window.editor.setOptions({
-        fontFamily: "Lucida Console"
+        fontFamily: "Lucida Console",
+        fontSize: "15px"
       });
   }
 }
 
-function codeEditorSetup()
-{
+function backToDash() {
+  window.location = '/a_dash/' + window.auid;
+}
+
+function codeEditorSetup() {
   window.editor = ace.edit("editor");
   window.editor.setTheme("ace/theme/monokai");
   window.editor.setShowPrintMargin(false);
   window.editor.$blockScrolling = Infinity;
   document.getElementById('editor').style.fontSize='16px';
-  window.detector = Object.freeze(new CopyPasteDetector());
   sendGetRequestForJSON('/assignments/getSkeletonCode', {}, 
     function(response) {
       if (response.success) {
         setLanguage(response.language);
-        window.editor.setValue(response.skeletonCode);
+        if (response.skeletonCode != null)
+          window.editor.setValue(response.skeletonCode);
       }
       else {
         setLanguage("");
         alert(response.reason);
       }
+      window.detector = Object.freeze(new CopyPasteDetector());
     });
+  if (window.demo) {
+    document.getElementById('submitButton').innerText = 'Show Log';
+    document.getElementById('submitButton').onclick = getLog;
+  }
+}
+
+function getLog() {
+  var log = window.detector.makeLog();
+  document.getElementById("output").innerText = "Log:\n\n" + log;
+  // var element = document.createElement('a');
+  // element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(log));
+  // element.setAttribute('download', "assignment" + window.auid + "TestLog.txt");
+  // element.style.display = 'none';
+  // document.body.appendChild(element);
+  // element.click();
+  // document.body.removeChild(element);
 }
 
 class Edit {
@@ -145,15 +172,19 @@ class CopyPasteDetector {
 function testCode()
 {
     submission = window.editor.getValue();
+    document.getElementById("output").innerText = "Compiling...";
+    document.getElementById("testButton").disabled = true;
     sendPostRequest('/codeEdit/test', {"code":submission}, 
       function(response)
       {
+        document.getElementById("testButton").disabled = false;
         if(response.success)
         {
           document.getElementById("output").innerText = response.output;
         }
         else
         {
+          document.getElementById("output").innerText = "";
           alert(response.reason);
         }
       });
