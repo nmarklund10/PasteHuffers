@@ -3,15 +3,23 @@ class CeController < ApplicationController
     #List all in database
     def index
         if session["AUID"] == nil or session["SUID"] == nil then
-            render json: {"success" => false, "reason" => "No User signed in"}
+            render json: {"success" => false, "reason" => "No Student signed in"}
             return
         end
+        @demo = false;
+        @auid = session["AUID"]
         render "code_editor"
     end    
     
     def demo
+        if session["IUID"] == nil or params["id"] == nil then
+            render json: {"success" => false, "reason" => "No Instructor signed in"}
+            return
+        end
         @demo = true;
-        @aid = session["AUID"]
+        @auid = params["id"]
+        session["AUID"] = @auid
+        session["SUID"] = ""
         render "code_editor"
     end
     

@@ -22,29 +22,45 @@ function setLanguage(lang) {
   }
 }
 
-backToDash() {
-  window.location = "/codeEdit/";
+function backToDash() {
+  window.location = '/a_dash/' + window.auid;
 }
 
-function codeEditorSetup()
-{
+function codeEditorSetup() {
   window.editor = ace.edit("editor");
   window.editor.setTheme("ace/theme/monokai");
   window.editor.setShowPrintMargin(false);
   window.editor.$blockScrolling = Infinity;
   document.getElementById('editor').style.fontSize='16px';
-  window.detector = Object.freeze(new CopyPasteDetector());
   sendGetRequestForJSON('/assignments/getSkeletonCode', {}, 
     function(response) {
       if (response.success) {
         setLanguage(response.language);
-        window.editor.setValue(response.skeletonCode);
+        if (response.skeletonCode != null)
+          window.editor.setValue(response.skeletonCode);
       }
       else {
         setLanguage("");
         alert(response.reason);
       }
+      window.detector = Object.freeze(new CopyPasteDetector());
     });
+  if (window.demo) {
+    document.getElementById('submitButton').innerText = 'Show Log';
+    document.getElementById('submitButton').onclick = getLog;
+  }
+}
+
+function getLog() {
+  var log = window.detector.makeLog();
+  document.getElementById("output").innerText = "Log:\n\n" + log;
+  // var element = document.createElement('a');
+  // element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(log));
+  // element.setAttribute('download', "assignment" + window.auid + "TestLog.txt");
+  // element.style.display = 'none';
+  // document.body.appendChild(element);
+  // element.click();
+  // document.body.removeChild(element);
 }
 
 class Edit {

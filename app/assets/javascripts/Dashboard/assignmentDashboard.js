@@ -18,17 +18,7 @@ function assignmentDashBoardSetup()
 }
 
 function goToDemo() {
-    sendGetRequestForJSON('/codeEditDemo/', {'id': window.assignmentId}, 
-        function (response)
-        {
-            if(response.success) {
-                window.location = "/codeEdit/";
-            }
-            else {
-                console.log(response.reason);
-                alert(response.reason);
-            }
-        }
+    window.location = '/codeEditDemo/' + window.assignmentId;
 }
 
 function generateSubmissionsGrid()

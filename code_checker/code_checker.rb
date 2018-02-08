@@ -29,6 +29,7 @@ class CodeChecker
     
     def self.testCode(language,suid,code)
         ext = FileIO.get_file_extension(language)
+        puts "hi"
         tempFileWithCode = Tempfile.new([suid,ext], :encoding => 'ASCII-8BIT')
         code = code.encode('ASCII', invalid: :replace, undef: :replace, replace: "")
         tempFileWithCode.write(code)
