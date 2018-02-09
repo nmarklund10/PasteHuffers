@@ -48,6 +48,10 @@ function codeEditorSetup() {
   if (window.demo) {
     document.getElementById('submitButton').innerText = 'Show Log';
     document.getElementById('submitButton').onclick = getLog;
+    document.getElementById('label').innerText = "";
+  }
+  else {
+    hideElementById("backButton");
   }
 }
 
