@@ -16,4 +16,5 @@
 
 Admin.create(email:"matorin57@gmail.com")
 Admin.create(email:"ultimatepastehuffer@gmail.com")
+Admin.create(email: "pcr@tamu.edu")
 Admin.create(email: "nmarklund10@tamu.edu")
